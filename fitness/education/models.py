@@ -46,11 +46,17 @@ class SingleContent(models.Model):
         return f"{self.user.username} - {self.id}"
 
 class Course(models.Model):
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="courses")
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_courses")
     name = models.CharField(max_length=50)
     overview = models.TextField()
     url_image = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=50, choices=category)
     price=models.IntegerField()
+    participants=models.ManyToManyField("User",through="Participation",related_name="joined_course")
 
+class Participation(models.Model):
+    user=models.ForeignKey("User",on_delete=models.CASCADE, related_name="joined_courses_details")
+    course = models.ForeignKey("Course", on_delete=models.CASCADE, related_name="participants_details")
+    date=models.DateTimeField(auto_now_add=True)
+    reason=models.TextField(blank=True,null=True)
 
