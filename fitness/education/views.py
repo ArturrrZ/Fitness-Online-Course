@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm
-from .models import User
+from .models import User,SingleContent
 # Create your views here.
 
 def index(request):
@@ -36,7 +36,7 @@ def register(request):
                                         "form": RegisterForm(),
                                         "message":"Username is already taken",
                                     })
-            login(request,new_user)
+            login(request, new_user)
             return HttpResponseRedirect(reverse("index"))
 
 
@@ -57,7 +57,7 @@ def login_view(request):
             password=form.cleaned_data["password"]
             user=authenticate(request,username=username,password=password)
             if user is not None:
-                login(request,user)
+                login(request, user)
                 return HttpResponseRedirect(reverse("index"))
             else:
                 return render(request,"education/login.html",{
