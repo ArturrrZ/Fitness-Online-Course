@@ -52,7 +52,8 @@ class Course(models.Model):
     url_image = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=50, choices=category)
     price=models.IntegerField()
-    participants=models.ManyToManyField("User",through="Participation",related_name="joined_course")
+    participants=models.ManyToManyField("User",through="Participation",blank=True,null=True,related_name="joined_course")
+    content=models.ManyToManyField("SingleContent",blank=True,null=True,related_name="course")
 
 class Participation(models.Model):
     user=models.ForeignKey("User",on_delete=models.CASCADE, related_name="joined_courses_details")
