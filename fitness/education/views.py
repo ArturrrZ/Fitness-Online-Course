@@ -1,9 +1,10 @@
+from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import render,reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm
 from .models import User
 # Create your views here.
