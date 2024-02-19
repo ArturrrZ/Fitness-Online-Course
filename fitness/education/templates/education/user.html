@@ -10,7 +10,7 @@
 {% if request.user == user %}
 <h2>That's your page</h2>
 <a href="{% url 'create_single' %}">Create a single content</a><br><br><br>
-<a href="#">Create a paid course</a>
+<a href="{% url 'create_course' %}">Create a paid course</a>
 
 
 <div id="root_single_content">
@@ -22,6 +22,19 @@
 </div>
 {% endif %}
 
+<h4>All free content:</h4>
+<ul>
+    {% for content in user.get_free_content %}
+      <li>{{ content.title }}</li>
+    {% endfor %}
+  </ul>
+
+<h4>Paid Content:</h4>
+  <ul>
+    {% for content in user.get_paid_content %}
+      <li>{{ content.title }}</li>
+    {% endfor %}
+  </ul>
 {% endif %}
 
 {% endblock %}

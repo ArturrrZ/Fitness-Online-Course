@@ -111,5 +111,10 @@ def create_single(request):
     return render(request,"education/create_single.html",{
         "form": SingleContentForm(),
     })
+def create_course(request):
+    return render(request,"education/create_course.html",{
+
+    })
+
 def test(request):
     return render(request,"education/test.html")

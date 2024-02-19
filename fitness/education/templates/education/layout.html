@@ -9,7 +9,7 @@
 <body>
     <nav>
     {% if request.user.is_authenticated %}
-    {% if request.user.id == 1 %}
+    {% if request.user.is_superuser %}
     <a href="/admin">ADMIN PAGE</a>
     {% endif %}
     <a href="{% url 'user' request.user.username %}">Signed in as {{request.user.username}}</a>
