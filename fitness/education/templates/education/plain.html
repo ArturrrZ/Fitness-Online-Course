@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Components</title>
+  <!-- Include React and ReactDOM from a CDN -->
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- Include Babel for JSX transpilation -->
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <!-- Container for the first React component -->
+  <div id="react-container"></div>
+
+  <!-- First React component -->
+  <script type="text/babel">
+    const MyReactComponent = () => {
+      return (
+        <div>
+          <h1>Hello, React!</h1>
+          <p>This is a simple React component added to an existing HTML page.</p>
+        </div>
+      );
+    };
+
+    // Render the first React component to the container
+    ReactDOM.render(<MyReactComponent />, document.getElementById('react-container'));
+  </script>
+
+  <!-- Another React component -->
+  <script type="text/babel">
+    const AnotherReactComponent = () => {
+      return (
+        <div>
+          <h2>Another React Component</h2>
+          <p>This is another React component included in the same HTML file.</p>
+        </div>
+      );
+    };
+
+    // Render the new React component to the container
+    ReactDOM.render(<AnotherReactComponent />, document.getElementById('react-container'));
+  </script>
+</body>
+</html>

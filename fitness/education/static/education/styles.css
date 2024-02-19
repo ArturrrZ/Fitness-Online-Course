@@ -1,0 +1,12 @@
+#body {
+background-color:#1E1E1E;
+color:white;
+}
+#.submit {
+    background-color:#CAFF33;
+    color:black;
+}
+nav {
+    display:flex;
+    justify-content:space-around;
+}
