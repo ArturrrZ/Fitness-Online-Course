@@ -13,12 +13,21 @@ function Test() {
     };
     function handleSubmit(event){
         event.preventDefault();
-        console.log(event.target.answer.value);
+        var usedAnswer=event.target.answer.value;
+        console.log(usedAnswer);
+        if (usedAnswer==anwser) {
+            alert("You got it right!")
+            window.location.href = "http://127.0.0.1:8000/";
+        }
+        else {alert("Try one more time!")}
+        
     }
 
     // MY OWN STATE QUEESTION
     var first_number=Math.floor(Math.random()*10)
     var second_number=Math.floor(Math.random()*10)
+    var anwser=first_number + second_number;
+    console.log(anwser);
     var question=`${first_number} + ${second_number}`
 
     // Render the component
@@ -36,6 +45,7 @@ function Test() {
             <input type="text" name="answer"/>
             <input type="submit" />
             </form>
+            
             </div>}
 
         </div>
