@@ -7,5 +7,13 @@
     {% csrf_token %}
     <input type="submit" value="Buy Course">
 </form>
+<div id="root"></div>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+{% load static %}
+<script type="text/babel" src="{% static 'education/javascript/buy_course.js' %}" />
 {% endblock %}
