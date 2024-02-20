@@ -1,5 +1,5 @@
 from django import forms
-from .models import SingleContent
+from .models import SingleContent, Course
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control', 'autofocus': True}), label='Username')
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label='Email Address')
@@ -33,4 +33,10 @@ class SingleContentForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+class CourseForm(forms.ModelForm):
+    # content = forms.ModelMultipleChoiceField(queryset=SingleContent.objects.all(), required=False)
+    class Meta:
+        model=Course
+        fields = ['name','overview','url_image','category','price',]
 

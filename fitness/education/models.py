@@ -35,7 +35,7 @@ class User(AbstractUser):
         return f"{self.username} is teacher: {self.teacher}"
 
 class SingleContent(models.Model):
-    creator=models.ForeignKey(User, on_delete=models.CASCADE, related_name="single_content")
+    user=models.ForeignKey(User, on_delete=models.CASCADE, related_name="single_content")
     title=models.CharField(max_length=50)
     description=models.TextField()
     url_youtube=models.URLField(blank=True,null=True)
@@ -43,7 +43,7 @@ class SingleContent(models.Model):
     category=models.CharField(max_length=50,choices=category)
     is_free=models.BooleanField()
     def __str__(self):
-        return f"{self.user.username} - {self.id}"
+        return f"{self.title} - Is it free? Answer:{self.is_free}"
 
 class Course(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_courses")
@@ -52,8 +52,9 @@ class Course(models.Model):
     url_image = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=50, choices=category)
     price=models.IntegerField()
+    content = models.ManyToManyField("SingleContent", blank=True, null=True, related_name="course")
     participants=models.ManyToManyField("User",through="Participation",blank=True,null=True,related_name="joined_course")
-    content=models.ManyToManyField("SingleContent",blank=True,null=True,related_name="course")
+
 
 class Participation(models.Model):
     user=models.ForeignKey("User",on_delete=models.CASCADE, related_name="joined_courses_details")

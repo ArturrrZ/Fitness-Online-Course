@@ -1,4 +1,13 @@
 {% extends 'education/layout.html' %}
 {% block body %}
 <h1>Create your course:</h1>
+<form action="{% url 'create_course' %}" method="POST">
+    {% csrf_token %}
+    {{form}}
+      <h3>Choose Content:</h3>
+  {% for content in all_content %}
+    <input type="checkbox" name="content" value="{{ content.id }}"> {{ content.title }}<br>
+  {% endfor %}
+    <input type="submit">
+</form>
 {% endblock %}

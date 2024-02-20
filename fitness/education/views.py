@@ -5,7 +5,7 @@ from django.shortcuts import render,reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm
+from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
 from .models import User,SingleContent
 # Create your views here.
 
@@ -112,8 +112,23 @@ def create_single(request):
         "form": SingleContentForm(),
     })
 def create_course(request):
+    if request.method == 'POST':
+        form=CourseForm(request.POST)
+        if form.is_valid():
+            # print(form.cleaned_data)
+            selected_content_ids = request.POST.getlist('content')
+            selected_content = SingleContent.objects.filter(id__in=selected_content_ids)
+            # print(selected_content_ids)
+            # print(selected_content)
+            course = form.save(commit=False)
+            course.creator = request.user
+            course.save()
+            course.content.set(selected_content)
+            return HttpResponseRedirect(reverse("index"))
+    all_content = SingleContent.objects.filter(user=request.user)
     return render(request,"education/create_course.html",{
-
+        "form": CourseForm(),
+        "all_content":all_content
     })
 
 def test(request):
