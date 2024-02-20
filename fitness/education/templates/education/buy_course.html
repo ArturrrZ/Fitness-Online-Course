@@ -1,0 +1,11 @@
+{% extends 'education/layout.html' %}
+{% block body %}
+{{course.name}} <br>
+{{course.overview}}
+
+<form action="{% url 'buy_course' course.id %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Buy Course">
+</form>
+
+{% endblock %}

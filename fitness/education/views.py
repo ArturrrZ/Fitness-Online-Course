@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
-from .models import User,SingleContent
+from .models import User,SingleContent, Course
 # Create your views here.
 
 def index(request):
@@ -133,3 +133,19 @@ def create_course(request):
 
 def test(request):
     return render(request,"education/test.html")
+
+def buy_course(request,course_id):
+    try:
+        course=Course.objects.all().get(pk=course_id)
+    except ObjectDoesNotExist:
+        return render(request,"education/404.html")
+    if request.method == 'POST':
+        course.participants.add(request.user)
+        return HttpResponseRedirect(reverse("buy_course",args=(course_id,)))
+    print(course.participants.all())
+    print(course.participants_details.all()[0].date)
+    if course.creator == request.user:
+        return HttpResponseRedirect(reverse("index"))
+    if request.user in course.participants.all():
+        return  HttpResponseRedirect(reverse("index"))
+    return render(request,"education/buy_course.html",{"course":course})

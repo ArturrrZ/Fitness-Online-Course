@@ -6,3 +6,4 @@ admin.site.register(SingleContent)
 admin.site.register(Course)
 admin.site.register(Participation)
 
+

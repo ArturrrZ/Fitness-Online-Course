@@ -57,7 +57,7 @@ class Course(models.Model):
 
 
 class Participation(models.Model):
-    user=models.ForeignKey("User",on_delete=models.CASCADE, related_name="joined_courses_details")
+    participant=models.ForeignKey("User",on_delete=models.CASCADE, related_name="joined_courses")
     course = models.ForeignKey("Course", on_delete=models.CASCADE, related_name="participants_details")
     date=models.DateTimeField(auto_now_add=True)
     reason=models.TextField(blank=True,null=True)
