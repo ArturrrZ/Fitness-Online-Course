@@ -1,22 +1,43 @@
 // Import the useState hook from React
 const { useState } = React;
-
+var is_started=false;
 // Function component Test
 function Test() {
-    // Declare a state variable 'message' and a function 'setMessage' to update it
-    const [message, setMessage] = useState('Hello from REACT!');
-
-    // Function to update the message when a button is clicked
-    const updateMessage = () => {
-        setMessage('New message from useState!');
+    // states
+    const [message, setMessage] = useState('Since it is a study project. \nYou are required to solve a simple math instead of paying\nAre you ready to give an answer?');
+    const [inputText,setInputText] = useState('')
+    // functions
+    const start = () => {
+        is_started=true;
+        setMessage('Go ahead!');
     };
+    function handleSubmit(event){
+        event.preventDefault();
+        console.log(event.target.answer.value);
+    }
+
+    // MY OWN STATE QUEESTION
+    var first_number=Math.floor(Math.random()*10)
+    var second_number=Math.floor(Math.random()*10)
+    var question=`${first_number} + ${second_number}`
 
     // Render the component
     return (
         <div>
+
             <p>{message}</p>
             {/* Button to trigger the updateMessage function */}
-            <button onClick={updateMessage}>Update Message</button>
+            <button onClick={start}>Yes, I am!</button>
+            <h3>Question down below:</h3>
+            {is_started&&<div>
+            <p>{question}</p>
+            <form onSubmit={handleSubmit}>
+            <label>Answer: </label>
+            <input type="text" name="answer"/>
+            <input type="submit" />
+            </form>
+            </div>}
+
         </div>
     );
 }
