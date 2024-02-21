@@ -1,6 +1,21 @@
 // Import the useState hook from React
 const { useState } = React;
+const root = document.querySelector("#root");
 var is_started=false;
+var badScore=0;
+function gotAnswer(){
+    fetch(`/course/buy/${root.dataset.course}`,{
+        method: "POST",
+        body: JSON.stringify({answer:true,})
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("You got it right!");
+            window.location.href = "http://127.0.0.1:8000/"
+        }
+    })
+    .catch(error => {console.log(error.message)})
+}
 // Function component Test
 function Test() {
     // states
@@ -16,10 +31,13 @@ function Test() {
         var usedAnswer=event.target.answer.value;
         console.log(usedAnswer);
         if (usedAnswer==anwser) {
-            alert("You got it right!")
-            window.location.href = "http://127.0.0.1:8000/";
+            // alert("You got it right!")
+            gotAnswer();
+
         }
-        else {alert("Try one more time!")}
+        else {alert("Try one more time!");
+        badScore++;
+        setMessage(`One more time! Your wrong score: ${badScore}`);}
         
     }
 
@@ -53,5 +71,5 @@ function Test() {
 }
 
 // Select the root element and render the Test component
-const root = document.querySelector("#root");
+
 ReactDOM.render(<Test />, root);

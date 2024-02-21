@@ -2,9 +2,12 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import render,reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+import json
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
 from .models import User,SingleContent, Course
 # Create your views here.
@@ -133,19 +136,33 @@ def create_course(request):
 
 def test(request):
     return render(request,"education/test.html")
-
+@csrf_exempt
+@login_required(login_url="login")
 def buy_course(request,course_id):
+
     try:
         course=Course.objects.all().get(pk=course_id)
     except ObjectDoesNotExist:
         return render(request,"education/404.html")
     if request.method == 'POST':
+        data = json.loads(request.body)
         course.participants.add(request.user)
-        return HttpResponseRedirect(reverse("buy_course",args=(course_id,)))
-    print(course.participants.all())
-    print(course.participants_details.all()[0].date)
-    if course.creator == request.user:
-        return HttpResponseRedirect(reverse("index"))
+        return JsonResponse({"result": True}, status=200)
     if request.user in course.participants.all():
-        return  HttpResponseRedirect(reverse("index"))
+        # user has this course
+        return HttpResponseRedirect(reverse("index"))
+    if course.creator == request.user:
+        # user is creator
+        return HttpResponseRedirect(reverse("index"))
+
     return render(request,"education/buy_course.html",{"course":course})
+
+
+
+# ---------------------------- API REQUESTS ---------------------- #
+@csrf_exempt
+def buy_course_api(request):
+    if request.method=='POST':
+        data=json.loads(request.body)
+        print(data['answer'])
+        return JsonResponse({"result":True})
