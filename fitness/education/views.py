@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import json
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
@@ -84,8 +85,6 @@ def user(request,username):
         return render(request,"education/404.html")
     return render(request,"education/user.html", {
         "user":user,
-        "testObject": {"name":"Test",
-                       "email":"test@email.com"}
     })
 
 @login_required(login_url="login")
@@ -168,3 +167,26 @@ def buy_course_api(request):
         data=json.loads(request.body)
         print(data['answer'])
         return JsonResponse({"result":True})
+
+
+@csrf_exempt
+def get_person(request,user_id):
+
+    try:
+        person=User.objects.all().get(pk=user_id)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error":"Object does not exist"}, status=404
+        )
+    free_content = serialize('json', person.get_free_content())
+    paid_content = serialize('json', person.get_paid_content())
+    person_object={
+        "headline": person.headline,
+        "about":person.about,
+        "free_content": free_content,
+        "paid_content":paid_content,
+
+    }
+    return JsonResponse(
+        {"person":person_object},status=200
+    )

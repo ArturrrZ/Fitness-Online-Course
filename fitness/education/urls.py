@@ -12,6 +12,7 @@ urlpatterns = [
     path("teacher/create_single",views.create_single,name="create_single"),
     path("teacher/create_course",views.create_course,name="create_course"),
     path("course/buy/<int:course_id>",views.buy_course,name="buy_course"),
-    path("course/buy",views.buy_course_api,name="buy_course_api")
+    path("course/buy",views.buy_course_api,name="buy_course_api"),
+    path("api/get_person/<int:user_id>",views.get_person),
 
 ]
