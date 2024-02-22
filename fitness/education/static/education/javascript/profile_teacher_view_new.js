@@ -9,7 +9,19 @@ function Subcomponent(){
     </div>)
 }
 
+function Profile(props){
+  const [profile,setProfile] = useState({
+    headline:props.headline,
+    about: props.about,
+  })
 
+  return(
+    <div>
+      <h1>{profile.headline}</h1>
+      <p>{profile.about}</p>
+    </div>
+  )
+}
 const root=document.querySelector("#root");
 var personId=root.dataset.personid;
 fetch(`/api/get_person/${personId}`,{
@@ -25,6 +37,7 @@ fetch(`/api/get_person/${personId}`,{
 //   we've got a USER PAGE!!!
   ReactDOM.render(<div>
   <Subcomponent/>
+  <Profile headline={person.headline} about={person.about} />
     <h3>{person.headline}</h3>
     {freeContentArray.map(content=>{return (<h4 key={content.pk}>{content.fields.title}</h4>)})}
     <ul>
