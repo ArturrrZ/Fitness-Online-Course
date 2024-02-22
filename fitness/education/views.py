@@ -84,6 +84,8 @@ def user(request,username):
         return render(request,"education/404.html")
     return render(request,"education/user.html", {
         "user":user,
+        "testObject": {"name":"Test",
+                       "email":"test@email.com"}
     })
 
 @login_required(login_url="login")
