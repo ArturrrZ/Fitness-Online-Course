@@ -83,6 +83,7 @@ def user(request,username):
         user=User.objects.get(username=username)
     except ObjectDoesNotExist:
         return render(request,"education/404.html")
+    print(f"User picture: {user.picture_url}")
     return render(request,"education/user.html", {
         "user":user,
     })

@@ -15,7 +15,7 @@ class User(AbstractUser):
     teacher = models.BooleanField(default=False)
     headline = models.CharField(max_length=50, blank=True, null=True)
     about = models.TextField(blank=True, null=True)
-
+    picture_url=models.URLField(blank=True,null=True)
     # Add related_name to avoid clashes
     groups = models.ManyToManyField(Group, related_name='user_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='user_permissions')
