@@ -31,16 +31,19 @@ function Profile(props){
   function submitEdit(event){
     // post request
     event.preventDefault();
-
+    let newHeadline=event.target.headline.value;
+    let newAbout=event.target.about.value;
+    let newPicture=event.target.picture.value;
     console.log(event.target.headline.value);
     // console.log(profile);
     // fetch smth
     fetch(`/api/get_person/${personId}`,{
       method:"PUT",
       body:JSON.stringify({
+        // new variables instead of event.target
         new_headline:event.target.headline.value,
         new_about:event.target.about.value,
-        new_picture_url:event.target.picture,
+        new_picture_url:event.target.picture.value,
       })
     })
     .then(setProfile({...profile,static:true}))
