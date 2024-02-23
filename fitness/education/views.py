@@ -179,6 +179,13 @@ def get_person(request,user_id):
         return JsonResponse(
             {"error":"Object does not exist"}, status=404
         )
+    if request.method == 'PUT':
+        data=json.loads(request.body)
+        person.headline=data["new_headline"]
+        person.about=data["new_about"]
+        person.picture_url=data["new_picture_url"]
+        person.save()
+        return JsonResponse({"message":"Done!"},status=201)
     free_content = serialize('json', person.get_free_content())
     paid_content = serialize('json', person.get_paid_content())
     person_object={

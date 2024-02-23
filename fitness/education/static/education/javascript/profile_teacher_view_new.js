@@ -31,10 +31,20 @@ function Profile(props){
   function submitEdit(event){
     // post request
     event.preventDefault();
-    console.log(event.target);
-    console.log(profile);
+
+    console.log(event.target.headline.value);
+    // console.log(profile);
     // fetch smth
-    setProfile({...profile,static:true})
+    fetch(`/api/get_person/${personId}`,{
+      method:"PUT",
+      body:JSON.stringify({
+        new_headline:event.target.headline.value,
+        new_about:event.target.about.value,
+        new_picture_url:event.target.picture,
+      })
+    })
+    .then(setProfile({...profile,static:true}))
+    
   }
   
   // console.log(pictureUrl);
