@@ -96,12 +96,13 @@ fetch(`/api/get_person/${personId}`,{
   var freeContentArray = JSON.parse(data.person.free_content)
   var paidContentArray=JSON.parse(data.person.paid_content);
   var person=data.person;
+  console.log(person.picture);
   console.log(person);
 //   we've got a USER PAGE!!!
   ReactDOM.render(<div>
   <Subcomponent/>
-  <Profile headline={person.headline} about={person.about} picture="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?size=338&ext=jpg&ga=GA1.1.1700460183.1708387200&semt=ais"/>
-    {/* <h3>{person.headline}</h3>
+  <Profile headline={person.headline} about={person.about} picture={person.picture}/>
+    <h3>{person.headline}</h3>
     {freeContentArray.map(content=>{return (<h4 key={content.pk}>{content.fields.title}</h4>)})}
     <ul>
         {paidContentArray.map(content=>{
@@ -114,7 +115,7 @@ fetch(`/api/get_person/${personId}`,{
                 </li>    
             )
         })}
-    </ul> */}
+    </ul>
 </div>,root)
 
 })

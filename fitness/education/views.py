@@ -193,6 +193,7 @@ def get_person(request,user_id):
         "about":person.about,
         "free_content": free_content,
         "paid_content":paid_content,
+        "picture":person.picture_url
 
     }
     return JsonResponse(
