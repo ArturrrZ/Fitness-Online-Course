@@ -225,11 +225,16 @@ def get_single_content(request,content_id):
         is_teacher=True
     # Exclude the "user" field from serialization
     # serialized_content = serialize('json', [content], exclude=('user',))
+    print(content.comments)
+    # comments=serialize("json",content.comments.all())
+    comments = list(content.comments.all().values())
+    print(comments)
     serialized_content={"title":content.title,
                         "description":content.description,
                         "url_youtube":content.url_youtube,
                         "url_image":content.url_image,
-                        "category":content.category}
+                        "category":content.category,
+                        "comments":comments}
     return JsonResponse({
         "is_teacher":is_teacher,
         "content":serialized_content,

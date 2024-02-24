@@ -12,6 +12,7 @@ fetch(`/api/get_single_content/${contentId}`)
     var splittedLink=content.url_youtube.split("/");
     var lastPartLink=splittedLink[splittedLink.length-1];
     var creator=data["creator"];
+    console.log(content.comments[0]);
     // var mainLink=`https://www.youtube.com/embed/${lastPartLink}`;
     // render
     ReactDOM.render(
