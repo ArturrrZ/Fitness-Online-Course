@@ -62,3 +62,8 @@ class Participation(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     reason=models.TextField(blank=True,null=True)
 
+class Comment(models.Model):
+    user=models.ForeignKey("User", on_delete=models.CASCADE, related_name="comments_left")
+    single_content=models.ForeignKey("SingleContent",on_delete=models.CASCADE, related_name="comments")
+    body=models.TextField(null=False)
+    date=models.DateTimeField(auto_now_add=True)
