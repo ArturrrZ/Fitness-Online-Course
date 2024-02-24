@@ -10,3 +10,8 @@ nav {
     display:flex;
     justify-content:space-around;
 }
+
+.profile_pic {
+    height:200px;
+    width:200px;
+}

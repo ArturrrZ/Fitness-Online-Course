@@ -1,14 +1,4 @@
 const { useState } = React;
-function Subcomponent(){
-    const [num,setNum] = useState(0);
-    function increase() {
-        setNum((prevNum) => prevNum + 1);
-      }    return (<div>
-    {num}
-    <button onClick={increase}>increase</button>
-    </div>)
-}
-
 function Profile(props){
   // var pictureUrl=props.picture_url;
   // if (person.picture_url == null) {
@@ -59,13 +49,15 @@ function Profile(props){
     <button onClick={function(){setProfile({...profile,static:false})}}>Edit Teacher Profile</button>
       
       <p>{profile.about}</p>
-      <img src={profile.picture}/>
+      <img className="profile_pic" src={profile.picture} alt="profile picture"/>
       
     </div>:
     <div>
     <h1>Edit View</h1>
     {/* <button onClick={function(){setProfile({...profile,static:true})}}>Submit</button> */}
-    <img src={profile.picture}/>
+    
+    <img className="profile_pic" src={profile.picture} alt="profile picture" />
+
     <form action="#" onSubmit={submitEdit}>
       <label>Profile URL:</label>
       <input type="text" name="picture" value={profile.picture} placeholder="http://example.jpg" onChange={handleInputChange} />
@@ -100,8 +92,7 @@ fetch(`/api/get_person/${personId}`,{
   console.log(person);
 //   we've got a USER PAGE!!!
   ReactDOM.render(<div>
-  <Subcomponent/>
-  <Profile headline={person.headline} about={person.about} picture={person.picture}/>
+  <Profile headline={person.headline} about={person.about} picture={person.picture} className="dinamicProfile"/>
     <h3>{person.headline}</h3>
     {freeContentArray.map(content=>{return (<h4 key={content.pk}>{content.fields.title}</h4>)})}
     <ul>
