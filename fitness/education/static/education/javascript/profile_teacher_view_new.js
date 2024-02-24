@@ -1,9 +1,5 @@
 const { useState } = React;
 function Profile(props){
-  // var pictureUrl=props.picture_url;
-  // if (person.picture_url == null) {
-  //   pictureUrl="https://t4.ftcdn.net/jpg/00/64/67/27/360_F_64672736_U5kpdGs9keUll8CRQ3p3YaEv2M6qkVY5.jpg"
-  // }
   const [profile,setProfile] = useState({
     headline:props.headline,
     about: props.about,
@@ -39,8 +35,7 @@ function Profile(props){
     .then(setProfile({...profile,static:true}))
     
   }
-  
-  // console.log(pictureUrl);
+
   return(
     <div>
     {profile.static?
@@ -53,11 +48,8 @@ function Profile(props){
       
     </div>:
     <div>
-    <h1>Edit View</h1>
-    {/* <button onClick={function(){setProfile({...profile,static:true})}}>Submit</button> */}
-    
+    <h1>Edit View</h1> 
     <img className="profile_pic" src={profile.picture} alt="profile picture" />
-
     <form action="#" onSubmit={submitEdit}>
       <label>Profile URL:</label>
       <input type="text" name="picture" value={profile.picture} placeholder="http://example.jpg" onChange={handleInputChange} />
@@ -88,12 +80,9 @@ fetch(`/api/get_person/${personId}`,{
   var freeContentArray = JSON.parse(data.person.free_content)
   var paidContentArray=JSON.parse(data.person.paid_content);
   var person=data.person;
-  console.log(person.picture);
-  console.log(person);
 //   we've got a USER PAGE!!!
   ReactDOM.render(<div>
   <Profile headline={person.headline} about={person.about} picture={person.picture} className="dinamicProfile"/>
-    <h3>{person.headline}</h3>
     {freeContentArray.map(content=>{return (<h4 key={content.pk}>{content.fields.title}</h4>)})}
     <ul>
         {paidContentArray.map(content=>{

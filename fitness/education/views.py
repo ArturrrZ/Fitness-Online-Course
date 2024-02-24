@@ -160,7 +160,14 @@ def buy_course(request,course_id):
     return render(request,"education/buy_course.html",{"course":course})
 
 
-
+def single_content(request,content_id):
+    try:
+        content=SingleContent.objects.get(pk=content_id)
+    except ObjectDoesNotExist:
+        return render (request,"education/404.html")
+    if content.is_free == False:
+        return render (request,"education/404.html")
+    return render (request,"education/single_content.html",{"content":content})
 # ---------------------------- API REQUESTS ---------------------- #
 @csrf_exempt
 def buy_course_api(request):
@@ -199,3 +206,36 @@ def get_person(request,user_id):
     return JsonResponse(
         {"person":person_object},status=200
     )
+
+
+@csrf_exempt
+def get_single_content(request,content_id):
+    try:
+        content=SingleContent.objects.all().get(pk=content_id)
+        if content.is_free == False:
+            return JsonResponse(
+                {"error": "Object does not exist"}, status=404
+            )
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error": "Object does not exist"}, status=404
+        )
+    is_teacher=False
+    if content.user==request.user:
+        is_teacher=True
+    # Exclude the "user" field from serialization
+    # serialized_content = serialize('json', [content], exclude=('user',))
+    serialized_content={"title":content.title,
+                        "description":content.description,
+                        "url_youtube":content.url_youtube,
+                        "url_image":content.url_image,
+                        "category":content.category}
+    return JsonResponse({
+        "is_teacher":is_teacher,
+        "content":serialized_content,
+        "creator": {"username":content.user.username,"picture_url":content.user.picture_url,}
+    },status=200,safe=False)
+
+
+
+
