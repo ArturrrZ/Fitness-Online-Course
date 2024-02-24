@@ -227,7 +227,7 @@ def get_single_content(request,content_id):
     # serialized_content = serialize('json', [content], exclude=('user',))
     print(content.comments)
     # comments=serialize("json",content.comments.all())
-    comments = list(content.comments.all().values())
+    comments = list(content.comments.all().values('body', 'date', 'user__username','id'))
     print(comments)
     serialized_content={"title":content.title,
                         "description":content.description,

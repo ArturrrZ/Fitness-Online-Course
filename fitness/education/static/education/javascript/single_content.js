@@ -21,12 +21,12 @@ fetch(`/api/get_single_content/${contentId}`)
     {is_teacher?
     <div>
     <TeacherView content={content}/>
-    <CommentSection/>  
+    <CommentSection comments={content.comments}/>  
     </div>
     :
     <div>
     <StudentView content={content} creator={creator}/> 
-    <CommentSection/>  
+    <CommentSection comments={content.comments}/>  
     </div>
     }
     </div>,root);
@@ -57,7 +57,7 @@ function StudentView(props){
 }
 
 
-function CommentSection(){
+function CommentSection(props){
     return (
         <div>
             Comments Below:
@@ -65,6 +65,16 @@ function CommentSection(){
                 <input type="text" name="comment"/>
                 <input type="submit" />
             </form>
+            {props.comments.map(comment=>{return (<Comment key={comment.id} username={comment.user__username} body={comment.body} date={comment.date}/>)})}
+        </div>
+    )
+}
+
+function Comment(props){
+    return(
+        <div className="comment">
+            <strong>{props.username}</strong> on {props.date}
+            <p>{props.body}</p>
         </div>
     )
 }
@@ -76,3 +86,4 @@ function TeacherView(props){
         </div>
     )
 }
+
