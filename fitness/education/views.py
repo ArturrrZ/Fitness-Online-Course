@@ -220,12 +220,24 @@ def get_single_content(request,content_id):
         return JsonResponse(
             {"error": "Object does not exist"}, status=404
         )
+    if request.method=='PUT':
+            data=json.loads(request.body)
+            content.title=data["new_title"]
+            content.description=data["new_description"]
+            content.url_image=data["new_url_image"]
+            new_url_youtube=data["new_url_youtube"]
+            if "embed" in new_url_youtube:
+                return JsonResponse({"error":"Bad youtube link. Example of correct link: https://www.youtube.com/embed/d7j9p9JpLaE"},status=403)
+            else:
+                content.url_youtube=data["new_url_youtube"]
+            content.save()
+            return JsonResponse({"message":"Successfully edited","new_url_youtube":content.url_youtube,},status=200)
     is_teacher=False
     if content.user==request.user:
         is_teacher=True
     # Exclude the "user" field from serialization
     # serialized_content = serialize('json', [content], exclude=('user',))
-    print(content.comments)
+    # print(content.comments)
     # comments=serialize("json",content.comments.all())
     comments = list(content.comments.all().order_by('-date').values('body', 'date', 'user__username','id'))
     for comment in comments:
@@ -281,19 +293,31 @@ def single_content_comment(request,content_id):
         return JsonResponse({"new_list_comments":new_list_comments},status=200)
     if request.method=='PUT':
         data=json.loads(request.body)
-        new_body=data["new_body"]
-        if new_body.strip()=="" or new_body=="":
-            return JsonResponse({"error": "Empty Comment"}, status=403)
-        comment_id=data["comment_id"]
-        try:
-            comment=Comment.objects.all().get(pk=comment_id)
-        except ObjectDoesNotExist:
-            return JsonResponse({"error": "Object does not exist"}, status=404)
-        if request.user == comment.user:
-            comment.body=new_body
-            comment.save()
-            return JsonResponse({"message":"Comment is changed"},status=200)
+        if data["action"] == "edit":
+            new_body=data["new_body"]
+            if new_body.strip()=="" or new_body=="":
+                return JsonResponse({"error": "Empty Comment"}, status=403)
+            comment_id=data["comment_id"]
+            try:
+                comment=Comment.objects.all().get(pk=comment_id)
+            except ObjectDoesNotExist:
+                return JsonResponse({"error": "Object does not exist"}, status=404)
+            if request.user == comment.user:
+                comment.body=new_body
+                comment.save()
+                return JsonResponse({"message":"Comment is changed"},status=200)
 
+
+        else:
+#            delete comment
+#
+            try:
+                comment = Comment.objects.all().get(pk=data["comment_id"])
+                comment.delete()
+            except ObjectDoesNotExist:
+                return JsonResponse({"error": "Object does not exist"}, status=404)
+
+            return JsonResponse({"response":"Successfully deleted"},status=200)
 
 
 

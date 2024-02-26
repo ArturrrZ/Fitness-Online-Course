@@ -42,12 +42,15 @@ fetch(`/api/get_single_content/${contentId}`)
 // --------------------------React Components----------------------------------------------------------------
 
 function StudentView(props){
+    var video_endpoint=props.content.url_youtube.split('=');
+    let main_part=video_endpoint[video_endpoint.length-1]
+    let final_url="https://www.youtube.com/embed/"+main_part;
     return (<div>
     <h1>{props.content.title}</h1>
     <h2>{props.content.description}</h2>
     <iframe width="420" height="315"
     // src={props.content.url_youtube}
-    src="https://www.youtube.com/embed/tgbNymZ7vqY">
+    src={final_url}>
 </iframe>
 <p>Created by {props.creator.username}</p>
 <img src={props.creator.picture_url} height="200px" />
@@ -136,6 +139,7 @@ function Comment(props){
             body: JSON.stringify({
                 new_body:view.body,
                 comment_id:view.id,
+                action: "edit",
             })
         })
         .then(response=>{response.json()})
@@ -146,6 +150,23 @@ function Comment(props){
             console.log(error);
         })
         
+    }
+    function handleDelete(event){
+        event.preventDefault();
+        fetch(`/api/single_content_comment/${contentId}`,{
+            method:'PUT',
+            body:JSON.stringify({
+                comment_id:view.id,
+                action:"delete"
+            })
+        })
+        .then(response=>{return response.json()})
+        .then(data=>{
+            console.log(data);
+            let parent=event.target.parentElement.parentElement.parentElement
+            parent.style.display="none";
+        })
+        .catch(error=>{console.log(error.message)})
     }
     return(
         <div className="comment" id={view.idd}>
@@ -159,7 +180,7 @@ function Comment(props){
             <div className="static">
             <strong>{view.username}</strong> on <span>{view.date}</span>
             <p>{view.body}</p>
-            {view.creator&&<div className="edit"><a href="#" onClick={handleEdit}>edit</a> <a href="#">delete</a></div>}
+            {view.creator&&<div className="edit"><a href="#" onClick={handleEdit}>edit</a> <a href="#" onClick={handleDelete}>delete</a></div>}
             </div>}
             
         </div>
@@ -167,10 +188,75 @@ function Comment(props){
 }
 
 function TeacherView(props){
+    // console.log(props.content.url_youtube);
+    var video_endpoint=props.content.url_youtube.split('=');
+    let main_part=video_endpoint[video_endpoint.length-1]
+    let final_url="https://www.youtube.com/embed/"+main_part;
+    // console.log(final_url);
+    const [view,setView] = useState({
+        title:props.content.title,
+        description:props.content.description,
+        url_image:props.content.url_image,
+        url_youtube:final_url,
+        static:true,
+    })
+
+    function handleChange(event){
+        const {name,value}=event.target;
+        setView({...view,[name]:value,})
+    }
+    function handleSubmit(event){
+        event.preventDefault;
+        // API to edit content
+        let new_youtube=view.url_youtube;
+        if (view.url_youtube===final_url){new_youtube=props.content.url_youtube}
+        fetch(`/api/get_single_content/${contentId}`,{
+            method:"PUT",
+            body:JSON.stringify({
+                action:"edit_content",
+                new_title:view.title,
+                new_description:view.description,
+                new_url_image:view.url_image,
+                new_url_youtube:new_youtube,
+            })
+        })
+        .then(response=>{
+            if (!response.ok) {return response.json().then(data=>{alert(data['error'])})}
+            return response.json()
+        })
+        setView({...view,static:true,})
+
+    }
+
     return (
-        <div>
-            <h1>{props.content.title}</h1>
-        </div>
+        <div className="teacher_view">
+    {view.static?
+    <div className="static_view">
+    <button onClick={function(){setView({...view,static:false})}}>Edit Content</button>
+    <p>Your profile</p>    
+    <h1>{view.title}</h1>
+    <h2>{view.description}</h2>
+    <iframe width="420" height="315"
+    // src={props.content.url_youtube}
+    src={view.url_youtube}>
+    </iframe>
+    </div>
+:<div className="edit_view">
+    <form onSubmit={handleSubmit}>
+        <label>Title: </label>
+        <input name="title" value={view.title} onChange={handleChange} /><br/>
+        <label>Description: </label>
+        <input name="description" value={view.description} onChange={handleChange} /><br/>
+        <label>Image URL: </label>
+        <input name="url_image" value={view.url_image} onChange={handleChange} /><br/>
+        <label>Youtube Link(It has to contain 'watch?v='): </label>
+        <input name="url_youtube" value={view.url_youtube} onChange={handleChange} /><br/>
+        <input type="submit"/>
+    </form>
+</div>}
+
+
+    </div>
     )
 }
 
