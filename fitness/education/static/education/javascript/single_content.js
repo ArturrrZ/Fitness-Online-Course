@@ -8,7 +8,7 @@ fetch(`/api/get_single_content/${contentId}`)
 .then(data=>{
     var content=data["content"];
     var is_teacher=data['is_teacher'];
-    console.log(content.url_youtube);
+    // console.log(content.url_youtube);
     var splittedLink=content.url_youtube.split("/");
     var lastPartLink=splittedLink[splittedLink.length-1];
     var creator=data["creator"];
@@ -69,11 +69,8 @@ function CommentSection(props){
     }
     
     function handleSubmit(event) {
-        event.preventDefault();
-    
+        event.preventDefault(); 
         var message = section.comment;
-    
-        // Assuming contentId is defined somewhere in your component
         fetch(`/api/single_content_comment/${contentId}`, {
             method: "POST",
             body: JSON.stringify({ body: message }),
@@ -97,14 +94,14 @@ function CommentSection(props){
             console.error('Error submitting comment:', error);
         });
     }
-    console.log(section.comments);
     return (
         
         <div>
             Comments Below:
             <form onSubmit={handleSubmit}>
                 <input type="text" name="comment" value={section.comment} onChange={handleChange}/>
-                <input type="submit" />
+                
+                <input type="submit" disabled={section.comment.length === 0} />
             </form>
             {section.comments.map(comment => (
     <Comment key={comment.id} idd={comment.id} username={comment.user__username} body={comment.body} date={comment.date} creator={comment.is_creator} />
@@ -155,7 +152,7 @@ function Comment(props){
             {view.is_editing?<div className="editing">
                 <form onSubmit={handleSubmit}>
                     <textarea onChange={handleChange} value={view.body} name="body"></textarea>
-                    <input type="submit"/>
+                    <input type="submit" disabled={view.body.length === 0}/>
                 </form>
             </div>
             :

@@ -262,6 +262,8 @@ def single_content_comment(request,content_id):
         )
     if request.method=='POST':
         data=json.loads(request.body)
+        if data["body"]=="" or data["body"].strip()=="":
+            return JsonResponse({"error": "Empty Comment"},status=403)
         new_comment=Comment(
             user=request.user,
             single_content=content,
@@ -280,6 +282,8 @@ def single_content_comment(request,content_id):
     if request.method=='PUT':
         data=json.loads(request.body)
         new_body=data["new_body"]
+        if new_body.strip()=="" or new_body=="":
+            return JsonResponse({"error": "Empty Comment"}, status=403)
         comment_id=data["comment_id"]
         try:
             comment=Comment.objects.all().get(pk=comment_id)
