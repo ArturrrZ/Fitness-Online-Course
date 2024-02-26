@@ -15,3 +15,7 @@ nav {
     height:200px;
     width:200px;
 }
+
+.comment{
+    border: 1px black solid;
+}
