@@ -10,7 +10,7 @@ from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
-from .models import User,SingleContent, Course
+from .models import User,SingleContent, Course,Comment
 # Create your views here.
 
 def index(request):
@@ -227,7 +227,16 @@ def get_single_content(request,content_id):
     # serialized_content = serialize('json', [content], exclude=('user',))
     print(content.comments)
     # comments=serialize("json",content.comments.all())
-    comments = list(content.comments.all().values('body', 'date', 'user__username','id'))
+    comments = list(content.comments.all().order_by('-date').values('body', 'date', 'user__username','id'))
+    for comment in comments:
+        comment['date'] = comment['date'].strftime("%y/%m/%d at %H:%M")
+        comment["is_creator"]=False
+        if request.user.is_authenticated:
+
+            if comment["user__username"] == request.user.username:
+                comment["is_creator"]=True
+
+
     print(comments)
     serialized_content={"title":content.title,
                         "description":content.description,
@@ -240,6 +249,46 @@ def get_single_content(request,content_id):
         "content":serialized_content,
         "creator": {"username":content.user.username,"picture_url":content.user.picture_url,}
     },status=200,safe=False)
+
+@csrf_exempt
+def single_content_comment(request,content_id):
+    if request.user.is_authenticated == False:
+        return JsonResponse({"error":"You have to be logged in!"},status=403)
+    try:
+        content = SingleContent.objects.all().get(pk=content_id)
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error": "Object does not exist"}, status=404
+        )
+    if request.method=='POST':
+        data=json.loads(request.body)
+        new_comment=Comment(
+            user=request.user,
+            single_content=content,
+            body=data["body"]
+        )
+        new_comment.save()
+        new_list_comments = list(content.comments.all().order_by('-date').values('body', 'date', 'user__username', 'id'))
+        for comment in new_list_comments:
+            comment['date'] = comment['date'].strftime("%y/%m/%d at %H:%M")
+            comment["is_creator"] = False
+            if request.user.is_authenticated:
+
+                if comment["user__username"] == request.user.username:
+                    comment["is_creator"] = True
+        return JsonResponse({"new_list_comments":new_list_comments},status=200)
+    if request.method=='PUT':
+        data=json.loads(request.body)
+        new_body=data["new_body"]
+        comment_id=data["comment_id"]
+        try:
+            comment=Comment.objects.all().get(pk=comment_id)
+        except ObjectDoesNotExist:
+            return JsonResponse({"error": "Object does not exist"}, status=404)
+        if request.user == comment.user:
+            comment.body=new_body
+            comment.save()
+            return JsonResponse({"message":"Comment is changed"},status=200)
 
 
 

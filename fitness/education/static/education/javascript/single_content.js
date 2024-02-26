@@ -1,6 +1,6 @@
 const { useState } = React;
 const root=document.querySelector("#root");
-var contentId=root.dataset.contentid;
+const contentId=root.dataset.contentid;
 console.log(`Content id:${contentId}`);
 
 fetch(`/api/get_single_content/${contentId}`)
@@ -12,7 +12,6 @@ fetch(`/api/get_single_content/${contentId}`)
     var splittedLink=content.url_youtube.split("/");
     var lastPartLink=splittedLink[splittedLink.length-1];
     var creator=data["creator"];
-    console.log(content.comments[0]);
     // var mainLink=`https://www.youtube.com/embed/${lastPartLink}`;
     // render
     ReactDOM.render(
@@ -63,6 +62,7 @@ function CommentSection(props){
         // new one below
         comment:"",
     });
+    
     function handleChange(event){
         const {name,value}=event.target;
         setSection({...section,[name]:value});
@@ -70,22 +70,34 @@ function CommentSection(props){
     
     function handleSubmit(event) {
         event.preventDefault();
-        const date = new Date();
-        const newComment = {
-            body: section.comment,
-            date: date,
-            user__username: "new_user",
-            id: 2,
-        };
     
-        setSection(prevState => {
-            return {
-                ...prevState,
-                comments: [...prevState.comments, newComment],
-                comment: "", // Clear the input after submitting
-            };
+        var message = section.comment;
+    
+        // Assuming contentId is defined somewhere in your component
+        fetch(`/api/single_content_comment/${contentId}`, {
+            method: "POST",
+            body: JSON.stringify({ body: message }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok){
+                if (response.status===403){window.location.href = "/login";}
+            }
+            return(response.json())})
+        .then(data => {
+           var new_list=data['new_list_comments'];
+           setSection({
+            comments:new_list,
+            comment:"",
+           })
+        })
+        .catch(error => {
+            console.error('Error submitting comment:', error);
         });
     }
+    console.log(section.comments);
     return (
         
         <div>
@@ -94,16 +106,65 @@ function CommentSection(props){
                 <input type="text" name="comment" value={section.comment} onChange={handleChange}/>
                 <input type="submit" />
             </form>
-            {section.comments.map(comment=>{return (<Comment key={comment.id} username={comment.user__username} body={comment.body} date={comment.date}/>)})}
+            {section.comments.map(comment => (
+    <Comment key={comment.id} idd={comment.id} username={comment.user__username} body={comment.body} date={comment.date} creator={comment.is_creator} />
+))}
+
         </div>
     )
 }
 
 function Comment(props){
+    const [view,setView] = useState({
+        id:props.idd,
+        username:props.username,
+        date:props.date,
+        body:props.body,
+        creator:props.creator,
+        is_editing:false,
+    })
+    function handleEdit(event){
+        event.preventDefault();
+        setView({...view,is_editing:true})
+    }
+    function handleChange(event){
+        const {name,value} = event.target;
+        setView({...view,[name]:value});
+    }
+    function handleSubmit(event){
+        event.preventDefault();
+        // API REQUEST
+        fetch(`/api/single_content_comment/${contentId}`,{
+            method:"PUT",
+            body: JSON.stringify({
+                new_body:view.body,
+                comment_id:view.id,
+            })
+        })
+        .then(response=>{response.json()})
+        .then(data=>{
+            setView({...view,is_editing:false})
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+        
+    }
     return(
-        <div className="comment">
-            <strong>{props.username}</strong> on <span>{props.date.toString()}</span>
-            <p>{props.body}</p>
+        <div className="comment" id={view.idd}>
+            {view.is_editing?<div className="editing">
+                <form onSubmit={handleSubmit}>
+                    <textarea onChange={handleChange} value={view.body} name="body"></textarea>
+                    <input type="submit"/>
+                </form>
+            </div>
+            :
+            <div className="static">
+            <strong>{view.username}</strong> on <span>{view.date}</span>
+            <p>{view.body}</p>
+            {view.creator&&<div className="edit"><a href="#" onClick={handleEdit}>edit</a> <a href="#">delete</a></div>}
+            </div>}
+            
         </div>
     )
 }

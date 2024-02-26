@@ -16,7 +16,8 @@ urlpatterns = [
     path("single_content/<int:content_id>",views.single_content,name="single_content"),
     # api
     path("api/get_person/<int:user_id>",views.get_person),
-    path("api/get_single_content/<int:content_id>",views.get_single_content)
+    path("api/get_single_content/<int:content_id>",views.get_single_content),
+    path("api/single_content_comment/<int:content_id>",views.single_content_comment)
 
 
 ]
