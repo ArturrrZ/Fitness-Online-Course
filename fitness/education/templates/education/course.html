@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-asd
-</body>
-</html>
+{% extends 'education/layout.html' %}
+{% block body %}
+
+<div id="root" data-courseid="{{course_id}}" style="text-align:center;">
+
+</div>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+{% load static %}
+<script type="text/babel" src="{% static 'education/javascript/course.js' %}" />
+
+{% endblock %}

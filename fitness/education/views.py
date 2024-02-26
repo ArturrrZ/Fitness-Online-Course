@@ -165,9 +165,14 @@ def course(request,course_id):
     except ObjectDoesNotExist:
         return render(request,"education/404.html")
     if request.user in course.participants.all() or request.user == course.creator:
+        # SUCCESS
         print(course.participants.all())
-        return render(request,"education/course.html")
+        return render(request,"education/course.html",{
+            "course_id":course_id,
+
+        })
     else:
+        # user does not have this course
         return HttpResponseRedirect(reverse("buy_course",args=(course_id,)))
 
 
