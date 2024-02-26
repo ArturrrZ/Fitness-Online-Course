@@ -152,12 +152,23 @@ def buy_course(request,course_id):
         return JsonResponse({"result": True}, status=200)
     if request.user in course.participants.all():
         # user has this course
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("course",args=(course_id,)))
     if course.creator == request.user:
         # user is creator
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("course",args=(course_id,)))
 
     return render(request,"education/buy_course.html",{"course":course})
+@login_required(login_url="login")
+def course(request,course_id):
+    try:
+        course=Course.objects.all().get(pk=course_id)
+    except ObjectDoesNotExist:
+        return render(request,"education/404.html")
+    if request.user in course.participants.all() or request.user == course.creator:
+        print(course.participants.all())
+        return render(request,"education/course.html")
+    else:
+        return HttpResponseRedirect(reverse("buy_course",args=(course_id,)))
 
 
 def single_content(request,content_id):
