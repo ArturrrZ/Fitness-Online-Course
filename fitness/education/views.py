@@ -355,3 +355,8 @@ def get_course(request,course_id):
     }
     return JsonResponse({"course":serialised_course,},status=200)
 
+
+# rating:4.5,
+#             ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],
+#             rated:false,
+

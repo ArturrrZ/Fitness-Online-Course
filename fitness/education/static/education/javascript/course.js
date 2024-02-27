@@ -95,8 +95,16 @@ function RatingSystem(){
     const [system,setSystem]=useState({
             rating:4.5,
             ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],
-            rated:true,
+            rated:false,
     });
+    function handleSubmit(event){
+        event.preventDefault();
+        let new_rating=event.target.rating.value;
+        console.log(new_rating);
+        console.log(event.target.message.value)
+        // API post request
+        setSystem({...system,rated:true,})
+    }
     function getStars(rate){
         rate=Math.floor(rate);
         if (rate===1){
@@ -154,9 +162,10 @@ function RatingSystem(){
             {system.rated?<div>You've rated</div>:
             <div>
             Review:
-            <form >
+            <form onSubmit={handleSubmit}>
             <label htmlFor="rating">Rating: </label>
             <input type="number" id="rating" name="rating" min="0" max="5" />
+            <textarea id="message" name="message" placeholder="Type anything"></textarea>
             <input type="submit"/>
             </form>
             </div>}
