@@ -28,21 +28,8 @@ fetch(`/api/get_course/${courseId}`)
             <iframe width="420" height="345" 
             src={view.video}>
             </iframe>
-            </div>   
-
-            <div className="course_overview">
-            {/* static */}
-                <h1>Course Overviw:</h1>
-                <p>{view.overview}</p>
-
-                <div className="creator">
-                <p>Created by {view.creator}</p>
-                <img src={view.creator_image_url} />
-                </div>
-            </div>
-            <div className="video_description">
-                <p>{view.description}</p>
-            </div>
+            </div> 
+            <InteractivePart view={view}/> 
             </div>
             
             <div className="content_list">
@@ -54,7 +41,7 @@ fetch(`/api/get_course/${courseId}`)
                 })}
             </div>
 
-            <InteractivePart view={view}/>    
+               
             
 
             </div>
@@ -76,7 +63,7 @@ fetch(`/api/get_course/${courseId}`)
 })
 
 function InteractivePart(props){
-    const [part,setPart]=useState({number:3});
+    const [part,setPart]=useState({number:1});
     return(
         <div className="interactive_part">
         <div className="navigation">
@@ -84,7 +71,7 @@ function InteractivePart(props){
             <button onClick={function(){setPart({number:2})}}>Video Desription</button>
             <button onClick={function(){setPart({number:3})}}>Rating</button>
         </div>
-            {part.number===1&&<div>
+            {part.number===1&&<div className="course_overview">
                 <h1>Course Overviw:</h1>
                 <p>{props.view.overview}</p>
 
@@ -92,11 +79,11 @@ function InteractivePart(props){
                 <p>Created by {props.view.creator}</p>
                 <img src={props.view.creator_image_url} />
             </div></div>}
-            {part.number===2&&<div>
+            {part.number===2&&<div className="video_description">
                 <p>{props.view.description}</p>
             </div>}
             {part.number===3&&<div>
-            
+            <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
             </div>}
         </div>
     )
