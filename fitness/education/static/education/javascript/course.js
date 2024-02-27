@@ -83,10 +83,147 @@ function InteractivePart(props){
             {part.number===2&&<div className="video_description">
                 <p>{props.view.description}</p>
             </div>}
-            {part.number===3&&<div>
-            <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
-            </div>}
+            {part.number===3&&
+                <RatingSystem/>
+            }
         </div>    
+        </div>
+    )
+}
+
+function RatingSystem(){
+    const [system,setSystem]=useState({
+            rating:4.5,
+            ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],
+            rated:true,
+    });
+    function getStars(rate){
+        rate=Math.floor(rate);
+        if (rate===1){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===2){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===3){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===4){
+        return (<div>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star"></span>
+</div>
+        )}
+        if (rate===5){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+    </div>
+            )}
+    }
+    return (
+        <div className="rating_system">
+            <div className="current_rating">
+                Current rating: {system.rating}
+                {getStars(system.rating)}
+            </div>
+            {system.rated?<div>You've rated</div>:
+            <div>
+            Review:
+            <form >
+            <label htmlFor="rating">Rating: </label>
+            <input type="number" id="rating" name="rating" min="0" max="5" />
+            <input type="submit"/>
+            </form>
+            </div>}
+            <div className="reviews">
+            {system.ratings.map(review=>{return (
+                        <Review key={review.id} username={review.username} date={review.date} message={review.message} rate={review.rate}/>
+                )})}            </div>
+        </div>
+    )
+}
+
+
+function Review(props){
+    function getStars(rate){
+        if (rate===1){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===2){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===3){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===4){
+        return (<div>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star"></span>
+</div>
+        )}
+        if (rate===5){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+    </div>
+            )}
+    }
+    return(
+        <div className="review">
+                <h4>{props.username} on {props.date}</h4>
+                <p>{props.message}</p>
+                <p>Rating: {props.rate}</p>
+                {getStars(props.rate)}    
+
         </div>
     )
 }
