@@ -164,7 +164,7 @@ function RatingSystem(){
             Review:
             <form onSubmit={handleSubmit}>
             <label htmlFor="rating">Rating: </label>
-            <input type="number" id="rating" name="rating" min="0" max="5" />
+            <input type="number" id="rating" name="rating" min="0" max="5" /><br/>
             <textarea id="message" name="message" placeholder="Type anything"></textarea>
             <input type="submit"/>
             </form>
