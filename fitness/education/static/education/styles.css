@@ -1,8 +1,17 @@
+body{
+    /* font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; */
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Open Sans', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
+    /* font-family: 'Montserrat', sans-serif; */
+    /* font-family: 'Georgia', serif; */
+    /* font-family: 'Arial', sans-serif; */
+}
 #body {
 background-color:#1E1E1E;
 color:white;
 }
-#.submit {
+.submit {
     background-color:#CAFF33;
     color:black;
 }
@@ -46,26 +55,31 @@ nav {
 }
 .content:hover {
     background-color: yellow;
+    cursor:pointer;
+
 }
 
 .course_overview{
-    background-color: blue;
-    /* background-color: white; */
+    /* background-color: blue; */
+    background-color: white;
 
 }
 
 .video_description{
-    background-color: green;
+    /* background-color: green; */
+    background-color: white;
+
 }
 .interactive_part{
     border-top:1px solid black;
 }
 .navigation{
     display:flex;
-    justify-content: space-around;
+    justify-content: start;
     background-color: white;
     /* background-color: yellow; */
     border-bottom:1px solid black;
+    margin-left: 5.3%;
 }
 .navigate{
     background-color: grey;
@@ -74,10 +88,11 @@ nav {
 }
 .navigate:hover{
     background-color: yellow;
+    cursor:pointer;
 }
 .changeable{
     /* border-top:1px solid black; */
-    margin-top:110px;
+    margin-top:50px;
     padding-left: 10%;
     padding-right:10%;
 }
