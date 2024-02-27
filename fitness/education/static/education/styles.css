@@ -50,8 +50,34 @@ nav {
 
 .course_overview{
     background-color: blue;
+    /* background-color: white; */
+
 }
 
 .video_description{
     background-color: green;
+}
+.interactive_part{
+    border-top:1px solid black;
+}
+.navigation{
+    display:flex;
+    justify-content: space-around;
+    background-color: white;
+    /* background-color: yellow; */
+    border-bottom:1px solid black;
+}
+.navigate{
+    background-color: grey;
+    border:1px solid black;
+    padding:10px;
+}
+.navigate:hover{
+    background-color: yellow;
+}
+.changeable{
+    /* border-top:1px solid black; */
+    margin-top:110px;
+    padding-left: 10%;
+    padding-right:10%;
 }

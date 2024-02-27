@@ -25,7 +25,7 @@ fetch(`/api/get_course/${courseId}`)
             <div className="course_view">
             <div className="left_side" >
             <div className="video">
-            <iframe width="420" height="345" 
+            <iframe width="1000" height="500" 
             src={view.video}>
             </iframe>
             </div> 
@@ -67,10 +67,11 @@ function InteractivePart(props){
     return(
         <div className="interactive_part">
         <div className="navigation">
-            <button onClick={function(){setPart({number:1})}}>Overviw</button>
-            <button onClick={function(){setPart({number:2})}}>Video Desription</button>
-            <button onClick={function(){setPart({number:3})}}>Rating</button>
+            <span className="navigate" onClick={function(){setPart({number:1})}}>Overviw</span>
+            <span className="navigate" onClick={function(){setPart({number:2})}}>Video Desription</span>
+            <span className="navigate" onClick={function(){setPart({number:3})}}>Rating</span>
         </div>
+        <div className="changeable">
             {part.number===1&&<div className="course_overview">
                 <h1>Course Overviw:</h1>
                 <p>{props.view.overview}</p>
@@ -85,6 +86,7 @@ function InteractivePart(props){
             {part.number===3&&<div>
             <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
             </div>}
+        </div>    
         </div>
     )
 }
