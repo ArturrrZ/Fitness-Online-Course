@@ -7,5 +7,6 @@ fetch(`/api/get_course/${courseId}`)
 .then(response=>{return response.json()})
 .then(data=>{
     console.log(data);
+    console.log(data["course"]["content"])
 })
 ReactDOM.render(<p>Hey {courseId}</p>,root);

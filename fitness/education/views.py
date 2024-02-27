@@ -343,13 +343,15 @@ def get_course(request,course_id):
         return JsonResponse(
             {"error": "Object does not exist"}, status=404
         )
-
+    content = list(course.content.all().order_by('title').values('title', 'description', 'url_youtube','url_image'))
+    print(content)
     serialised_course={
         "creator": course.creator.username,
         "creator_image_url":course.creator.picture_url,
         "name":course.name,
         "overview":course.overview,
         "url_image":course.url_image,
+        "content":content,
     }
     return JsonResponse({"course":serialised_course,},status=200)
 
