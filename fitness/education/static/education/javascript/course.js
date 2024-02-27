@@ -54,7 +54,7 @@ fetch(`/api/get_course/${courseId}`)
                 })}
             </div>
 
-
+            <InteractivePart view={view}/>    
             
 
             </div>
@@ -74,3 +74,30 @@ fetch(`/api/get_course/${courseId}`)
         <App data={data}/>
     </div>,root);
 })
+
+function InteractivePart(props){
+    const [part,setPart]=useState({number:3});
+    return(
+        <div className="interactive_part">
+        <div className="navigation">
+            <button onClick={function(){setPart({number:1})}}>Overviw</button>
+            <button onClick={function(){setPart({number:2})}}>Video Desription</button>
+            <button onClick={function(){setPart({number:3})}}>Rating</button>
+        </div>
+            {part.number===1&&<div>
+                <h1>Course Overviw:</h1>
+                <p>{props.view.overview}</p>
+
+                <div className="creator">
+                <p>Created by {props.view.creator}</p>
+                <img src={props.view.creator_image_url} />
+            </div></div>}
+            {part.number===2&&<div>
+                <p>{props.view.description}</p>
+            </div>}
+            {part.number===3&&<div>
+            
+            </div>}
+        </div>
+    )
+}
