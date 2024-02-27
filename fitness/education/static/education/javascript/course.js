@@ -2,4 +2,10 @@ const { useState } = React;
 const root=document.querySelector("#root");
 const courseId=root.dataset.courseid;
 // API REQUEST TO GET COURSE INFO
-ReactDOM.render(<p>Hey</p>,root);
+
+fetch(`/api/get_course/${courseId}`)
+.then(response=>{return response.json()})
+.then(data=>{
+    console.log(data);
+})
+ReactDOM.render(<p>Hey {courseId}</p>,root);

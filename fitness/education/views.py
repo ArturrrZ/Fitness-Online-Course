@@ -166,10 +166,9 @@ def course(request,course_id):
         return render(request,"education/404.html")
     if request.user in course.participants.all() or request.user == course.creator:
         # SUCCESS
-        print(course.participants.all())
+        # print(course.participants.all())
         return render(request,"education/course.html",{
             "course_id":course_id,
-
         })
     else:
         # user does not have this course
@@ -335,5 +334,22 @@ def single_content_comment(request,content_id):
 
             return JsonResponse({"response":"Successfully deleted"},status=200)
 
+@csrf_exempt
+def get_course(request,course_id):
+    try:
+        course=Course.objects.all().get(pk=course_id)
 
+    except ObjectDoesNotExist:
+        return JsonResponse(
+            {"error": "Object does not exist"}, status=404
+        )
+
+    serialised_course={
+        "creator": course.creator.username,
+        "creator_image_url":course.creator.picture_url,
+        "name":course.name,
+        "overview":course.overview,
+        "url_image":course.url_image,
+    }
+    return JsonResponse({"course":serialised_course,},status=200)
 
