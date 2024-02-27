@@ -26,9 +26,19 @@ nav {
     border-radius: 50%;
     border:1px black solid;
 }
-
+.left_side{
+    margin-right: 25%;
+}
 .content_list{
     background-color:red;
+    width: 25%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    border: 1px solid black;
+
+    overflow-y: auto; /* Enable scrolling if content overflows */
 }
 
 .content{

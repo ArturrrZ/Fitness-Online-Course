@@ -17,16 +17,16 @@ fetch(`/api/get_course/${courseId}`)
             overview:props.data["course"]["overview"],
             url_image:props.data["course"]["url_image"],
             // changeable part
-            video:props.data["course"]["content"][0].url_youtube,
+            video:`https://www.youtube.com/embed/${props.data.course.content[0].url_youtube}`,
             description:props.data["course"]["content"][0].description
         })
         console.log(view);
         return (
             <div className="course_view">
-
+            <div className="left_side" >
             <div className="video">
             <iframe width="420" height="345" 
-            src="https://www.youtube.com/embed/d2hZzjJUFkg">
+            src={view.video}>
             </iframe>
             </div>   
 
@@ -43,9 +43,11 @@ fetch(`/api/get_course/${courseId}`)
             <div className="video_description">
                 <p>{view.description}</p>
             </div>
+            </div>
+            
             <div className="content_list">
                 {props.data["course"]["content"].map(content=>{
-                    return(<div key={content.id}className="content">
+                    return(<div key={content.id} className="content" onClick={function(){setView({...view,description:content.description,video:`https://www.youtube.com/embed/${content.url_youtube}`})}}>
                     <h4>{content.title}</h4>
                     <img alt="content picture" src={content.url_image} />
                     </div>)
