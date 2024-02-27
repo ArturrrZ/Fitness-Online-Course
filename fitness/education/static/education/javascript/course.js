@@ -21,7 +21,42 @@ fetch(`/api/get_course/${courseId}`)
             description:props.data["course"]["content"][0].description
         })
         console.log(view);
-        return (<p>{props.data["course"]["name"]}s</p>)
+        return (
+            <div className="course_view">
+
+            <div className="video">
+            <iframe width="420" height="345" 
+            src="https://www.youtube.com/embed/d2hZzjJUFkg">
+            </iframe>
+            </div>   
+
+            <div className="course_overview">
+            {/* static */}
+                <h1>Course Overviw:</h1>
+                <p>{view.overview}</p>
+
+                <div className="creator">
+                <p>Created by {view.creator}</p>
+                <img src={view.creator_image_url} />
+                </div>
+            </div>
+            <div className="video_description">
+                <p>{view.description}</p>
+            </div>
+            <div className="content_list">
+                {props.data["course"]["content"].map(content=>{
+                    return(<div key={content.id}className="content">
+                    <h4>{content.title}</h4>
+                    <img alt="content picture" src={content.url_image} />
+                    </div>)
+                })}
+            </div>
+
+
+            
+
+            </div>
+        )
     }
     
 

@@ -19,3 +19,29 @@ nav {
 .comment{
     border: 1px black solid;
 }
+
+.creator  > img{
+    height:200px; 
+    width:200px;
+    border-radius: 50%;
+    border:1px black solid;
+}
+
+.content_list{
+    background-color:red;
+}
+
+.content{
+    border:solid 1px black;
+}
+.content:hover {
+    background-color: yellow;
+}
+
+.course_overview{
+    background-color: blue;
+}
+
+.video_description{
+    background-color: green;
+}
