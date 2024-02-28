@@ -131,6 +131,7 @@ def create_course(request):
             course.content.set(selected_content)
             return HttpResponseRedirect(reverse("index"))
     all_content = SingleContent.objects.filter(user=request.user)
+
     return render(request,"education/create_course.html",{
         "form": CourseForm(),
         "all_content":all_content
@@ -174,6 +175,42 @@ def course(request,course_id):
         # user does not have this course
         return HttpResponseRedirect(reverse("buy_course",args=(course_id,)))
 
+@csrf_exempt
+def edit_course(request,course_id):
+    try:
+        course=Course.objects.all().get(pk=course_id)
+    except ObjectDoesNotExist:
+        return (render(request,"education/404.html"))
+    if course.creator != request.user:
+        return (render(request,"education/404.html"))
+    #
+    all_content = SingleContent.objects.filter(user=request.user)
+    content_already_in_course=course.content.all()
+    print(content_already_in_course)
+    inserted_content=[]
+    for content in all_content:
+        obj={"itself":content,"is_in_course":False}
+        if content in content_already_in_course:
+            obj["is_in_course"]=True
+        inserted_content.append(obj)
+    # print(inserted_content)
+    if request.method=='POST':
+        course.name=request.POST.get("name")
+        course.url_image=request.POST.get("url_image")
+        course.price=request.POST.get("price")
+        course.category=request.POST.get("category")
+        course.overview=request.POST.get("overview")
+        course.save()
+        selected_content_ids = request.POST.getlist('content')
+        selected_content = SingleContent.objects.filter(id__in=selected_content_ids)
+        course.content.set(selected_content)
+        # print(selected_content)
+        return (HttpResponseRedirect(reverse("course",args=(course_id,))))
+    return render(request,"education/edit_course.html",{
+        "course":course,
+        "all_content":inserted_content,
+        # "condition":True,
+    })
 
 def single_content(request,content_id):
     try:
@@ -355,8 +392,13 @@ def get_course(request,course_id):
             else:
                 pass
     current_rating=3.8
+
+    is_creator=False
+    if request.user == course.creator:
+        is_creator=True
     serialised_course={
         "creator": course.creator.username,
+        "is_creator":is_creator,
         "creator_image_url":course.creator.picture_url,
         "name":course.name,
         "overview":course.overview,

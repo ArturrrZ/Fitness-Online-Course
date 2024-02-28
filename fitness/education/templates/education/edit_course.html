@@ -1,0 +1,25 @@
+{% extends 'education/layout.html' %}
+{% block title %}Edit Course{% endblock %}
+{% block body %}
+<h1>You can edit your course here!</h1>
+
+<form action="{% url 'edit_course' course.id %}" method="POST">
+    <label for="name">Name of the Course: </label>
+    <input type="text" name="name" id="name" value="{{course.name}}"/><br/>
+    <textarea name="overview" id="overview" cols="30" rows="10">{{course.overview}}</textarea>
+    <label for="url_image">URl image</label>
+    <input type="text" name="url_image" id="url_image" value="{{course.url_image}}"/><br/>
+    <label for="price">Price:</label>
+    <input type="text" name="price" id="price" value="{{course.price}}"/><br/>
+    {% for content in all_content %}
+    <input type="checkbox" name="content" value="{{ content.itself.id }}" {% if content.is_in_course %}checked{% endif %}>{{ content.itself.title }}
+    <a href="{% url 'single_content' content.itself.id %}">Link</a><br/>
+  {% endfor %}
+    <select id="category" name="category">
+        <option value="fitness">Fitness</option>
+        <option value="nutrition">Nutrition</option>
+        <option value="professional">Professional Sports</option>
+    </select>
+    <input type="submit">
+</form>
+{% endblock %}

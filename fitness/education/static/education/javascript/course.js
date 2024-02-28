@@ -32,7 +32,7 @@ fetch(`/api/get_course/${courseId}`)
             src={view.video}>
             </iframe>
             </div> 
-            <InteractivePart view={view} rating_system={view.rating_system} updateView={function(new_rating_system){setView({...view,rating_system:new_rating_system})}}/> 
+            <InteractivePart view={view} is_creator={props.data.course.is_creator} rating_system={view.rating_system} updateView={function(new_rating_system){setView({...view,rating_system:new_rating_system})}}/> 
             </div>
             
             <div className="content_list">
@@ -73,6 +73,7 @@ function InteractivePart(props){
             <span className="navigate" onClick={function(){setPart({number:1})}}>Overviw</span>
             <span className="navigate" onClick={function(){setPart({number:2})}}>Video Desription</span>
             <span className="navigate" onClick={function(){setPart({number:3})}}>Rating</span>
+            {props.is_creator&&<span className="navigate" onClick={function(){window.location.href=`/teacher/course/edit/${courseId}`}}>Edit Course</span>}
         </div>
         <div className="changeable">
             {part.number===1&&<div className="course_overview">
@@ -104,8 +105,8 @@ function RatingSystem(props){
     function handleSubmit(event){
         event.preventDefault();
         let new_rating=event.target.rating.value;
-        console.log(new_rating);
-        console.log(event.target.message.value)
+        // console.log(new_rating);
+        // console.log(event.target.message.value)
         // API post request
         fetch(`/api/get_course/${courseId}`,{
             method:"POST",
