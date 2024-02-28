@@ -212,12 +212,24 @@ def edit_course(request,course_id):
         # "condition":True,
     })
 
+@csrf_exempt
 def single_content(request,content_id):
     try:
         content=SingleContent.objects.get(pk=content_id)
     except ObjectDoesNotExist:
         return render (request,"education/404.html")
+    if content.user == request.user and content.is_free==False:
+        # print(content)
+        if request.method == 'POST':
+            form = SingleContentForm(request.POST, instance=content)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse("user",args=(request.user.username,)))
+        form = SingleContentForm(instance=content)
+
+        return render(request, "education/edit_paid_content.html", {"content": content,"form":form})
     if content.is_free == False:
+
         return render (request,"education/404.html")
     return render (request,"education/single_content.html",{"content":content})
 # ---------------------------- API REQUESTS ---------------------- #

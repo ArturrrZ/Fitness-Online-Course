@@ -1,0 +1,10 @@
+{% extends 'education/layout.html' %}
+{% block title %}Edit Paid{% endblock %}
+{% block body %}
+
+<form action="{% url 'single_content' content.id%}" method="POST">
+    {{form}}
+    <input type="submit"/>
+</form>
+
+{% endblock %}
