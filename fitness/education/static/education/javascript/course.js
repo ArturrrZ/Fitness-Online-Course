@@ -39,7 +39,7 @@ fetch(`/api/get_course/${courseId}`)
                 {props.data["course"]["content"].map(content=>{
                     return(<div key={content.id} className="content" onClick={function(){setView({...view,description:content.description,video:`https://www.youtube.com/embed/${content.url_youtube}`})}}>
                     <h4>{content.title}</h4>
-                    <img alt="content picture" src={content.url_image} />
+                    <img alt="content picture" src={content.url_image} style={{width:"200px",height:"150px"}}/>
                     </div>)
                 })}
             </div>
