@@ -7,9 +7,11 @@ fetch(`/api/get_course/${courseId}`)
 .then(response=>{return response.json()})
 .then(data=>{
     console.log(data);
-    console.log(data["course"]["content"])
+    console.log(data["course"]["content"]);
+    console.log(data["course"]["rating_system"]);
 
     function App(props){
+        var rating_system=data["course"]["rating_system"];
         const [view,setView] = useState({
             creator:props.data["course"]["creator"],
             creator_image_url:props.data["course"]["creator_image_url"],
@@ -29,7 +31,7 @@ fetch(`/api/get_course/${courseId}`)
             src={view.video}>
             </iframe>
             </div> 
-            <InteractivePart view={view}/> 
+            <InteractivePart view={view} rating_system={rating_system}/> 
             </div>
             
             <div className="content_list">
@@ -84,14 +86,15 @@ function InteractivePart(props){
                 <p>{props.view.description}</p>
             </div>}
             {part.number===3&&
-                <RatingSystem/>
+                <RatingSystem rating_system={props.rating_system}/>
             }
         </div>    
         </div>
     )
 }
 
-function RatingSystem(){
+function RatingSystem(props){
+    console.log(props.rating_system)
     const [system,setSystem]=useState({
             rating:4.5,
             ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],

@@ -7,6 +7,7 @@ category={
 }
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class User(AbstractUser):
     twitter = models.CharField(max_length=300, blank=True, null=True)
@@ -68,4 +69,9 @@ class Comment(models.Model):
     body=models.TextField(null=False)
     date=models.DateTimeField(auto_now_add=True)
 
-# INIT
+class Rating(models.Model):
+    user=models.ForeignKey("User",on_delete=models.CASCADE, related_name="ratings_left")
+    course=models.ForeignKey("Course",on_delete=models.CASCADE,related_name="ratings")
+    message=models.CharField(max_length=500,null=True,blank=True)
+    date=models.DateTimeField(auto_now_add=True)
+    rate=models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])

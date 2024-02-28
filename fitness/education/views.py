@@ -10,7 +10,7 @@ from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
-from .models import User,SingleContent, Course,Comment
+from .models import User,SingleContent, Course,Comment, Rating
 # Create your views here.
 
 def index(request):
@@ -345,6 +345,14 @@ def get_course(request,course_id):
         )
     content = list(course.content.all().order_by('title').values('title', 'description', 'url_youtube','url_image','id'))
     # print(content)
+    is_rated = False
+    if request.user in course.ratings.all():
+        is_rated = True
+    ratings=list(course.ratings.all().order_by('date').values('user__username','message','date','rate'))
+    for rating in ratings:
+        rating['date'] = rating['date'].strftime("%y/%m/%d")
+
+    current_rating=3.8
     serialised_course={
         "creator": course.creator.username,
         "creator_image_url":course.creator.picture_url,
@@ -352,6 +360,7 @@ def get_course(request,course_id):
         "overview":course.overview,
         "url_image":course.url_image,
         "content":content,
+        "rating_system": {"ratings":ratings,"rating":current_rating,"rated":is_rated,}
     }
     return JsonResponse({"course":serialised_course,},status=200)
 
