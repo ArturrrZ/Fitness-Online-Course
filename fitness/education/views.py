@@ -346,12 +346,14 @@ def get_course(request,course_id):
     content = list(course.content.all().order_by('title').values('title', 'description', 'url_youtube','url_image','id'))
     # print(content)
     is_rated = False
-    if request.user in course.ratings.all():
-        is_rated = True
-    ratings=list(course.ratings.all().order_by('date').values('user__username','message','date','rate','id'))
+    ratings=list(course.ratings.all().order_by('-date').values('user__username','message','date','rate','id'))
     for rating in ratings:
         rating['date'] = rating['date'].strftime("%y/%m/%d")
-
+        if request.user.is_authenticated:
+            if rating['user__username'] == request.user.username:
+                is_rated = True
+            else:
+                pass
     current_rating=3.8
     serialised_course={
         "creator": course.creator.username,
@@ -362,6 +364,31 @@ def get_course(request,course_id):
         "content":content,
         "rating_system": {"ratings":ratings,"rating":current_rating,"rated":is_rated,}
     }
+    if request.method=='POST':
+        data=json.loads(request.body)
+
+        new_review=Rating(user=request.user,
+                          course=course,
+                          message=data["message"],
+                          rate=data["rate"]
+                          )
+        new_review.save()
+
+        is_rated = False
+        ratings = list(course.ratings.all().order_by('-date').values('user__username', 'message', 'date', 'rate', 'id'))
+        for rating in ratings:
+            rating['date'] = rating['date'].strftime("%y/%m/%d")
+            if request.user.is_authenticated:
+                if rating['user__username'] == request.user.username:
+                    is_rated = True
+            else:
+                pass
+
+        current_rating = 3.8
+
+        return JsonResponse({
+            "new_rating_system": {"ratings":ratings,"rating":current_rating,"rated":is_rated,}
+            },status=200)
     return JsonResponse({"course":serialised_course,},status=200)
 
 

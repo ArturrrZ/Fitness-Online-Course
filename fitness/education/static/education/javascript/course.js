@@ -20,7 +20,8 @@ fetch(`/api/get_course/${courseId}`)
             url_image:props.data["course"]["url_image"],
             // changeable part
             video:`https://www.youtube.com/embed/${props.data.course.content[0].url_youtube}`,
-            description:props.data["course"]["content"][0].description
+            description:props.data["course"]["content"][0].description,
+            rating_system:rating_system,
         })
         // console.log(view);
         return (
@@ -31,7 +32,7 @@ fetch(`/api/get_course/${courseId}`)
             src={view.video}>
             </iframe>
             </div> 
-            <InteractivePart view={view} rating_system={rating_system}/> 
+            <InteractivePart view={view} rating_system={view.rating_system} updateView={function(new_rating_system){setView({...view,rating_system:new_rating_system})}}/> 
             </div>
             
             <div className="content_list">
@@ -86,7 +87,7 @@ function InteractivePart(props){
                 <p>{props.view.description}</p>
             </div>}
             {part.number===3&&
-                <RatingSystem rating_system={props.rating_system}/>
+                <RatingSystem rating_system={props.rating_system} updateView={function(new_rating_system){props.updateView(new_rating_system)}}/>
             }
         </div>    
         </div>
@@ -106,7 +107,23 @@ function RatingSystem(props){
         console.log(new_rating);
         console.log(event.target.message.value)
         // API post request
-        setSystem({...system,rated:true,})
+        fetch(`/api/get_course/${courseId}`,{
+            method:"POST",
+            body:JSON.stringify({
+                message:event.target.message.value,
+                rate:new_rating,
+            })
+        })
+        .then(response=>{return response.json()})
+        .then(data=>{
+            setSystem({...system,
+            rated:true,
+            rating:data['new_rating_system']['rating'],
+            ratings:data['new_rating_system']['ratings'],
+            })
+            props.updateView(data['new_rating_system']);
+        })
+
     }
     function getStars(rate){
         rate=Math.floor(rate);
