@@ -348,7 +348,7 @@ def get_course(request,course_id):
     is_rated = False
     if request.user in course.ratings.all():
         is_rated = True
-    ratings=list(course.ratings.all().order_by('date').values('user__username','message','date','rate'))
+    ratings=list(course.ratings.all().order_by('date').values('user__username','message','date','rate','id'))
     for rating in ratings:
         rating['date'] = rating['date'].strftime("%y/%m/%d")
 

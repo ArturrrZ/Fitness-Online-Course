@@ -6,9 +6,9 @@ const courseId=root.dataset.courseid;
 fetch(`/api/get_course/${courseId}`)
 .then(response=>{return response.json()})
 .then(data=>{
-    console.log(data);
-    console.log(data["course"]["content"]);
-    console.log(data["course"]["rating_system"]);
+    // console.log(data);
+    // console.log(data["course"]["content"]);
+    // console.log(data["course"]["rating_system"]);
 
     function App(props){
         var rating_system=data["course"]["rating_system"];
@@ -22,7 +22,7 @@ fetch(`/api/get_course/${courseId}`)
             video:`https://www.youtube.com/embed/${props.data.course.content[0].url_youtube}`,
             description:props.data["course"]["content"][0].description
         })
-        console.log(view);
+        // console.log(view);
         return (
             <div className="course_view">
             <div className="left_side" >
@@ -94,11 +94,11 @@ function InteractivePart(props){
 }
 
 function RatingSystem(props){
-    console.log(props.rating_system)
+    console.log(props.rating_system);
     const [system,setSystem]=useState({
-            rating:4.5,
-            ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],
-            rated:false,
+            rating:props.rating_system.rating,
+            ratings:props.rating_system.ratings,
+            rated:props.rating_system.rated,
     });
     function handleSubmit(event){
         event.preventDefault();
@@ -174,7 +174,7 @@ function RatingSystem(props){
             </div>}
             <div className="reviews">
             {system.ratings.map(review=>{return (
-                        <Review key={review.id} username={review.username} date={review.date} message={review.message} rate={review.rate}/>
+                        <Review key={review.id} username={review.user__username} date={review.date} message={review.message} rate={review.rate}/>
                 )})}            </div>
         </div>
     )
