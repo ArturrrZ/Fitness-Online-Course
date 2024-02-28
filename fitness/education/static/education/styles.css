@@ -2,16 +2,16 @@ body{
     /* font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; */
     /* font-family: 'Roboto', sans-serif; */
     font-family: 'Open Sans', sans-serif;
-    background-color: black;
-    color:white;
+    /* background-color: black; */
+    /* color:white; */
     /* font-family: 'Lato', sans-serif; */
     /* font-family: 'Montserrat', sans-serif; */
     /* font-family: 'Georgia', serif; */
     /* font-family: 'Arial', sans-serif; */
 }
 #body {
-background-color:#1E1E1E;
-color:white;
+/* background-color:#1E1E1E; */
+/* color:white; */
 }
 .submit {
     background-color:#CAFF33;
@@ -68,13 +68,13 @@ nav {
 .navigation{
     display:flex;
     justify-content: start;
-    background-color: black;
+    /* background-color: black; */
     /* background-color: yellow; */
     border-bottom:1px solid #CAFF33;
     margin-left: 5.3%;
 }
 .navigate{
-    background-color: #131313;
+    /* background-color: #131313; */
     border:1px solid grey;
     padding:10px;
 }
@@ -96,12 +96,12 @@ nav {
 
 
 .course_view > *{
-    background-color: black;
-    color:white;    
+    /* background-color: black; */
+    /* color:white;     */
 }
 
 .content_list{
-    background-color:black;
+    /* background-color:black; */
     width: 25%;
     height: 100vh;
     position: fixed;
