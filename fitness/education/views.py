@@ -13,6 +13,18 @@ from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm,
 from .models import User,SingleContent, Course,Comment, Rating
 # Create your views here.
 
+def getProperEndPoint(url_link):
+    # Check if the URL is a standard YouTube watch URL
+    if "youtube.com/watch?v=" in url_link:
+        video_id = url_link.split("youtube.com/watch?v=")[1].split("&")[0]
+    # Check if the URL is a short YouTube URL
+    elif "youtu.be/" in url_link:
+        video_id = url_link.split("youtu.be/")[1].split("?")[0]
+    else:
+        # If the URL format is not recognized, return None or handle it accordingly
+        video_id = "xsNkZq5YNDg"
+    return video_id
+
 def index(request):
     return render(request,"education/index.html",{
 
@@ -111,6 +123,8 @@ def create_single(request):
     if request.method=="POST":
         form=SingleContentForm(request.POST)
         if form.is_valid():
+            youtube_link=form.cleaned_data['url_youtube']
+            getProperEndPoint(youtube_link)
             form.save(user=request.user)
             return HttpResponseRedirect(reverse("index"))
     return render(request,"education/create_single.html",{
@@ -243,7 +257,6 @@ def buy_course_api(request):
 
 @csrf_exempt
 def get_person(request,user_id):
-
     try:
         person=User.objects.all().get(pk=user_id)
     except ObjectDoesNotExist:
@@ -450,3 +463,15 @@ def get_course(request,course_id):
 #             ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],
 #             rated:false,
 
+
+
+# def getProperEndPoint():
+#     # https: // www.youtube.com / watch?v = d2hZzjJUFkg & list = PLrCjq1l6RqOpsQdKrSI_8wvPz0wPKj8nN
+#     # https://www.youtube.com/watch?v=oEXZHviwAVw
+#     # https://youtu.be/dQw4w9WgXcQ?t=42s
+#     url_link="https://youtu.be/dQw4w9WgXcQ?t=42s"
+#     url_link.split("https: // www.youtube.com / watch?v")
+#     print(url_link)
+# getProperEndPoint()
+
+    # pass
