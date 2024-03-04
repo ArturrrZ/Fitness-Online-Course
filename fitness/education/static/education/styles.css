@@ -25,6 +25,8 @@ nav {
 .profile_pic {
     height:200px;
     width:200px;
+    border-radius: 50%;
+    border: 12px solid greenyellow;
 }
 
 .comment{
@@ -110,4 +112,83 @@ nav {
     border: 1px solid black;
 
     overflow-y: auto; /* Enable scrolling if content overflows */
+}
+html {
+    font-size: 16px;
+}
+.instructor {
+    color:#6a6f73;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.6rem;
+}
+.static{
+    margin-left: 15%;
+    margin-right: 15%;
+    display:grid;
+    grid-template-columns: 70% auto;
+    column-gap: 40px;
+}
+.edit {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.edit > form > input {
+    width: 100%;
+    border-radius: 10px;
+    padding: 4px;
+}
+.edit > form > textarea {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    padding: 8px;
+}
+.about{
+    text-align: left;
+    color: #000;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin-top: 0;
+    
+}
+.full_name {
+    text-align: left;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    font-weight: 800;
+    font-style: italic;
+    color:greenyellow;
+
+}
+.headline {
+    margin-top: 4px;
+    text-align: left;
+    font-size: 2.4rem;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+.left_side_profile{
+    text-align: left;
+}
+.about_me{
+    color: #6a6f73;
+    margin-bottom: 2px;
+    
+}
+
+.link {
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+}
+
+.link:hover{
+    background-color: greenyellow;
+    cursor: pointer;
+}
+.user_view{
+    margin-top: 100px;
 }

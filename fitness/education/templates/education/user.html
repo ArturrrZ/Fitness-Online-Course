@@ -1,61 +1,11 @@
 {% extends 'education/layout.html' %}
 {% block body %}
 
-<h1>{{user.username}}</h1>
-<h2>{{user.id}}</h2>
-
-{% if user.teacher == False %}
-<!--<h1>Usual profile</h1>-->
-<div style="text-align:center;">
-{{user.username}}
-<h5>Courses enrolled in:</h5>
-{% for course in user.joined_course.all %}
-{{course.name}}
-{% endfor %}
-</div>
-{% endif %}
-
-<!--not an actual teacher watches the profile-->
-{% if user.teacher and request.user != user %}
-<div style="text-align:center;">
-<h1>This user is a teacher</h1>
-
-
-
-
-
-<!--<div id="root_single_content">-->
-<!--&lt;!&ndash; React fill render some data here   &ndash;&gt;-->
-<!--</div>-->
-
-<!--<div id="root_paid_courses">-->
-<!--&lt;!&ndash; React fill render some data here   &ndash;&gt;-->
-<!--</div>-->
-
-
-<h4>All free content:</h4>
-<ul>
-    {% for content in user.get_free_content %}
-      <li>{{ content.title }}</li>
-    {% endfor %}
-  </ul>
-
-<h4>Paid Content:</h4>
-  <ul>
-    {% for content in user.get_paid_content %}
-      <li>{{ content.title }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
-</div>
-
-{% if user.teacher and request.user == user  %}
-<!--teacher watches teacher profile-->
 <div id="root" data-personid="{{user.id}}" style="text-align:center;"></div>
 <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 {% load static %}
 <script type="text/babel" src="{% static 'education/javascript/profile_teacher_view_new.js' %}" />
-{% endif %}
+
 {% endblock %}

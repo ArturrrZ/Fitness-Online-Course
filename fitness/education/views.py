@@ -268,18 +268,42 @@ def get_person(request,user_id):
         person.headline=data["new_headline"]
         person.about=data["new_about"]
         person.picture_url=data["new_picture_url"]
+        person.first_name=data["new_first_name"]
+        person.last_name=data["new_last_name"]
+        person.twitter=data["new_twitter"]
+        person.linkedin=data["new_linkedin"]
+        person.instagram=data["new_instagram"]
         person.save()
         return JsonResponse({"message":"Done!"},status=201)
     free_content = serialize('json', person.get_free_content())
     paid_content = serialize('json', person.get_paid_content())
+    teacher=False
+    student_teacher=False
+    student=False
+    if request.user == person and person.teacher==True:
+        teacher=True
+    elif request.user != person and person.teacher==True:
+        student_teacher=True
+    else:
+        student=True
     person_object={
         "headline": person.headline,
         "about":person.about,
         "free_content": free_content,
         "paid_content":paid_content,
-        "picture":person.picture_url
+        "picture":person.picture_url,
+        "full_name": person.get_full_name(),
+        "first_name": person.first_name,
+        "last_name":person.last_name,
+        "twitter":person.twitter,
+        "linkedin":person.linkedin,
+        "instagram":person.instagram,
+        "teacher":teacher,
+        "student_teacher":student_teacher,
+        "student":student,
 
     }
+    print(person.get_full_name())
     return JsonResponse(
         {"person":person_object},status=200
     )
