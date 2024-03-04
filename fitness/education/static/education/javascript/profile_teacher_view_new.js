@@ -48,7 +48,8 @@ function Profile(props){
 
   return(
     
-    <div className="user_view">
+    <div className="teacher_view">
+    {/* person info */}
     {props.teacher&&<div>
     {profile.static?
     <div className="static">
@@ -74,8 +75,11 @@ function Profile(props){
 </svg>   Instagram</button></a>}<br/>
     
     <button className="link"onClick={function(){setProfile({...profile,static:false})}}>Edit Teacher Profile</button>
+    <button className="link" onClick={function(){window.location.href="/teacher/create_single"}}>Create Single Content</button>  
+    <button className="link" onClick={function(){window.location.href="/teacher/create_course"}}>Create Course</button>  
 
     </div>
+
       
       
     </div>:
@@ -129,11 +133,45 @@ function Profile(props){
       
     </div>
     </div>}
-    {props.student&&<div>STUDENT</div>}
+      {/* content */}
+    <div className="user_content">
+    <div className="free_content">
+    <div className="head_content">Free Content</div>
+    <div className="grid_content">
+      {props.freeContentArray.map(content=>{return(
+        <div key={content.pk} className="course" onClick={function(){window.location.href=`/single_content/${content.pk}`}}>
+                  <img src={content.fields.url_image}/>
+                  <div className="course_info">
+                  <h5 className="course_name">{content.fields.title}</h5>
+                  <div className="course_creator">{profile.first_name} {profile.last_name}</div>
+                  <div className="course_bottom"><div className="course_price">FREE</div> <div className="course_custom">{props.teacher?<a href={`/single_content/${content.pk}`} className="custom_edit">edit</a>:<div>{content.fields.category}</div>}</div> </div>
+                  </div>
+                </div>)})}</div>
+                </div>
+
+    <div className="paid_content">
+    <div className="head_content">Paid Content</div>
+    <div className="grid_content">
+    {props.created_courses.map(content=>{return(
+      <div key={content.id} className="course" onClick={function(){window.location.href=`/course/${content.id}`}}>
+                  <img src={content.url_image}/>
+                  <div className="course_info">
+                  <h5 className="course_name">{content.name}</h5>
+                  <div className="course_creator">{profile.first_name} {profile.last_name}</div>
+                  <div className="course_bottom"><div className="course_price">${content.price}</div> <div className="course_custom">{props.teacher?<a href={`/teacher/course/edit/${content.id}`} className="custom_edit">edit</a>:<div>{content.category}</div>}</div> </div>
+                  </div>
+                </div>
+    )})}</div>  </div>  
+
+    </div>
+        
+    
     </div>
     
   )
 }
+
+
 const root=document.querySelector("#root");
 var personId=root.dataset.personid;
 fetch(`/api/get_person/${personId}`,{
@@ -145,24 +183,33 @@ fetch(`/api/get_person/${personId}`,{
 .then(data=>{
   var freeContentArray = JSON.parse(data.person.free_content)
   var paidContentArray=JSON.parse(data.person.paid_content);
+  console.log(freeContentArray);
+  console.log(paidContentArray);
   var person=data.person;
   console.log(person);
 //   we've got a USER PAGE!!!
   ReactDOM.render(<div>
-  <Profile instagram={person.instagram} teacher={person.teacher} student_teacher={person.student_teacher} student={person.student} linkedin={person.linkedin} twitter={person.twitter} first_name={person.first_name} last_name={person.last_name} headline={person.headline} about={person.about} picture={person.picture} className="dinamicProfile"/>
-    {freeContentArray.map(content=>{return (<h4 key={content.pk}>{content.fields.title}</h4>)})}
-    <ul>
-        {paidContentArray.map(content=>{
-            return (
+  {person.student?
+  <div className="student_view">
+              <div className="person_username">{person.username}</div>
+              <div className="courses_enrolled">Courses that <i>{person.username}</i> is enrolled in</div>
+              <div className="course_zone">
+              {/* courses */}
+              <div className="grid_content">
+              {person.joined_courses.map(course=>{return (
                 
-                <li key={content.pk}>
-                
-                <h3 >{content.fields.title}</h3>
-                <p>{content.fields.description}</p>
-                </li>    
-            )
-        })}
-    </ul>
+                <div key={course.id} className="course" onClick={function(){window.location.href=`/course/${course.course__id}`}}>
+                  <img src={course.course__url_image}/>
+                  <div className="course_info">
+                  <h5 className="course_name">{course.course__name}</h5>
+                  <div className="course_creator">{course.course__creator__username}</div>
+                  <div className="course_bottom"><div className="course_price">${course.course__price}</div> <div className="course_custom">since {course.date}</div> </div>
+                  </div>
+                </div>)})}</div></div>
+        </div>
+  :
+  <Profile freeContentArray={freeContentArray} created_courses={person.created_courses} instagram={person.instagram} teacher={person.teacher} student_teacher={person.student_teacher} linkedin={person.linkedin} twitter={person.twitter} first_name={person.first_name} last_name={person.last_name} headline={person.headline} about={person.about} picture={person.picture} className="dinamicProfile"/>
+}  
 </div>,root)
 
 })

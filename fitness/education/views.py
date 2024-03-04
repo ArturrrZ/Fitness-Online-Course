@@ -277,6 +277,7 @@ def get_person(request,user_id):
         return JsonResponse({"message":"Done!"},status=201)
     free_content = serialize('json', person.get_free_content())
     paid_content = serialize('json', person.get_paid_content())
+    print(paid_content)
     teacher=False
     student_teacher=False
     student=False
@@ -286,6 +287,11 @@ def get_person(request,user_id):
         student_teacher=True
     else:
         student=True
+    joined_courses=list(person.joined_courses.all().values("date","course__name","course__creator__username","course__url_image","course__price","id","course__id"))
+    for course in joined_courses:
+        course["date"]=course["date"].strftime("%m/%d/%y")
+    created_courses=list(person.created_courses.all().values("name","url_image","price","id","category"))
+    # print(joined_courses)
     person_object={
         "headline": person.headline,
         "about":person.about,
@@ -301,9 +307,12 @@ def get_person(request,user_id):
         "teacher":teacher,
         "student_teacher":student_teacher,
         "student":student,
+        "joined_courses": joined_courses,
+        "username":person.username,
+        "created_courses":created_courses,
 
     }
-    print(person.get_full_name())
+    # print(person.get_full_name())
     return JsonResponse(
         {"person":person_object},status=200
     )
@@ -342,7 +351,7 @@ def get_single_content(request,content_id):
     # comments=serialize("json",content.comments.all())
     comments = list(content.comments.all().order_by('-date').values('body', 'date', 'user__username','id'))
     for comment in comments:
-        comment['date'] = comment['date'].strftime("%y/%m/%d at %H:%M")
+        comment['date'] = comment['date'].strftime("%m/%d/%y at %H:%M")
         comment["is_creator"]=False
         if request.user.is_authenticated:
 
@@ -385,7 +394,7 @@ def single_content_comment(request,content_id):
         new_comment.save()
         new_list_comments = list(content.comments.all().order_by('-date').values('body', 'date', 'user__username', 'id'))
         for comment in new_list_comments:
-            comment['date'] = comment['date'].strftime("%y/%m/%d at %H:%M")
+            comment['date'] = comment['date'].strftime("%%m/%d/%y at %H:%M")
             comment["is_creator"] = False
             if request.user.is_authenticated:
 
@@ -434,7 +443,7 @@ def get_course(request,course_id):
     is_rated = False
     ratings=list(course.ratings.all().order_by('-date').values('user__username','message','date','rate','id'))
     for rating in ratings:
-        rating['date'] = rating['date'].strftime("%y/%m/%d")
+        rating['date'] = rating['date'].strftime("%m/%d/%y")
         if request.user.is_authenticated:
             if rating['user__username'] == request.user.username:
                 is_rated = True
@@ -468,7 +477,7 @@ def get_course(request,course_id):
         is_rated = False
         ratings = list(course.ratings.all().order_by('-date').values('user__username', 'message', 'date', 'rate', 'id'))
         for rating in ratings:
-            rating['date'] = rating['date'].strftime("%y/%m/%d")
+            rating['date'] = rating['date'].strftime("%m/%d/%y")
             if request.user.is_authenticated:
                 if rating['user__username'] == request.user.username:
                     is_rated = True

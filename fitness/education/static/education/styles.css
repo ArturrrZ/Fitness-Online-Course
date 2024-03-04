@@ -189,6 +189,85 @@ html {
     background-color: greenyellow;
     cursor: pointer;
 }
-.user_view{
+.teacher_view{
     margin-top: 100px;
+}
+.course{
+    border: 1px solid black;
+    width: 250px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.course > img {
+    width: 250px;
+    height: 187.5px;
+    border-radius: 9px 9px 0px 0px;
+}
+.course_name{
+    margin:  6px 0px;
+}
+.course_creator{
+    font-size: 13px;
+    color: #6a6f73;
+    margin: 0;
+}
+.course_info{
+    text-align: left;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.course_bottom {
+    margin: 6px 0px;
+    display:flex;
+    justify-content: space-between;
+}
+.course_price {
+    display:inline-block;
+    font-weight: 700;
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+}
+.course_custom {
+    display:inline-block;
+    color: #6a6f73;
+    font-size: 13px;
+}
+.person_username {
+    background-color: #CAFF33;
+    text-align: left;
+    height: 3rem;
+    font-size: 2rem;
+    padding: 50px 16%;
+    margin: 20px -10px;
+}
+.courses_enrolled{
+    margin:25px 0px 100px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.course_zone {
+    padding: 0% 15%;
+}
+
+.user_content {
+    margin: 2% 15%;
+}
+.head_content {
+    color:#CAFF33;
+    text-align: left;
+    margin-bottom: 5%;
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-style: italic;
+    color:greenyellow;
+}
+.paid_content{
+    margin-top: 5%;
+}
+
+.grid_content{
+    display:grid;
+    grid-template-columns: auto auto auto auto;
 }
