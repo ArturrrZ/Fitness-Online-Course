@@ -174,16 +174,19 @@ function Comment(props){
     return(
         <div className="comment" id={view.idd}>
             {view.is_editing?<div className="editing">
-                <form onSubmit={handleSubmit}>
-                    <textarea onChange={handleChange} value={view.body} name="body"></textarea>
+                <form onSubmit={handleSubmit} className="edit_comment_form">
+                    <textarea onChange={handleChange} value={view.body} name="body"></textarea><br/>
                     <input type="submit" disabled={view.body.length === 0}/>
                 </form>
             </div>
             :
-            <div className="static">
-            <strong>{view.username}</strong> on <span>{view.date}</span>
+            <div className="static_comment">
+            <div className="comment_pic">{view.username[0].toUpperCase()}</div>
+            <span className="comment_username">{view.username}</span> <span className="comment_date">{view.date} 
+            {view.creator&&<span className="edit_comment"><a href="#" onClick={handleEdit}>  edit</a> <a href="#" className="delete_comment" onClick={handleDelete}>del</a></span>}
+
+            </span>
             <p>{view.body}</p>
-            {view.creator&&<div className="edit"><a href="#" onClick={handleEdit}>edit</a> <a href="#" onClick={handleDelete}>delete</a></div>}
             </div>}
             
         </div>
@@ -277,7 +280,7 @@ function ContentCreator (props){
             
             </div>
             <div className="content_headline">
-
+            <p>Description:</p>
             {props.description}</div> 
         </div>
     )
