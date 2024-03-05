@@ -369,7 +369,9 @@ def get_single_content(request,content_id):
     return JsonResponse({
         "is_teacher":is_teacher,
         "content":serialized_content,
-        "creator": {"username":content.user.username,"picture_url":content.user.picture_url,}
+        "creator": {"username":content.user.username,"picture_url":content.user.picture_url,
+                    "first_name":content.user.first_name,"last_name":content.user.last_name,
+                    }
     },status=200,safe=False)
 
 @csrf_exempt

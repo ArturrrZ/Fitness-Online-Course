@@ -6,6 +6,7 @@ console.log(`Content id:${contentId}`);
 fetch(`/api/get_single_content/${contentId}`)
 .then(response=>{return response.json()})
 .then(data=>{
+    console.log(data);
     var content=data["content"];
     var is_teacher=data['is_teacher'];
     // console.log(content.url_youtube);
@@ -16,10 +17,11 @@ fetch(`/api/get_single_content/${contentId}`)
     // render
     ReactDOM.render(
 
-    <div>
+    <div className="single_content_view">
     {is_teacher?
     <div>
     <TeacherView content={content}/>
+    <ContentCreator/>
     <CommentSection comments={content.comments}/>  
     </div>
     :
@@ -45,7 +47,7 @@ function StudentView(props){
     var video_endpoint=props.content.url_youtube.split('=');
     let main_part=video_endpoint[video_endpoint.length-1]
     let final_url="https://www.youtube.com/embed/"+main_part;
-    return (<div>
+    return (<div >
     <h1>{props.content.title}</h1>
     <h2>{props.content.description}</h2>
     <iframe width="420" height="315"
@@ -260,3 +262,10 @@ function TeacherView(props){
     )
 }
 
+
+
+function ContentCreator (){
+    return (
+        <div className="content_creator">USERNAME</div>
+    )
+}

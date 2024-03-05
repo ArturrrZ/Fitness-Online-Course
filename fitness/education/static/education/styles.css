@@ -352,6 +352,9 @@ input[type='checkbox']:checked {
 }
 iframe {
     border:3px solid #CAFF33;
-    border-radius: 25px;
-    
+    border-radius: 25px;   
+}
+.single_content_view {
+    margin-left: 15%;
+    margin-right: 15%;
 }
