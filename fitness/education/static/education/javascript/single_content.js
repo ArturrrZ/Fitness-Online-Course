@@ -236,7 +236,7 @@ function TeacherView(props){
     <p>Your profile</p>    
     <h1>{view.title}</h1>
     <h2>{view.description}</h2>
-    <iframe width="420" height="315"
+    <iframe width="1024" height="600"
     // src={props.content.url_youtube}
     src={view.url_youtube}>
     </iframe>
@@ -255,7 +255,7 @@ function TeacherView(props){
     </form>
 </div>}
 
-
+        
     </div>
     )
 }

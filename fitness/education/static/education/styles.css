@@ -133,23 +133,36 @@ html {
     margin-left: 25%;
     margin-right: 25%;
 }
+.edit > form > label {
+    font-size: 1.2rem;
+
+}
 .edit > form > input {
     width: 100%;
-    border-radius: 10px;
-    padding: 4px;
+    border-radius: 0px;
+    padding: 8px;
 }
 .edit > form > textarea {
     width: 100%;
     height: 300px;
-    border-radius: 10px;
+    border-radius: 0px;
     padding: 8px;
+}
+.edit > form > input[type="submit"] {
+    background-color: #CAFF33;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    /* width:100%; */
 }
 .about{
     text-align: left;
     color: #000;
-    font-size: 1.3rem;
-    line-height: 1.3;
+    font-size: 1.1rem;
+    line-height: 1.2;
     margin-top: 0;
+    /* font-weight: 50; */
     
 }
 .full_name {
@@ -166,14 +179,21 @@ html {
     text-align: left;
     font-size: 2.4rem;
     font-family: 'Times New Roman', Times, serif;
-
+    /* background-color: #CAFF33;
+    /* height: 60px; */
+    /* padding: 16px; */
+    /* border-radius: 8px; */ */
 }
 .left_side_profile{
     text-align: left;
 }
 .about_me{
-    color: #6a6f73;
-    margin-bottom: 2px;
+    /* color: #6a6f73; */
+    margin-bottom: 16px;
+    /* background-color: #CAFF33;
+    height: 20px;
+    border-radius: 8px;
+    padding: 16px; */
     
 }
 
@@ -270,4 +290,68 @@ html {
 .grid_content{
     display:grid;
     grid-template-columns: auto auto auto auto;
+}
+
+
+.single_form {
+    /* font-family: cursive; */
+    display: grid;
+    grid-template-columns: auto; /* Adjust column widths based on your preference */
+    gap: 10px;
+    max-width: 60%; /* Adjust the maximum width as needed */
+    margin: auto;
+}
+
+.single_form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.single_form label {
+    margin-bottom: 5px;
+}
+
+.single_form input,
+.single_form textarea,
+.single_form select {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+/* .single_form select {
+    width: 100px;
+} */
+.single_form input[type="checkbox"] {
+    margin-bottom: 0;
+    /* width: 100px; */
+}
+input[type='checkbox'] {
+    /* -webkit-appearance:none; */
+    width:30px;
+    height:30px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+input[type='checkbox']:checked {
+    background: black;
+}
+
+.single_form input[type="submit"] {
+    background-color: #CAFF33;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+
+}
+
+.single_title {
+    text-align: center;
+}
+iframe {
+    border:3px solid #CAFF33;
+    border-radius: 25px;
+    
 }

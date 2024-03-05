@@ -1,9 +1,9 @@
 {% extends 'education/layout.html' %}
 
 {% block body %}
-<h1>Create single content below:</h1>
+<h1 class="single_title">Create single content below:</h1>
 
-<form action="{% url 'create_single' %}" method="POST">
+<form action="{% url 'create_single' %}" method="POST" class="single_form">
     {% csrf_token %}
     {{form}}
     <input type="submit">
