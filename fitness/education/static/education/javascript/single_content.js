@@ -21,7 +21,7 @@ fetch(`/api/get_single_content/${contentId}`)
     {is_teacher?
     <div>
     <TeacherView content={content}/>
-    <ContentCreator/>
+    <ContentCreator creator={creator} description={content.description}/>
     <CommentSection comments={content.comments}/>  
     </div>
     :
@@ -102,12 +102,13 @@ function CommentSection(props){
     return (
         
         <div>
-            Comments Below:
-            <form onSubmit={handleSubmit}>
+            
+            <form onSubmit={handleSubmit} className="comment_form">
                 <input type="text" name="comment" value={section.comment} onChange={handleChange}/>
-                
+                <br/>
                 <input type="submit" disabled={section.comment.length === 0} />
             </form>
+            <div className="comments_below">Comments Below:</div>
             {section.comments.map(comment => (
     <Comment key={comment.id} idd={comment.id} username={comment.user__username} body={comment.body} date={comment.date} creator={comment.is_creator} />
 ))}
@@ -234,14 +235,15 @@ function TeacherView(props){
         <div className="teacher_view">
     {view.static?
     <div className="static_view">
-    <button onClick={function(){setView({...view,static:false})}}>Edit Content</button>
-    <p>Your profile</p>    
+    {/* <p>Your profile</p>    
     <h1>{view.title}</h1>
-    <h2>{view.description}</h2>
+    <h2>{view.description}</h2> */}
     <iframe width="1024" height="600"
     // src={props.content.url_youtube}
     src={view.url_youtube}>
     </iframe>
+    {/* <button onClick={function(){setView({...view,static:false})}}>Edit Content</button> */}
+
     </div>
 :<div className="edit_view">
     <form onSubmit={handleSubmit}>
@@ -264,8 +266,19 @@ function TeacherView(props){
 
 
 
-function ContentCreator (){
+function ContentCreator (props){
+    
     return (
-        <div className="content_creator">USERNAME</div>
+        <div className="content_creator">
+            <div className="content_left_side">
+            
+            <img src={props.creator.picture_url} className="content_creator_img" />
+            <div className="content_name">{props.creator.first_name} {props.creator.last_name}</div>
+            
+            </div>
+            <div className="content_headline">
+
+            {props.description}</div> 
+        </div>
     )
 }

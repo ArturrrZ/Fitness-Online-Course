@@ -251,7 +251,7 @@ def single_content(request,content_id):
 def buy_course_api(request):
     if request.method=='POST':
         data=json.loads(request.body)
-        print(data['answer'])
+        # print(data['answer'])
         return JsonResponse({"result":True})
 
 
@@ -277,7 +277,7 @@ def get_person(request,user_id):
         return JsonResponse({"message":"Done!"},status=201)
     free_content = serialize('json', person.get_free_content())
     paid_content = serialize('json', person.get_paid_content())
-    print(paid_content)
+    # print(paid_content)
     teacher=False
     student_teacher=False
     student=False
@@ -359,7 +359,7 @@ def get_single_content(request,content_id):
                 comment["is_creator"]=True
 
 
-    print(comments)
+    # print(comments)
     serialized_content={"title":content.title,
                         "description":content.description,
                         "url_youtube":content.url_youtube,
@@ -371,6 +371,7 @@ def get_single_content(request,content_id):
         "content":serialized_content,
         "creator": {"username":content.user.username,"picture_url":content.user.picture_url,
                     "first_name":content.user.first_name,"last_name":content.user.last_name,
+                    "headline":content.user.headline,
                     }
     },status=200,safe=False)
 
