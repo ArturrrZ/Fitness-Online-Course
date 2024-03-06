@@ -177,6 +177,7 @@ html {
     text-align: left;
     font-size: 2.4rem;
     font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
     /* background-color: #CAFF33;
     /* height: 60px; */
     /* padding: 16px; */
@@ -456,4 +457,37 @@ iframe {
 .edit_comment_form > textarea {
     width: 100%;
     height: 50px;
+}
+
+.create_teacher{
+    /* margin-left: 15%;
+    margin-right: 15%; */
+    text-align: center;
+}
+
+.create_teacher_form{
+    display: grid;
+    grid-template-columns: auto;
+    max-width: 60%;
+    margin: auto;
+}
+.create_teacher_form > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.create_teacher_form > div > label {
+    font-size: 16px;
+    text-align: left;
+}
+.create_teacher_form > div > input[type="text"] {height: 30px;}
+.create_teacher_form > div > input[type="url"] {height: 30px;}
+
+.create_teacher_form > input[type="submit"] {
+    background-color: #CAFF33;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+
 }

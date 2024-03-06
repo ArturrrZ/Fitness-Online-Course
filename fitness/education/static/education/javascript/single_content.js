@@ -27,6 +27,7 @@ fetch(`/api/get_single_content/${contentId}`)
     :
     <div>
     <StudentView content={content} creator={creator}/> 
+    <ContentCreator creator={creator} description={content.description}/>
     <CommentSection comments={content.comments}/>  
     </div>
     }
@@ -48,15 +49,11 @@ function StudentView(props){
     let main_part=video_endpoint[video_endpoint.length-1]
     let final_url="https://www.youtube.com/embed/"+main_part;
     return (<div >
-    <h1>{props.content.title}</h1>
-    <h2>{props.content.description}</h2>
-    <iframe width="420" height="315"
+    
+    <iframe width="1024" height="600"
     // src={props.content.url_youtube}
     src={final_url}>
 </iframe>
-<p>Created by {props.creator.username}</p>
-<img src={props.creator.picture_url} height="200px" />
-
     </div>)
 }
 
@@ -245,11 +242,11 @@ function TeacherView(props){
     // src={props.content.url_youtube}
     src={view.url_youtube}>
     </iframe>
-    {/* <button onClick={function(){setView({...view,static:false})}}>Edit Content</button> */}
+    <button onClick={function(){setView({...view,static:false})}}>Edit Content</button>
 
     </div>
 :<div className="edit_view">
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="create_teacher_form">
         <label>Title: </label>
         <input name="title" value={view.title} onChange={handleChange} /><br/>
         <label>Description: </label>

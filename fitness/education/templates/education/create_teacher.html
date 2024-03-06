@@ -1,12 +1,14 @@
 {% extends 'education/layout.html' %}
 
 {% block body %}
+<div class="create_teacher">
 <h1>Create your teacher profile</h1>
 <h2>Fill all input below:</h2>
-<form action="{% url 'create_teacher' %}" method="POST">
+<form action="{% url 'create_teacher' %}" method="POST" class="create_teacher_form">
     {% csrf_token %}
     {{form}}
     <input type="submit">
 </form>
+</div>
 {% endblock %}
 
