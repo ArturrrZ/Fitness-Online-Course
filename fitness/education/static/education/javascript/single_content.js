@@ -178,7 +178,7 @@ function Comment(props){
             </div>
             :
             <div className="static_comment">
-            <div className="comment_pic">{view.username[0].toUpperCase()}</div>
+            <div className="comment_pic"><span className="pic_letter">{view.username[0].toUpperCase()}</span></div>
             <span className="comment_username">{view.username}</span> <span className="comment_date">{view.date} 
             {view.creator&&<span className="edit_comment"><a href="#" onClick={handleEdit}>  edit</a> <a href="#" className="delete_comment" onClick={handleDelete}>del</a></span>}
 

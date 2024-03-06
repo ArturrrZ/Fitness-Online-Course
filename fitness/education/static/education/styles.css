@@ -426,12 +426,15 @@ iframe {
 }
 .comment_pic{
     background-color: #CAFF33;
-    padding: 12px;
+    /* padding: 12px; */
     border-radius: 50%;
-    width: 12px;
+    width: 32px;
+    height: 32px;
     font-size: 14px;
     float: left;
     margin-right: 20px;
+    padding-left: 11px;
+    padding-top: 5px;
 }
 .comments_below{
     text-align: left;
@@ -489,3 +492,4 @@ iframe {
     font-size: 1.2rem;
 
 }
+.free_content {margin-bottom: 40px;}

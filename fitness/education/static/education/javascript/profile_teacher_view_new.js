@@ -52,13 +52,13 @@ function Profile(props){
     {/* person info */}
     {props.teacher&&<div>
     {profile.static?
-    <div className="static">
+    <div className="static ">
     <div className="left_side_profile">
     <div className="instructor">INSTRUCTOR</div>
     <h3 className="full_name">{profile.first_name} {profile.last_name}</h3>
     <h1 className="headline">{profile.headline}</h1>
     <h4 className="about_me">About me</h4>
-    <p className="about">{profile.about}</p>
+    <p className="about ">{profile.about}</p>
 
     </div>
     
@@ -81,7 +81,7 @@ function Profile(props){
     </div>
 
       
-      
+    <hr/>  
     </div>:
     <div className="edit">
     <h1>Edit View</h1> 
@@ -130,12 +130,13 @@ function Profile(props){
 
     </div>
       
-      
+    <hr/>  
     </div>
+    
     </div>}
       {/* content */}
     <div className="user_content">
-    <div className="free_content">
+    <div className="free_content ">
     <div className="head_content">Free Content</div>
     <div className="grid_content">
       {props.freeContentArray.map(content=>{return(
@@ -148,8 +149,8 @@ function Profile(props){
                   </div>
                 </div>)})}</div>
                 </div>
-
-    <div className="paid_content">
+                <hr/>    
+    <div className="paid_content ">
     <div className="head_content">Paid Content</div>
     <div className="grid_content">
     {props.created_courses.map(content=>{return(
