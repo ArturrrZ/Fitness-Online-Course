@@ -247,6 +247,35 @@ def single_content(request,content_id):
         return render (request,"education/404.html")
     return render (request,"education/single_content.html",{"content":content})
 # ---------------------------- API REQUESTS ---------------------- #
+
+@csrf_exempt
+def get_index(request):
+    all={
+        "courses": list(Course.objects.all().values("name","url_image","creator__first_name","creator__last_name","price","id")),
+        "free_content": list(SingleContent.objects.all().filter(is_free=True).values("title","url_image","user__first_name","user__last_name","id"))
+    }
+    fitness={
+        "courses":list(Course.objects.all().filter(category="fitness").values("name","url_image","creator__first_name","creator__last_name","price","id")),
+        "free_content":list(SingleContent.objects.all().filter(category="fitness").filter(is_free=True).values("title","url_image","user__first_name","user__last_name","id"))
+    }
+    nutrition = {
+        "courses": list(
+            Course.objects.all().filter(category="nutrition").values("name", "url_image", "creator__first_name","creator__last_name", "price", "id")),
+        "free_content": list(
+            SingleContent.objects.all().filter(category="nutrition").filter(is_free=True).values("title", "url_image","user__first_name","user__last_name", "id"))
+    }
+    professional = {
+        "courses": list(
+            Course.objects.all().filter(category="professional").values("name", "url_image", "creator__first_name","creator__last_name", "price", "id")),
+        "free_content": list(
+            SingleContent.objects.all().filter(category="professional").filter(is_free=True).values("title", "url_image","user__first_name","user__last_name","id"))
+    }
+    return JsonResponse({
+        "all":all,
+        "fitness":fitness,
+        "nutrition":nutrition,
+        "professional":professional,
+    })
 @csrf_exempt
 def buy_course_api(request):
     if request.method=='POST':
