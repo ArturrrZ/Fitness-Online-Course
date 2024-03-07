@@ -1,3 +1,10 @@
+hr{
+    height: 4px;
+    /* background-color: #ccc; */
+    background-color: #CAFF33;
+    color: #CAFF33;
+    border: none;
+}
 body{
     /* font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; */
     /* font-family: 'Roboto', sans-serif; */
@@ -216,7 +223,7 @@ html {
     border-radius: 10px;
 }
 .course > img {
-    width: 250px;
+    width: 249px;
     height: 187.5px;
     border-radius: 9px 9px 0px 0px;
 }
@@ -237,6 +244,7 @@ html {
     margin: 6px 0px;
     display:flex;
     justify-content: space-between;
+
 }
 .course_price {
     display:inline-block;
@@ -492,4 +500,44 @@ iframe {
     font-size: 1.2rem;
 
 }
-.free_content {margin-bottom: 40px;}
+
+
+.index_app{
+    margin: 0% 15% 0% 15%;
+}
+
+.category_name {
+    color:#CAFF33;
+    text-align: left;
+    margin-bottom: 5%;
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-style: italic;
+    color:greenyellow;
+}
+.courses{display: flex;gap: 20px;}
+
+.top_part{
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 100px;
+    margin-bottom: 200px;
+    /* margin-left: 8%; */
+    margin-right: 8%;
+    margin-top: 70px;
+}
+.top_part > img{
+    height: 300px;
+    width: 400px;
+    border-radius: 50px;
+}
+.top_part > div > h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    
+}
+.top_part > div > p {
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+

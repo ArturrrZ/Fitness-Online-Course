@@ -251,8 +251,8 @@ def single_content(request,content_id):
 @csrf_exempt
 def get_index(request):
     all={
-        "courses": list(Course.objects.all().values("name","url_image","creator__first_name","creator__last_name","price","id")),
-        "free_content": list(SingleContent.objects.all().filter(is_free=True).values("title","url_image","user__first_name","user__last_name","id"))
+        "courses": list(Course.objects.all().values("name","url_image","creator__first_name","creator__last_name","price","id","category")),
+        "free_content": list(SingleContent.objects.all().filter(is_free=True).values("title","url_image","user__first_name","user__last_name","id","category"))
     }
     fitness={
         "courses":list(Course.objects.all().filter(category="fitness").values("name","url_image","creator__first_name","creator__last_name","price","id")),
