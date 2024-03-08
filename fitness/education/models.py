@@ -62,7 +62,7 @@ class Participation(models.Model):
     course = models.ForeignKey("Course", on_delete=models.CASCADE, related_name="participants_details")
     date=models.DateTimeField(auto_now_add=True)
     reason=models.TextField(blank=True,null=True)
-
+    is_completed=models.BooleanField(default=False)
 class Comment(models.Model):
     user=models.ForeignKey("User", on_delete=models.CASCADE, related_name="comments_left")
     single_content=models.ForeignKey("SingleContent",on_delete=models.CASCADE, related_name="comments")

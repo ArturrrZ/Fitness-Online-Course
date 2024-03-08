@@ -677,3 +677,28 @@ iframe {
     left: 0;
     background-color: #CAFF33;
 }
+.is_completed_section{
+    border: #000 1px solid;
+    border-radius: 5px;
+    padding: 2px 1px;
+    position: relative;
+}
+.is_completed_section:hover{background-color: aqua;}
+
+.is_completed_section:hover::after {
+    content: "Mark completed/uncompleted";
+    position: absolute;
+    top: 35px; /* Adjust the distance from the cursor */
+    left: 50%; /* Position it relative to the parent */
+    transform: translateX(-50%);
+    background-color: #333; /* Tooltip background color */
+    color: white; /* Tooltip text color */
+    padding: 5px; /* Add some padding for better visibility */
+    border-radius: 3px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    font-size: 0.7rem;
+}
+
+.is_completed_text {
+    font-size: 0.7rem;
+}

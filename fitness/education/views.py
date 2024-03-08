@@ -253,7 +253,9 @@ def my_learning(request):
 # ---------------------------- API REQUESTS ---------------------- #
 @csrf_exempt
 def my_learning_api(request):
-    joined_courses=list(request.user.joined_courses.all().values("date","course__name","course__creator__first_name","course__creator__last_name","course__url_image","course__price","id","course__id"))
+    joined_courses=list(request.user.joined_courses.all().values("date","is_completed","course__name","course__creator__first_name","course__creator__last_name","course__url_image","course__price","id","course__id"))
+    for course in joined_courses:
+        course["date"]=course["date"].strftime("%m/%d/%y")
     return JsonResponse({
         "user_id":request.user.id,
         "username":request.user.username,
