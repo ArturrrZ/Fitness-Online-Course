@@ -28,7 +28,7 @@ fetch(`/api/get_course/${courseId}`)
             <div className="course_view">
             <div className="left_side" >
             <div className="video">
-            <iframe width="1000" height="500" 
+            <iframe width="800" height="500" 
             src={view.video}>
             </iframe>
             </div> 
@@ -69,6 +69,7 @@ fetch(`/api/get_course/${courseId}`)
 })
 
 function InteractivePart(props){
+    console.log(props.view);
     const [part,setPart]=useState({number:1});
     return(
         <div className="interactive_part">
@@ -88,6 +89,7 @@ function InteractivePart(props){
                 <img src={props.view.creator_image_url} />
             </div></div>}
             {part.number===2&&<div className="video_description">
+                <h1>Video Description:</h1>            
                 <p>{props.view.description}</p>
             </div>}
             {part.number===3&&
@@ -180,13 +182,13 @@ function RatingSystem(props){
     return (
         <div className="rating_system">
             <div className="current_rating">
-                Current rating: {system.rating}
-                {getStars(system.rating)}
+                Current rating: 
+                {getStars(system.rating)}{system.rating}
             </div>
-            {system.rated?<div>You've rated</div>:
-            <div>
-            Review:
-            <form onSubmit={handleSubmit}>
+            {system.rated?<div className="you_rated">You've rated</div>:
+            <div className="leave_rating_section">
+            <div className="review">Review:</div>
+            <form className="rating_form" onSubmit={handleSubmit}>
             <label htmlFor="rating">Rating: </label>
             <input type="number" id="rating" name="rating" min="0" max="5" /><br/>
             <textarea id="message" name="message" placeholder="Type anything"></textarea>
@@ -252,11 +254,10 @@ function Review(props){
     }
     return(
         <div className="review">
-                <h4>{props.username} on {props.date}</h4>
+                <div className="comment_pic"> {props.username[0].toUpperCase()}</div>
+                <h5>{props.username}</h5>
+                <div className="stars">{getStars(props.rate)}<div className="review_date">{props.date}</div></div> 
                 <p>{props.message}</p>
-                <p>Rating: {props.rate}</p>
-                {getStars(props.rate)}    
-
         </div>
     )
 }

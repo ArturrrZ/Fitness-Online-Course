@@ -1,9 +1,9 @@
 {% extends 'education/layout.html' %}
 {% block title %}Edit Course{% endblock %}
 {% block body %}
-<h1>You can edit your course here!</h1>
+<h1 class="edit_h1">You can edit your course here!</h1>
 
-<form action="{% url 'edit_course' course.id %}" method="POST">
+<form action="{% url 'edit_course' course.id %}" method="POST" class="edit_form">
     <label for="name">Name of the Course: </label>
     <input type="text" name="name" id="name" value="{{course.name}}"/><br/>
     <textarea name="overview" id="overview" cols="30" rows="10">{{course.overview}}</textarea>
