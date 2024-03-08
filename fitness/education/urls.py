@@ -16,10 +16,12 @@ urlpatterns = [
     path("course/buy",views.buy_course_api,name="buy_course_api"),
     path("course/<int:course_id>",views.course,name="course"),
     path("single_content/<int:content_id>",views.single_content,name="single_content"),
+    path("my_learning",views.my_learning,name="my_learning"),
     # api
     path("api/get_index",views.get_index),
     path("api/get_person/<int:user_id>",views.get_person),
     path("api/get_single_content/<int:content_id>",views.get_single_content),
     path("api/single_content_comment/<int:content_id>",views.single_content_comment),
-    path("api/get_course/<int:course_id>",views.get_course)
+    path("api/get_course/<int:course_id>",views.get_course),
+    path("api/get_my_learning",views.my_learning_api),
 ]

@@ -246,7 +246,19 @@ def single_content(request,content_id):
 
         return render (request,"education/404.html")
     return render (request,"education/single_content.html",{"content":content})
+
+@login_required(login_url="login")
+def my_learning(request):
+    return render(request,"education/my_learning.html")
 # ---------------------------- API REQUESTS ---------------------- #
+@csrf_exempt
+def my_learning_api(request):
+    joined_courses=list(request.user.joined_courses.all().values("date","course__name","course__creator__first_name","course__creator__last_name","course__url_image","course__price","id","course__id"))
+    return JsonResponse({
+        "user_id":request.user.id,
+        "username":request.user.username,
+        "joined_courses":joined_courses,
+        })
 
 @csrf_exempt
 def get_index(request):

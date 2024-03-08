@@ -20,8 +20,7 @@ fetch(`/api/get_single_content/${contentId}`)
     <div className="single_content_view">
     {is_teacher?
     <div>
-    <TeacherView content={content}/>
-    <ContentCreator creator={creator} description={content.description}/>
+    <TeacherView content={content} creator={creator}/>
     <CommentSection comments={content.comments}/>  
     </div>
     :
@@ -242,7 +241,8 @@ function TeacherView(props){
     // src={props.content.url_youtube}
     src={view.url_youtube}>
     </iframe>
-    <button onClick={function(){setView({...view,static:false})}}>Edit Content</button>
+    <button className="edit_button" onClick={function(){setView({...view,static:false})}}>Edit Content</button>
+    <ContentCreator creator={props.creator} description={view.description}/>
 
     </div>
 :<div className="edit_view">

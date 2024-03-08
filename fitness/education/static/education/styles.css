@@ -670,3 +670,10 @@ iframe {
 }
 
 .you_rated {margin-bottom: 40px;}
+.edit_button {
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 8px;
+    left: 0;
+    background-color: #CAFF33;
+}
