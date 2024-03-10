@@ -17,9 +17,11 @@ class User(AbstractUser):
     headline = models.CharField(max_length=150, blank=True, null=True)
     about = models.TextField(blank=True, null=True)
     picture_url=models.CharField(max_length=50000,blank=True,null=True)
+    cart = models.ManyToManyField("Course",blank=True, null=True, related_name="in_users_cart")
     # Add related_name to avoid clashes
     groups = models.ManyToManyField(Group, related_name='user_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='user_permissions')
+    
 
     def get_free_content(self):
         """

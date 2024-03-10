@@ -250,7 +250,16 @@ def single_content(request,content_id):
 @login_required(login_url="login")
 def my_learning(request):
     return render(request,"education/my_learning.html")
+
+@login_required(login_url="login")
+def my_cart(request):
+    return render (request,"education/my_cart.html")
 # ---------------------------- API REQUESTS ---------------------- #
+
+@csrf_exempt
+def my_cart_api(request):
+    courses_in_cart=list(request.user.cart.all().values("name","price","id"))
+    return JsonResponse({"cart":courses_in_cart})
 @csrf_exempt
 def my_learning_api(request):
     joined_courses=list(request.user.joined_courses.all().values("date","is_completed","course__name","course__creator__first_name","course__creator__last_name","course__url_image","course__price","id","course__id"))

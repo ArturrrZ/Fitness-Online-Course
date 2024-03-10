@@ -1,0 +1,13 @@
+{% extends 'education/layout.html' %}
+{% block title %}My cart{% endblock %}
+{% block body%}
+
+
+<div id="root" ></div>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+{% load static %}
+<script type="text/babel" src="{% static 'education/javascript/my_cart.js' %}" />
+
+{% endblock %}
