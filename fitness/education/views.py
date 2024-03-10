@@ -10,7 +10,7 @@ from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
-from .models import User,SingleContent, Course,Comment, Rating
+from .models import User,SingleContent, Course,Comment, Rating, Participation
 # Create your views here.
 
 def getProperEndPoint(url_link):
@@ -256,6 +256,19 @@ def my_learning_api(request):
     joined_courses=list(request.user.joined_courses.all().values("date","is_completed","course__name","course__creator__first_name","course__creator__last_name","course__url_image","course__price","id","course__id"))
     for course in joined_courses:
         course["date"]=course["date"].strftime("%m/%d/%y")
+
+    if request.method=='PUT':
+        data=json.loads(request.body)
+        # print("Course ID:"+str(data["course_id"]))
+        try:
+            participation=Participation.objects.all().get(pk=data["course_id"])
+        except ObjectDoesNotExist:
+            return render(request,"education/404.html")
+        if participation.participant != request.user:
+            return render(request,"education/404.html")
+        participation.is_completed=not participation.is_completed
+        participation.save()
+        return JsonResponse({"message":"Done"},status=200)
     return JsonResponse({
         "user_id":request.user.id,
         "username":request.user.username,

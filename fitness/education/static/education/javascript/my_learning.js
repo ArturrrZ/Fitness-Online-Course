@@ -21,19 +21,28 @@ function App(props){
 }
 
 function Course(props) {
-    const [is_completed,setIsCompleted]=useState(props.is_completed);
-    function changeState(){
-        setIsCompleted(!is_completed);
+    const [is_completed,setIsCompleted]=useState(props.course.is_completed);
+    function changeState(course_id){
+      fetch("api/get_my_learning",{
+        method:"PUT",
+        body:JSON.stringify({
+          course_id:course_id,
+        })
+      })
+      .then(response=>{setIsCompleted(!is_completed);})
+      .catch(error=>{console.log(error.message)})
+        
+        
     }
     return (
-        <div  className="course" style={is_completed&&{backgroundColor:"#87A922",}} onClick={function(){window.location.href=`/course/${props.course.course__id}`}}>
+        <div  className="course" style={is_completed?{backgroundColor:"#CAFF33",}:{}} onClick={function(){window.location.href=`/course/${props.course.course__id}`}}>
                   <img src={props.course.course__url_image}/>
                   <div className="course_info">
                   <h5 className="course_name">{props.course.course__name}</h5>
                   <div className="course_creator">{props.course.course__creator__username}</div>
                   <div className="course_bottom"><div className="course_price">${props.course.course__price}</div>
                   
-                  <div className="is_completed_section" onClick={(e)=>{e.stopPropagation();changeState()}}>
+                  <div className="is_completed_section" onClick={(e)=>{e.stopPropagation();changeState(props.course.id)}}>
                     {is_completed?<div className="completed_course">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
