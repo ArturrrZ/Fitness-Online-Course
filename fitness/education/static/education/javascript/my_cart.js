@@ -14,17 +14,33 @@ fetch("api/get_my_cart_api")
 
 
 function App(props) {
-    console.log(props.data);
+    // console.log(props.data);
+    const [cart,setCart] = useState(props.data);
+    // console.log(cart);
     let total=0;
+    function delete_from_cart(id){
+        fetch("api/get_my_cart_api",{
+            method:"PUT",
+            body:JSON.stringify({
+                course_id:id
+            })
+        })
+        .then(response=>{return(response.json())})
+        .then(data=>{
+            setCart(data.cart)
+        })
+        .catch(error=>{console.log(error.message)})
+        // console.log(id);
+    }
     return(
         <div className="cart_app">
         <div className="course_in_cart" id="cart_top">
             <div id="Courses">Courses</div>
             <div id="Price">Price</div>
         </div>
-            {props.data.map(course=>{
+            {cart.map(course=>{
                 total += course.price;
-                return(<CourseInCart key={course.id} data={course} />)
+                return(<CourseInCart delete_from_cart={delete_from_cart} key={course.id} data={course} />)
             })
             }
         <div className="course_in_cart" id="Total">
@@ -42,10 +58,12 @@ function App(props) {
 
 function CourseInCart(props){
     let user_href=`/user/${props.data.creator__username}`;
+    
     return(
         <div className="course_in_cart">
             <div className="course_in_cart_left"><span className="course_in_cart_name">{props.data.name}</span> <span className="course_in_cart_creator">by <a href={user_href}>{props.data.creator__first_name} {props.data.creator__last_name}</a></span></div>
-            <div className="course_in_cart_right">{props.data.price}$</div>
+            
+            <div className="course_in_cart_right"><span onClick={()=>{props.delete_from_cart(props.data.id)}} className="detete_cart">x</span> {props.data.price}$</div>
         </div>
     )
 }

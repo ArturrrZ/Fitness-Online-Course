@@ -775,3 +775,27 @@ margin-bottom: 15px;
     padding: 15px;
     border-radius: 10px;
 }
+
+.detete_cart {
+    position: relative;
+    color: #6a6f73;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.detete_cart:hover{
+    cursor: pointer;
+}
+.detete_cart:hover::after{
+    content: "delete from cart";
+    position: absolute;
+    top: 0px; /* Adjust the distance from the cursor */
+    right: 15px; /* Position it relative to the parent */
+    /* transform: translateX(-50%); */
+    background-color: #333; /* Tooltip background color */
+    color: white; /* Tooltip text color */
+    padding: 5px; /* Add some padding for better visibility */
+    border-radius: 3px;
+    white-space: nowrap; /* Prevent text from wrapping */
+    font-size: 0.7rem;
+}

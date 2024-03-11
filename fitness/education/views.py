@@ -258,6 +258,16 @@ def my_cart(request):
 
 @csrf_exempt
 def my_cart_api(request):
+    if request.method=='PUT':
+        data=json.loads(request.body)
+        course_id=data["course_id"]
+        try:
+            course=Course.objects.all().get(pk=course_id)
+        except ObjectDoesNotExist:
+            return JsonResponse({"error":"Object does not exist"})
+        request.user.cart.remove(course)
+        request.user.save()
+
     courses_in_cart=list(request.user.cart.all().values("name","price","id","creator__first_name","creator__last_name","creator__username"))
     return JsonResponse({"cart":courses_in_cart})
 @csrf_exempt
