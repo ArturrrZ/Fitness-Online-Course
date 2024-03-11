@@ -73,13 +73,24 @@ function App(props){
 }
 
 function Course(props){
+
+    function GetOwnerShip(){
+            if (props.course.joined_course) {
+                return(
+                    <h6>purchased</h6>
+                )
+            }
+            if (props.course.in_cart) {return(<h6>in cart</h6>)}
+            else {return (<h6>add to cart</h6>)}
+    }
+
     return(
     <div  className="course" onClick={function(){window.location.href=`/course/${props.course.id}`}}>
               <img src={props.course.url_image}/>
               <div className="course_info">
               <h5 className="course_name">{props.course.name}</h5>
               <div className="course_creator">{props.course.creator__first_name} {props.course.creator__last_name}</div>
-              <div className="course_bottom"><div className="course_price">${props.course.price}</div> <div className="course_custom"><div>{props.course.category}</div></div> </div>
+              <div className="course_bottom"><div className="course_price">${props.course.price}</div> <div><GetOwnerShip key={props.course.id}/></div> <div className="course_custom"><div>{props.course.category}</div></div> </div>
               </div>
     </div>
     )

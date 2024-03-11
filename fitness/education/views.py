@@ -25,6 +25,7 @@ def getProperEndPoint(url_link):
         video_id = "xsNkZq5YNDg"
     return video_id
 
+@login_required(login_url="login")
 def index(request):
     return render(request,"education/index.html",{
 
@@ -316,6 +317,21 @@ def get_index(request):
         "free_content": list(
             SingleContent.objects.all().filter(category="professional").filter(is_free=True).values("title", "url_image","user__first_name","user__last_name","id"))
     }
+
+    for courses in all["courses"],fitness["courses"],nutrition["courses"],professional["courses"]:
+        for course in courses:
+            course_obj=Course.objects.all().get(pk=course["id"])
+            if course_obj in request.user.joined_course.all():
+                course["joined_course"]=True
+            else:
+                course["joined_course"] = False
+            if request.user in course_obj.in_users_cart.all():
+                # print("IN cart")
+                course["in_cart"]=True
+            else:
+                course["in_cart"]=False
+
+        # print(course)
     return JsonResponse({
         "all":all,
         "fitness":fitness,
