@@ -34,6 +34,7 @@
             <li><a class="dropdown-item" href="{% url 'create_course' %}">New Course...</a></li>
             <li><a class="dropdown-item" href="{% url 'user' request.user.username %}">Profile</a></li>
             <li><a class="dropdown-item" href="{% url 'my_learning' %}">My Learning</a></li>
+            <li><a class="dropdown-item" href="{% url 'my_cart' %}">My Cart</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Sign out</a></li>
           </ul>
@@ -45,6 +46,7 @@
           </a>
           <ul class="dropdown-menu text-small" style="">
             <li><a class="dropdown-item" href="{% url 'my_learning' %}">My Learning</a></li>
+            <li><a class="dropdown-item" href="{% url 'my_cart' %}">My Cart</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Sign out</a></li>
           </ul>
@@ -55,6 +57,7 @@
         {% endif %}
       </div>
     </div>
+    
   </header>
 
 

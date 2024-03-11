@@ -258,7 +258,7 @@ def my_cart(request):
 
 @csrf_exempt
 def my_cart_api(request):
-    courses_in_cart=list(request.user.cart.all().values("name","price","id"))
+    courses_in_cart=list(request.user.cart.all().values("name","price","id","creator__first_name","creator__last_name","creator__username"))
     return JsonResponse({"cart":courses_in_cart})
 @csrf_exempt
 def my_learning_api(request):
