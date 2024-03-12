@@ -116,7 +116,7 @@ body{
 
 
 .checked {
-    color: orange;
+    color: gold;
   }
 
 
@@ -758,6 +758,7 @@ margin-bottom: 15px;
     width: 100%;
     font-size: 3rem;
 }
+#Buy:hover{background-color:rgb(44, 232, 44) ;}
 
 .course_in_cart_name {
     font-size: 1.2rem;
@@ -799,3 +800,73 @@ margin-bottom: 15px;
     white-space: nowrap; /* Prevent text from wrapping */
     font-size: 0.7rem;
 }
+
+
+.course_overview_buy {
+
+}
+
+
+.course_overview_info{
+    display:grid;
+    grid-template-columns: auto 350px;
+    gap: 50px;
+    background-color: #08AEEA;
+    background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+    /* margin-top: -15px; */
+    padding-top: 70px;
+    padding-left: 17%;
+    padding-right: 17%;
+    padding-bottom: 50px;
+    /* height: 50vh; */
+
+}
+.left_overview {font-size: 1.5rem;}
+.left_overview > h1 {
+    font-weight: 700;
+}
+.left_overview > p {
+    font-style: italic;
+}
+.course_overview_stars {
+    font-size: 2.6rem;
+    
+}
+#rating {color: gold;}
+
+.created_by {font-size: 1.3rem;}
+.created_by > a {color: #000;}
+.right_overview > img {
+    width: 350px;
+    height: 262.5px;
+    border-radius: 8px;
+
+}
+.right_overview > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.right_overview > div > a > button {
+    background-color: #CAFF33;
+    padding: 10px;
+    width: 100%;
+    font-size: 1.5rem;
+    border-radius: 8px;
+}
+#remove_from_cart> button:hover{
+    background-color: red;
+}
+.right_overview > div > a > button:hover{
+    background-color: rgb(44, 232, 44);
+}
+.right_overview > p {
+    margin-top:10px;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: right;
+}
+

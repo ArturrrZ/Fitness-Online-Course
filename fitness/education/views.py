@@ -188,7 +188,8 @@ def course(request,course_id):
         })
     else:
         # user does not have this course
-        return HttpResponseRedirect(reverse("buy_course",args=(course_id,)))
+        return render(request,"education/course_overview.html",{"course":course})
+
 
 @csrf_exempt
 def edit_course(request,course_id):
@@ -259,7 +260,18 @@ def my_cart(request):
 
 @csrf_exempt
 def my_cart_api(request):
+    if request.method=="POST":
+        data = json.loads(request.body)
+        course_id = data["course_id"]
+        try:
+            course = Course.objects.all().get(pk=course_id)
+        except ObjectDoesNotExist:
+            return JsonResponse({"error": "Object does not exist"})
+        request.user.cart.add(course)
+        request.user.save()
+        return JsonResponse({"message":"Completed"})
     if request.method=='PUT':
+        # remove from cart
         data=json.loads(request.body)
         course_id=data["course_id"]
         try:
