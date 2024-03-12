@@ -268,8 +268,23 @@ def buy_my_cart(request):
                 request.user.save()
             return JsonResponse({"response":"Completed"})
     return render(request,"education/buy_my_cart.html")
-# ---------------------------- API REQUESTS ---------------------- #
 
+
+def search(request):
+    name = request.GET.get('name', '')
+    return render(request,"education/search.html",{
+        "name":name})
+# ---------------------------- API REQUESTS ---------------------- #
+def search_api(request,name):
+    search=name
+    try:
+        courses_array=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__first_name","creator__last_name","category","url_image"))
+    except ObjectDoesNotExist:
+        return JsonResponse({"courses":[]})
+
+    for course in courses_array:
+        course['date']=course['date'].strftime("%m/%d/%y")
+    return JsonResponse({"courses":courses_array})
 @csrf_exempt
 def my_cart_api(request):
     if request.method=="POST":

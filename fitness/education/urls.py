@@ -19,7 +19,9 @@ urlpatterns = [
     path("my_learning",views.my_learning,name="my_learning"),
     path("my_cart",views.my_cart,name="my_cart"),
     path("buy_my_cart",views.buy_my_cart,name="buy_my_cart"),
+    path("search",views.search,name="search"),
     # api
+    path("api/search/<str:name>",views.search_api),
     path("api/get_index",views.get_index),
     path("api/get_person/<int:user_id>",views.get_person),
     path("api/get_single_content/<int:content_id>",views.get_single_content),

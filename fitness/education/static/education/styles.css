@@ -880,3 +880,39 @@ margin-bottom: 15px;
     border-radius: 5px;
     padding: 5px;
 }
+.search_app{
+    margin: 50px 15%;
+}
+.search_grid{
+    display:grid;
+    grid-template-columns: 25% auto;
+    gap: 30px;
+    /* height: 100vh; */
+}
+
+.left_search {
+    height: 100%;
+    border-right: 1px solid black;
+}
+.search_course {
+    display: grid;
+    grid-template-columns: 250px auto 10%;
+    gap: 20px;
+    margin-top: 30px;
+}
+.search_course > img {
+    width: 250px;
+    border-radius: 10px;
+}
+
+.middle_info > p {
+    font-size: 0.8rem;
+    color: #6a6f73;
+    font-style: italic;
+    margin: auto 0;
+}
+
+.right_price {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
