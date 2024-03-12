@@ -90,7 +90,7 @@ function Course(props){
               <div className="course_info">
               <h5 className="course_name">{props.course.name}</h5>
               <div className="course_creator">{props.course.creator__first_name} {props.course.creator__last_name}</div>
-              <div className="course_bottom"><div className="course_price">${props.course.price}</div> <div><GetOwnerShip key={props.course.id}/></div> <div className="course_custom"><div>{props.course.category}</div></div> </div>
+              <div className="course_bottom"><div className="course_price">${props.course.price}</div>  <div className="course_custom"><div>{props.course.category}</div></div> </div>
               </div>
     </div>
     )
