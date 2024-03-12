@@ -278,7 +278,7 @@ def search(request):
 def search_api(request,name):
     search=name
     try:
-        courses_array=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__first_name","creator__last_name","category","url_image"))
+        courses_array=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image"))
     except ObjectDoesNotExist:
         return JsonResponse({"courses":[]})
 

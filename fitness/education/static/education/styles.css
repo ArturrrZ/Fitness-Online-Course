@@ -904,12 +904,17 @@ margin-bottom: 15px;
     width: 250px;
     border-radius: 10px;
 }
-
-.middle_info > p {
+.search_anchor{
+    cursor: pointer;
+}
+.middle_info > p  {
     font-size: 0.8rem;
     color: #6a6f73;
     font-style: italic;
     margin: auto 0;
+}
+.middle_info > p > a {
+    color: #6a6f73;
 }
 
 .right_price {

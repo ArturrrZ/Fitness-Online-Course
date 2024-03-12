@@ -30,13 +30,17 @@ function App(props){
 }
 
 function Course(props){
+    let href=`/user/${props.data.creator__username}`;
+    function goToCourse(){
+        window.location.href=`course/${props.data.id}`;
+    }
     return(
         <div className="search_course">
-            <img src={props.data.url_image}/>
+            <img className="search_anchor" onClick={goToCourse} src={props.data.url_image}/>
             <div className="middle_info">
-                <h4>{props.data.name}</h4>
+                <h4 className="search_anchor" onClick={goToCourse}>{props.data.name}</h4>
                 <p>Created {props.data.date}</p>
-                <p className="middle_creator">by {props.data.creator__first_name} {props.data.creator__last_name}</p>
+                <p className="middle_creator">by <a href={href}>{props.data.creator__first_name} {props.data.creator__last_name}</a></p>
             </div>
             <div className="right_price">{props.data.price}$</div>
         </div>
