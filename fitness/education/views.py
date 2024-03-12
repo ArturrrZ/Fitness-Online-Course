@@ -284,6 +284,8 @@ def search_api(request,name):
 
     for course in courses_array:
         course['date']=course['date'].strftime("%m/%d/%y")
+        course_ojb=Course.objects.all().get(pk=course["id"])
+        course["participants"]=course_ojb.participants.count()
     return JsonResponse({"courses":courses_array})
 @csrf_exempt
 def my_cart_api(request):

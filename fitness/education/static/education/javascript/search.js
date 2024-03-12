@@ -13,6 +13,11 @@ fetch(`/api/search/${search}`)
 function App(props){
     const [courses,setCourses]=useState(props.data.courses);
     console.log(courses);
+    function submitForm(event){
+        event.preventDefault();
+        console.log(event.target.sort.value);
+        // fetch
+    }
     return(
         <div className="search_app">
             {/* <h1>{search}</h1> */}
@@ -20,6 +25,16 @@ function App(props){
             <div className="search_grid">
                 <div className="left_search">form here</div>
                 <div className="right_search">
+    <form action="/action_page.php" onSubmit={submitForm}>
+  <label htmlFor="sort">Sort by</label>
+  <select id="sort" name="sort">
+    <option value="Newest">Newest</option>
+    <option value="Oldest">Oldest</option>
+    <option value="Alphabet">Alphabet</option>
+    <option value="Price">Price</option>
+  </select>
+    <input type="submit"/>
+    </form>
                     {courses.map(course=>{
                         return(<Course key={course.id} data={course} />)
                     })}
@@ -39,6 +54,7 @@ function Course(props){
             <img className="search_anchor" onClick={goToCourse} src={props.data.url_image}/>
             <div className="middle_info">
                 <h4 className="search_anchor" onClick={goToCourse}>{props.data.name}</h4>
+                <p>{props.data.participants} enrolled</p>
                 <p>Created {props.data.date}</p>
                 <p className="middle_creator">by <a href={href}>{props.data.creator__first_name} {props.data.creator__last_name}</a></p>
             </div>
