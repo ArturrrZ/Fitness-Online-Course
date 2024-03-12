@@ -256,6 +256,18 @@ def my_learning(request):
 @login_required(login_url="login")
 def my_cart(request):
     return render (request,"education/my_cart.html")
+@login_required(login_url="login")
+@csrf_exempt
+def buy_my_cart(request):
+    if request.method=='POST':
+        data=json.loads(request.body)
+        if data["answer"] == True:
+            for each_item in request.user.cart.all():
+                request.user.joined_course.add(each_item)
+                request.user.cart.remove(each_item)
+                request.user.save()
+            return JsonResponse({"response":"Completed"})
+    return render(request,"education/buy_my_cart.html")
 # ---------------------------- API REQUESTS ---------------------- #
 
 @csrf_exempt

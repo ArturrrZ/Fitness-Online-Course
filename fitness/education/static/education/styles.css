@@ -870,3 +870,13 @@ margin-bottom: 15px;
     text-align: right;
 }
 
+.buy_course_form {
+    margin: 5% 25%;
+    font-size: 2rem;
+    text-align: center;
+}
+.buy_course_form > button, form > input[type="submit"] {
+    background-color: #CAFF33;
+    border-radius: 5px;
+    padding: 5px;
+}

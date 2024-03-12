@@ -1,20 +1,18 @@
-// Import the useState hook from React
 const { useState } = React;
 const root = document.querySelector("#root");
 var is_started=false;
 var badScore=0;
 function gotAnswer(){
-    fetch(`/course/buy/${root.dataset.course}`,{
-        method: "POST",
-        body: JSON.stringify({answer:true,})
+    fetch("buy_my_cart",{
+        method:"POST",
+        body:JSON.stringify({
+            answer:true,
+        })
     })
-    .then(response => {
-        if (response.ok) {
-            alert("You got it right!");
-            window.location.href = `http://127.0.0.1:8000/course/${root.dataset.course}`
-        }
-    })
-    .catch(error => {console.log(error.message)})
+    .then(response=>{
+        alert("Congratulations! You've successfully purchased items from your cart");
+        window.location.href="/my_learning"})
+    .catch(error=>{console.log(error.message)})
 }
 // Function component Test
 function Test() {

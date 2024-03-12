@@ -18,6 +18,7 @@ urlpatterns = [
     path("single_content/<int:content_id>",views.single_content,name="single_content"),
     path("my_learning",views.my_learning,name="my_learning"),
     path("my_cart",views.my_cart,name="my_cart"),
+    path("buy_my_cart",views.buy_my_cart,name="buy_my_cart"),
     # api
     path("api/get_index",views.get_index),
     path("api/get_person/<int:user_id>",views.get_person),
