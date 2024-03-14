@@ -5,17 +5,21 @@ const search=root.dataset.string;
 fetch(`/api/search/${search}`)
 .then(response=>{return(response.json())})
 .then(data=>{
-    // console.log(data)
+    console.log(data)   
     ReactDOM.render(<App data={data}/>, root);
 })
 
 
 function App(props){
-    const [courses,setCourses]=useState(props.data.courses);
-    console.log(courses);
+    const [courses,setCourses]=useState(props.data.courses_newest);
+    // console.log(courses);
     function submitForm(event){
         event.preventDefault();
-        console.log(event.target.sort.value);
+        // console.log(event.target.sort.value);
+        {event.target.sort.value=="newest"&&setCourses(props.data.courses_newest)};
+        {event.target.sort.value=="oldest"&&setCourses(props.data.courses_oldest)};
+        {event.target.sort.value=="alphabet"&&setCourses(props.data.courses_alphabet)};
+        {event.target.sort.value=="price"&&setCourses(props.data.courses_price)};
         // fetch
     }
     return(
@@ -28,10 +32,10 @@ function App(props){
     <form action="/action_page.php" onSubmit={submitForm}>
   <label htmlFor="sort">Sort by</label>
   <select id="sort" name="sort">
-    <option value="Newest">Newest</option>
-    <option value="Oldest">Oldest</option>
-    <option value="Alphabet">Alphabet</option>
-    <option value="Price">Price</option>
+    <option value="newest">Newest</option>
+    <option value="oldest">Oldest</option>
+    <option value="alphabet">Alphabet</option>
+    <option value="price">Price</option>
   </select>
     <input type="submit"/>
     </form>

@@ -278,15 +278,24 @@ def search(request):
 def search_api(request,name):
     search=name
     try:
-        courses_array=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image"))
+        courses_newest=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("-date"))
+        courses_oldest=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("date"))
+        courses_alphabet=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("name"))
+        courses_price=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("price"))
+
     except ObjectDoesNotExist:
         return JsonResponse({"courses":[]})
 
-    for course in courses_array:
-        course['date']=course['date'].strftime("%m/%d/%y")
-        course_ojb=Course.objects.all().get(pk=course["id"])
-        course["participants"]=course_ojb.participants.count()
-    return JsonResponse({"courses":courses_array})
+    for course_sort in courses_newest,courses_oldest,courses_alphabet,courses_price:
+        for course in course_sort:
+            course['date']=course['date'].strftime("%m/%d/%y")
+            course_ojb=Course.objects.all().get(pk=course["id"])
+            course["participants"]=course_ojb.participants.count()
+    return JsonResponse({"courses_newest":courses_newest,
+                         "courses_oldest":courses_oldest,
+                         "courses_alphabet":courses_alphabet,
+                         "courses_price":courses_price,
+                         })
 @csrf_exempt
 def my_cart_api(request):
     if request.method=="POST":
