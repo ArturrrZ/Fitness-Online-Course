@@ -184,6 +184,7 @@ function RatingSystem(props){
             <div className="current_rating">
                 Current rating: 
                 {getStars(system.rating)}{system.rating}
+                {system.rating===null&&<p>No rating yet</p>}
             </div>
             {system.rated?<div className="you_rated">You've rated</div>:
             <div className="leave_rating_section">

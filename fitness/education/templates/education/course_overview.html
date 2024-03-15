@@ -10,13 +10,51 @@
             <h1>{{course.name}}</h1>
             <p>{{course.overview}}</p>
             <div class="course_overview_stars">
-                <span id="rating">4.4</span>
+                <span id="rating">
+                    {% if course.current_rating == None %}
+                    No rating yet
+                    {% else %}
+                    {{course.current_rating}}
+                    {% endif %}
+                </span>
+                {% if course.current_rating >= 4 %}
+                <div class="rating4">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span></div>
+                {% elif course.current_rating >= 3 %}
+                <div class="rating3">
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star "></span>
-                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span></div>
+                {% elif course.current_rating >= 2 %}
+                <div class="rating2">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% elif course.current_rating >= 1 %}
+                <div class="rating1">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% elif course.current_rating >= 0 %}
+                <div class="rating0">
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% endif %}
             </div>
+            <p>{{course.participants.count}} enrolled in</p>
             <p class="created_by">Created {{course.date}}</p>
             <p class="created_by">by <a href="{% url 'user' course.creator.username %}">{{course.creator.first_name}} {{course.creator.last_name}}</a></p>
         </div>
@@ -38,6 +76,64 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="overview_ratings">
+    <h2>All reviews:</h2>
+    {% for rating in course.ratings.all %}
+    <div class="review">
+                <div class="comment_pic"> {{rating.user.username|make_list|first}}</div>
+                <h5>{{rating.user.username}}</h5>
+                <div class="stars">
+                {% if rating.rate == 5 %}
+                <div class="rating5">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span></div>
+                {% elif rating.rate == 4 %}
+                <div class="rating4">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span></div>
+                {% elif rating.rate == 3 %}
+                <div class="rating3">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% elif rating.rate == 2 %}
+                <div class="rating2">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% elif rating.rate == 1 %}
+                <div class="rating1">
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% elif rating.rate == 0 %}
+                <div class="rating0">
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star "></span>
+                <span class="fa fa-star"></span></div>
+                {% endif %}
+                <div class="review_date">{{rating.date}}</div></div>
+                <p>{{rating.message}}</p>
+    </div>
+    {% endfor %}
+
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

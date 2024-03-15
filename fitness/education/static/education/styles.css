@@ -921,3 +921,7 @@ margin-bottom: 15px;
     font-size: 1.6rem;
     font-weight: 600;
 }
+
+.overview_ratings {
+    margin: 50px 20%;
+}

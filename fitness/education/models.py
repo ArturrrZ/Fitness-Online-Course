@@ -58,6 +58,8 @@ class Course(models.Model):
     content = models.ManyToManyField("SingleContent", blank=True, null=True, related_name="course")
     participants=models.ManyToManyField("User",through="Participation",blank=True,null=True,related_name="joined_course")
     date=models.DateTimeField(auto_now_add=True)
+    current_rating=models.FloatField(blank=True,null=True,)
+
 
 class Participation(models.Model):
     participant=models.ForeignKey("User",on_delete=models.CASCADE, related_name="joined_courses")

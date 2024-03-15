@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import serialize
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Avg
 
 from .forms import RegisterForm,LoginForm, CreateTeacherForm, SingleContentForm, CourseForm
 from .models import User,SingleContent, Course,Comment, Rating, Participation
@@ -593,7 +594,7 @@ def get_course(request,course_id):
                 is_rated = True
             else:
                 pass
-    current_rating=3.8
+    current_rating=course.current_rating
 
     is_creator=False
     if request.user == course.creator:
@@ -618,6 +619,9 @@ def get_course(request,course_id):
                           )
         new_review.save()
 
+        average_rating = Rating.objects.filter(course=course).aggregate(avg_rating=Avg('rate'))['avg_rating']
+        course.current_rating=round(average_rating,2)
+        course.save()
         is_rated = False
         ratings = list(course.ratings.all().order_by('-date').values('user__username', 'message', 'date', 'rate', 'id'))
         for rating in ratings:
@@ -628,7 +632,7 @@ def get_course(request,course_id):
             else:
                 pass
 
-        current_rating = 3.8
+        current_rating = course.current_rating
 
         return JsonResponse({
             "new_rating_system": {"ratings":ratings,"rating":current_rating,"rated":is_rated,}
