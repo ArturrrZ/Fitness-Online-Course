@@ -5,6 +5,14 @@ category={
     "professional":"Professional Sports",
 
 }
+language={
+    "english":"English",
+    "spanish":"Spanish",
+    "russian":"Russian",
+    "mandarin":"Mandarin",
+    "turkish":"Turkish",
+
+}
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -54,11 +62,12 @@ class Course(models.Model):
     overview = models.TextField()
     url_image = models.URLField(blank=True, null=True)
     category = models.CharField(max_length=50, choices=category)
-    price=models.IntegerField()
+    price=models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(500)])
     content = models.ManyToManyField("SingleContent", blank=True, null=True, related_name="course")
     participants=models.ManyToManyField("User",through="Participation",blank=True,null=True,related_name="joined_course")
     date=models.DateTimeField(auto_now_add=True)
     current_rating=models.FloatField(blank=True,null=True,)
+    language=models.CharField(max_length=50,choices=language,default="english")
 
 
 class Participation(models.Model):

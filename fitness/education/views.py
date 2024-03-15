@@ -133,6 +133,7 @@ def create_single(request):
         "form": SingleContentForm(),
     })
 def create_course(request):
+    all_content = SingleContent.objects.filter(user=request.user)
     if request.method == 'POST':
         form=CourseForm(request.POST)
         if form.is_valid():
@@ -146,7 +147,13 @@ def create_course(request):
             course.save()
             course.content.set(selected_content)
             return HttpResponseRedirect(reverse("index"))
-    all_content = SingleContent.objects.filter(user=request.user)
+        else:
+            return render(request, "education/create_course.html", {
+                "form": CourseForm(),
+                "all_content": all_content,
+                "message":"Price has to be greater than 0$ and less than 500$",
+            })
+
 
     return render(request,"education/create_course.html",{
         "form": CourseForm(),
@@ -217,6 +224,7 @@ def edit_course(request,course_id):
         course.price=request.POST.get("price")
         course.category=request.POST.get("category")
         course.overview=request.POST.get("overview")
+        course.language=request.POST.get("language")
         course.save()
         selected_content_ids = request.POST.getlist('content')
         selected_content = SingleContent.objects.filter(id__in=selected_content_ids)

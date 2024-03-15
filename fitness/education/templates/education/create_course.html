@@ -1,6 +1,9 @@
 {% extends 'education/layout.html' %}
 {% block body %}
 <h1 class="single_title">Create your course:</h1>
+{% if message %}
+<h1 class="single_title" style="color:red">{{message}}</h1>
+{% endif %}
 <form action="{% url 'create_course' %}" method="POST" class="single_form">
     {% csrf_token %}
     {{form}}

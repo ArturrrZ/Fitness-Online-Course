@@ -72,7 +72,7 @@ function App(props){
                         <span className="stars_left_text"> 1 & up </span><input type="radio" name="rating" value="1" />
                     </div>    
                     <h5>Choose a language:</h5>
-                    <input type="radio" name="language" value="any" /> 
+                    <input type="radio" name="language" value="any" defaultChecked /> 
                     <label id="english">Any language</label><br/>
                     <input type="radio" name="language" value="english" />
                     <label id="english">English</label><br/>
