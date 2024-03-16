@@ -11,29 +11,40 @@ fetch(`/api/search/${search}`)
 
 
 function App(props){
-    const [courses,setCourses]=useState(props.data.courses_newest);
+    const [data,setData]=useState(props.data)
+    const [courses,setCourses]=useState(data.courses_newest);
     const [max,setMax]=useState(500);
     // console.log(courses);
     function submitForm(event){
         event.preventDefault();
         // console.log(event.target.sort.value);
-        {event.target.sort.value=="newest"&&setCourses(props.data.courses_newest)};
-        {event.target.sort.value=="oldest"&&setCourses(props.data.courses_oldest)};
-        {event.target.sort.value=="alphabet"&&setCourses(props.data.courses_alphabet)};
-        {event.target.sort.value=="price"&&setCourses(props.data.courses_price)};
+        {event.target.sort.value=="newest"&&setCourses(data.courses_newest)};
+        {event.target.sort.value=="oldest"&&setCourses(data.courses_oldest)};
+        {event.target.sort.value=="alphabet"&&setCourses(data.courses_alphabet)};
+        {event.target.sort.value=="price"&&setCourses(data.courses_price)};
         // fetch
     }
 
     function handleFilter(event){
         event.preventDefault();
-        console.log(event.target.max.value);
-        console.log(event.target.rating.value);
-        console.log(event.target.language.value);
+        let max_price=parseInt(event.target.max.value);
+        console.log(max_price);
+        let rating=parseInt(event.target.rating.value);
+        console.log(rating);
+        let language=event.target.language.value;
+        console.log(language);
+        fetch(`/api/search/${search}?max_price=${max_price}&rating=${rating}&language=${language}`)
+        .then(response=>{return response.json()})
+        .then(data=>{
+            console.log(data);
+            setData(data);
+            setCourses(data.courses_newest);
+        })
     }
     return(
         <div className="search_app">
             {/* <h1>{search}</h1> */}
-            <h1>results for: "{search}"</h1>
+            <h1>{data.found} results for: "{search}"</h1>
             <div className="search_grid">
                 <div className="left_search">
                     <form className="left_search_form" onSubmit={handleFilter}>
@@ -70,6 +81,14 @@ function App(props){
                         <span className="fa fa-star "></span>
                         <span className="fa fa-star "></span>
                         <span className="stars_left_text"> 1 & up </span><input type="radio" name="rating" value="1" />
+                    </div>
+                    <div className="stars_left">
+                        <span className="fa fa-star "></span>
+                        <span className="fa fa-star "></span>
+                        <span className="fa fa-star "></span>
+                        <span className="fa fa-star "></span>
+                        <span className="fa fa-star "></span>
+                        <span className="stars_left_text"> 0 & up </span><input type="radio" name="rating" value="0" defaultChecked/>
                     </div>    
                     <h5>Choose a language:</h5>
                     <input type="radio" name="language" value="any" defaultChecked /> 
@@ -115,11 +134,60 @@ function Course(props){
     function goToCourse(){
         window.location.href=`course/${props.data.id}`;
     }
+    function getStars(rate){
+        rate=Math.floor(rate);
+        if (rate===1){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===2){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===3){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star "></span>
+                <span className="fa fa-star"></span>
+    </div>
+            )}
+        if (rate===4){
+        return (<div>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star checked"></span>
+            <span className="fa fa-star"></span>
+</div>
+        )}
+        if (rate===5){
+            return (<div>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+                <span className="fa fa-star checked"></span>
+    </div>
+            )}
+    }
     return(
         <div className="search_course">
             <img className="search_anchor" onClick={goToCourse} src={props.data.url_image}/>
             <div className="middle_info">
                 <h4 className="search_anchor" onClick={goToCourse}>{props.data.name}</h4>
+                <div className="stars">{getStars(props.data.current_rating)}{props.data.current_rating}<span className="rated">({props.data.rated})</span></div>
                 <p>{props.data.participants} enrolled</p>
                 <p>Created {props.data.date}</p>
                 <p className="middle_creator">by <a href={href}>{props.data.creator__first_name} {props.data.creator__last_name}</a></p>

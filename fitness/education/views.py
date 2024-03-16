@@ -285,7 +285,7 @@ def search(request):
         "name":name})
 # ---------------------------- API REQUESTS ---------------------- #
 def search_api(request,name):
-    max_price=request.GET.get("max",500)
+    max_price=request.GET.get("max_price",500)
     rating=request.GET.get("rating",0)
     language=request.GET.get("language","any")
     print(max_price)
@@ -325,10 +325,12 @@ def search_api(request,name):
             course['date']=course['date'].strftime("%m/%d/%y")
             course_ojb=Course.objects.all().get(pk=course["id"])
             course["participants"]=course_ojb.participants.count()
+            course["rated"]=course_ojb.ratings.count()
     return JsonResponse({"courses_newest":courses_newest,
                          "courses_oldest":courses_oldest,
                          "courses_alphabet":courses_alphabet,
                          "courses_price":courses_price,
+                         "found":len(courses_newest),
                          })
 @csrf_exempt
 def my_cart_api(request):

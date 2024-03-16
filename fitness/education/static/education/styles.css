@@ -925,3 +925,7 @@ margin-bottom: 15px;
 .overview_ratings {
     margin: 50px 20%;
 }
+
+.rated {
+    color: #6a6f73;
+}
