@@ -285,16 +285,41 @@ def search(request):
         "name":name})
 # ---------------------------- API REQUESTS ---------------------- #
 def search_api(request,name):
+    max_price=request.GET.get("max",500)
+    rating=request.GET.get("rating",0)
+    language=request.GET.get("language","any")
+    print(max_price)
     search=name
-    try:
-        courses_newest=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("-date"))
-        courses_oldest=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("date"))
-        courses_alphabet=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("name"))
-        courses_price=list(Course.objects.filter(name__contains=search).values("id","name","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("price"))
+    if language=="any":
+        try:
+            courses_newest=list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(current_rating__gte=rating).values("id","name","current_rating","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("-date"))
+            courses_oldest=list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(current_rating__gte=rating).values("id","name","current_rating","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("date"))
+            courses_alphabet=list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(current_rating__gte=rating).values("id","name","current_rating","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("name"))
+            courses_price=list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(current_rating__gte=rating).values("id","name","current_rating","date","price","creator__username","creator__first_name","creator__last_name","category","url_image").order_by("price"))
 
-    except ObjectDoesNotExist:
-        return JsonResponse({"courses":[]})
+        except ObjectDoesNotExist:
+            return JsonResponse({"courses":[]})
+    else:
+        try:
+            courses_newest = list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(
+                current_rating__gte=rating).filter(language__exact=language).values("id", "name", "current_rating", "date", "price", "creator__username",
+                                                   "creator__first_name", "creator__last_name", "category",
+                                                   "url_image").order_by("-date"))
+            courses_oldest = list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(
+                current_rating__gte=rating).filter(language__exact=language).values("id", "name", "current_rating", "date", "price", "creator__username",
+                                                   "creator__first_name", "creator__last_name", "category",
+                                                   "url_image").order_by("date"))
+            courses_alphabet = list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(
+                current_rating__gte=rating).filter(language__exact=language).values("id", "name", "current_rating", "date", "price", "creator__username",
+                                                   "creator__first_name", "creator__last_name", "category",
+                                                   "url_image").order_by("name"))
+            courses_price = list(Course.objects.filter(name__icontains=search).filter(price__lte=max_price).filter(
+                current_rating__gte=rating).filter(language__exact=language).values("id", "name", "current_rating", "date", "price", "creator__username",
+                                                   "creator__first_name", "creator__last_name", "category",
+                                                   "url_image").order_by("price"))
 
+        except ObjectDoesNotExist:
+            return JsonResponse({"courses": []})
     for course_sort in courses_newest,courses_oldest,courses_alphabet,courses_price:
         for course in course_sort:
             course['date']=course['date'].strftime("%m/%d/%y")

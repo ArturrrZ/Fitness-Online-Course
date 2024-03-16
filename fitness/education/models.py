@@ -66,7 +66,7 @@ class Course(models.Model):
     content = models.ManyToManyField("SingleContent", blank=True, null=True, related_name="course")
     participants=models.ManyToManyField("User",through="Participation",blank=True,null=True,related_name="joined_course")
     date=models.DateTimeField(auto_now_add=True)
-    current_rating=models.FloatField(blank=True,null=True,)
+    current_rating=models.FloatField(blank=True,null=True,default=0)
     language=models.CharField(max_length=50,choices=language,default="english")
 
 
