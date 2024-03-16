@@ -45,8 +45,9 @@ fetch(`/api/get_single_content/${contentId}`)
 
 function StudentView(props){
     var video_endpoint=props.content.url_youtube.split('=');
-    let main_part=video_endpoint[video_endpoint.length-1]
-    let final_url="https://www.youtube.com/embed/"+main_part;
+    // let main_part=video_endpoint[video_endpoint.length-1]
+    // let final_url="https://www.youtube.com/embed/"+main_part;
+    let final_url="https://www.youtube.com/embed/"+props.content.url_youtube;
     return (<div >
     
     <iframe width="1024" height="600"
@@ -191,9 +192,10 @@ function Comment(props){
 
 function TeacherView(props){
     // console.log(props.content.url_youtube);
-    var video_endpoint=props.content.url_youtube.split('=');
-    let main_part=video_endpoint[video_endpoint.length-1]
-    let final_url="https://www.youtube.com/embed/"+main_part;
+    // var video_endpoint=props.content.url_youtube.split('=');
+    // let main_part=video_endpoint[video_endpoint.length-1]
+    // let final_url="https://www.youtube.com/embed/"+main_part;
+    let final_url="https://www.youtube.com/embed/"+props.content.url_youtube;
     // console.log(final_url);
     const [view,setView] = useState({
         title:props.content.title,

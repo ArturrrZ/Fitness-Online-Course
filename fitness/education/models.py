@@ -49,7 +49,7 @@ class SingleContent(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name="single_content")
     title=models.CharField(max_length=50)
     description=models.TextField()
-    url_youtube=models.URLField(blank=True,null=True)
+    url_youtube=models.CharField(max_length=1000,blank=True,null=True)
     url_image=models.URLField(blank=True,null=True)
     category=models.CharField(max_length=50,choices=category)
     is_free=models.BooleanField()

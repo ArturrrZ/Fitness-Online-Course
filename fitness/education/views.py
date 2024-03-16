@@ -126,7 +126,8 @@ def create_single(request):
         form=SingleContentForm(request.POST)
         if form.is_valid():
             youtube_link=form.cleaned_data['url_youtube']
-            getProperEndPoint(youtube_link)
+            endpoint=getProperEndPoint(youtube_link)
+            form.instance.url_youtube = endpoint
             form.save(user=request.user)
             return HttpResponseRedirect(reverse("index"))
     return render(request,"education/create_single.html",{
@@ -142,6 +143,7 @@ def create_course(request):
             selected_content = SingleContent.objects.filter(id__in=selected_content_ids)
             # print(selected_content_ids)
             # print(selected_content)
+
             course = form.save(commit=False)
             course.creator = request.user
             course.save()
@@ -516,7 +518,7 @@ def get_single_content(request,content_id):
             if "embed" in new_url_youtube:
                 return JsonResponse({"error":"Bad youtube link. Example of correct link: https://www.youtube.com/embed/d7j9p9JpLaE"},status=403)
             else:
-                content.url_youtube=data["new_url_youtube"]
+                content.url_youtube=getProperEndPoint(data["new_url_youtube"])
             content.save()
             return JsonResponse({"message":"Successfully edited","new_url_youtube":content.url_youtube,},status=200)
     is_teacher=False
