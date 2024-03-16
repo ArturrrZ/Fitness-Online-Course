@@ -58,10 +58,12 @@ function App(props) {
 
 function CourseInCart(props){
     let user_href=`/user/${props.data.creator__username}`;
-    
+    function courseReference(){
+        window.location.href=`/course/${props.data.id}`;
+    }
     return(
         <div className="course_in_cart">
-            <div className="course_in_cart_left"><span className="course_in_cart_name">{props.data.name}</span> <span className="course_in_cart_creator">by <a href={user_href}>{props.data.creator__first_name} {props.data.creator__last_name}</a></span></div>
+            <div className="course_in_cart_left"><span onClick={courseReference} className="course_in_cart_name">{props.data.name}</span> <span className="course_in_cart_creator">by <a href={user_href}>{props.data.creator__first_name} {props.data.creator__last_name}</a></span></div>
             
             <div className="course_in_cart_right"><span onClick={()=>{props.delete_from_cart(props.data.id)}} className="detete_cart">x</span> {props.data.price}$</div>
         </div>

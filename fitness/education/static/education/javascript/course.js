@@ -184,14 +184,14 @@ function RatingSystem(props){
             <div className="current_rating">
                 Current rating: 
                 {getStars(system.rating)}{system.rating}
-                {system.rating===null&&<p>No rating yet</p>}
+                {system.rating===0&&<p>No rating yet</p>}
             </div>
             {system.rated?<div className="you_rated">You've rated</div>:
             <div className="leave_rating_section">
             <div className="review">Review:</div>
             <form className="rating_form" onSubmit={handleSubmit}>
             <label htmlFor="rating">Rating: </label>
-            <input type="number" id="rating" name="rating" min="0" max="5" /><br/>
+            <input type="number" id="rating" name="rating" min="1" max="5" /><br/>
             <textarea id="message" name="message" placeholder="Type anything"></textarea>
             <input type="submit"/>
             </form>

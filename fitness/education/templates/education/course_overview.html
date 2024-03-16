@@ -11,7 +11,7 @@
             <p>{{course.overview}}</p>
             <div class="course_overview_stars">
                 <span id="rating">
-                    {% if course.current_rating == None %}
+                    {% if course.current_rating == 0 %}
                     No rating yet
                     {% else %}
                     {{course.current_rating}}

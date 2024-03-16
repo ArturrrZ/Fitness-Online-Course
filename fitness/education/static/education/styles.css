@@ -323,9 +323,10 @@ html {
     font-weight: 600;
 }
 .course_zone {
-    padding: 0% 15%;
+    padding: 0% 0% 0% 15%;
     display: flex;
     gap: 20px;
+    flex-flow: row wrap;
 }
 
 .user_content {
@@ -929,3 +930,8 @@ margin-bottom: 15px;
 .rated {
     color: #6a6f73;
 }
+
+.course_in_cart_name {
+    cursor: pointer;
+}
+

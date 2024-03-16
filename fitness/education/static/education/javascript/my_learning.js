@@ -35,7 +35,7 @@ function Course(props) {
         
     }
     return (
-        <div  className="course" style={is_completed?{backgroundColor:"#CAFF33",}:{}} onClick={function(){window.location.href=`/course/${props.course.course__id}`}}>
+        <div  className="course" style={is_completed?{backgroundColor:"#CAFF33",order: 1}:{}} onClick={function(){window.location.href=`/course/${props.course.course__id}`}}>
                   <img src={props.course.course__url_image}/>
                   <div className="course_info">
                   <h5 className="course_name">{props.course.course__name}</h5>
