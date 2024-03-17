@@ -12,32 +12,7 @@ fetch("/api/get_index")
 
 
 function App(props){
-    console.log(props.data.all.courses[0].courses)
-    const [view,setView] = useState({
-        category:"all",
-        page_courses_ingex:props.data.all.courses[0].page_index,
-        page_courses_has_previous:props.data.all.courses[0].has_previous,
-        page_courses_has_next:props.data.all.courses[0].has_next,
-        page_courses_courses:props.data.all.courses[0].courses,
-        page_free_ingex:props.data.all.free_content[0].page_index,
-        page_free_has_previous:props.data.all.free_content[0].has_previous,
-        page_free_has_next:props.data.all.free_content[0].has_next,
-        page_free_free_content:props.data.all.free_content[0].free_content,
-    })
-    function changeState(category){
-        setView({
-        category:category,
-        page_courses_ingex:props.data[category].courses[0].page_index,
-        page_courses_has_previous:props.data[category].courses[0].has_previous,
-        page_courses_has_next:props.data[category].courses[0].has_next,
-        page_courses_courses:props.data[category].courses[0].courses,
-        page_free_ingex:props.data[category].free_content[0].page_index,
-        page_free_has_previous:props.data[category].free_content[0].has_previous,
-        page_free_has_next:props.data[category].free_content[0].has_next,
-        page_free_free_content:props.data[category].free_content[0].free_content,
-        })
-    }
-    console.log(view)
+    const [view,setView] = useState("all")
     return (<div className="index_app">
     <div className="top_part">
         <div>
@@ -55,21 +30,44 @@ function App(props){
 
 
         <div className="navigation_index">
-            <span className="navigate" onClick={function(){changeState("all")}}>All</span>
-            <span className="navigate" onClick={function(){changeState("fitness")}}>Fitness</span>
-            <span className="navigate" onClick={function(){changeState("nutrition")}}>Nutrition</span>
-            <span className="navigate" onClick={function(){changeState("professional")}}>Professional Sports</span>
+            <span className="navigate" onClick={function(){setView("all")}}>All</span>
+            <span className="navigate" onClick={function(){setView("fitness")}}>Fitness</span>
+            <span className="navigate" onClick={function(){setView("nutrition")}}>Nutrition</span>
+            <span className="navigate" onClick={function(){setView("professional")}}>Professional Sports</span>
         </div><br/>
-        <div>
+        {view==="all"&&<div>
             <h1 className="category_name">All courses:</h1>
-            <div className="courses">{view.page_courses_courses.map(course=><Course key={course.id} course={course}/>)}</div>
+            <div className="courses">{props.data.all.courses.map(course=><Course key={course.id} course={course}/>)}</div>
             <hr/>
             <h1 className="category_name">All free content:</h1>
-            <div className="free_contents">{view.page_free_free_content.map(content=><Content key={content.id} content={content}/>)}</div>
+            <div className="free_contents">{props.data.all.free_content.map(content=><Content key={content.id} content={content}/>)}</div>
 
-        </div>
-        
-        
+        </div>}
+        {view==="fitness"&&<div>
+            <h1 className="category_name">Fitness Courses:</h1>
+            <div className="courses">{props.data.fitness.courses.map(course=><Course key={course.id} course={course}/>)}</div>
+            <hr/>
+            <h1 className="category_name">Enjoy free content:</h1>
+            <div className="free_contents">{props.data.fitness.free_content.map(content=><Content key={content.id} content={content}/>)}</div>
+
+        </div>}
+        {view==="nutrition"&&<div>
+            <h1 className="category_name">Nutrition Courses:</h1>
+            <div className="courses">{props.data.nutrition.courses.map(course=><Course key={course.id} course={course}/>)}</div>
+            <hr/>
+            <h1 className="category_name">Enjoy free content:</h1>
+            <div className="free_contents">{props.data.nutrition.free_content.map(content=><Content key={content.id} content={content}/>)}</div>
+
+    
+        </div>}
+        {view==="professional"&&<div>
+            <h1 className="category_name">Proffessional Sports Courses:</h1>
+            <div className="courses">{props.data.professional.courses.map(course=><Course key={course.id} course={course}/>)}</div>
+            <hr/>
+            <h1 className="category_name">Enjoy free content:</h1>
+            <div className="free_contents">{props.data.professional.free_content.map(content=><Content key={content.id} content={content}/>)}</div>
+
+        </div>}
         </div>
     )
 }
