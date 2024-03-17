@@ -82,6 +82,24 @@ function App(props){
             })
         })
     }
+    function previousPage(){
+        let previous=page.page_index-1;
+        setPage({
+        page_index:data.paginator_newest_list[previous].page_index,
+        has_next:data.paginator_newest_list[previous].has_next,
+        has_previous:data.paginator_newest_list[previous].has_previous,
+        courses:data.paginator_newest_list[previous].courses,
+        })
+    }
+    function nextPage(){
+        let next=page.page_index+1;
+        setPage({
+        page_index:data.paginator_newest_list[next].page_index,
+        has_next:data.paginator_newest_list[next].has_next,
+        has_previous:data.paginator_newest_list[next].has_previous,
+        courses:data.paginator_newest_list[next].courses,
+        })
+    }
     return(
         <div className="search_app">
             {/* <h1>{search}</h1> */}
@@ -164,6 +182,11 @@ function App(props){
                     {page.courses.map(course=>{
                         return(<Course key={course.id} data={course} />)
                     })}
+                    <div>
+                        <button disabled={!page.has_previous} onClick={previousPage}>prev</button>
+                        <span> {page.page_index+1} </span>
+                        <button disabled={!page.has_next} onClick={nextPage}>next</button>
+                    </div>
                 </div>
             </div>  
         </div>
