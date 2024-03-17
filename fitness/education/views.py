@@ -329,6 +329,19 @@ def search_api(request,name):
             course_ojb=Course.objects.all().get(pk=course["id"])
             course["participants"]=course_ojb.participants.count()
             course["rated"]=course_ojb.ratings.count()
+    paginator_newest = Paginator(courses_newest, 4)
+    paginator_newest_list = [
+        {"page_index": page.number - 1, "has_next": page.has_next(), "has_previous": page.has_previous(),
+         "courses": page.object_list, } for page in paginator_newest]
+    #
+    paginator_oldest = Paginator(courses_oldest, 4)
+    paginator_oldest_list = [
+        {"page_index": page.number - 1, "has_next": page.has_next(), "has_previous": page.has_previous(),
+         "courses": page.object_list, } for page in paginator_oldest]
+    #
+    paginator_alphabet=Paginator(courses_alphabet,4)
+    paginator_alphabet_list=[{"page_index":page.number-1,"has_next":page.has_next(),"has_previous":page.has_previous(),"courses": page.object_list,} for page in paginator_alphabet]
+    #
     paginator_price=Paginator(courses_price,4)
     paginator_price_list=[]
     for page in paginator_price:
@@ -339,12 +352,16 @@ def search_api(request,name):
             "courses": page.object_list,
 
         })
-    return JsonResponse({"courses_newest":courses_newest,
-                         "courses_oldest":courses_oldest,
-                         "courses_alphabet":courses_alphabet,
-                         "courses_price":courses_price,
+    return JsonResponse({
+                         # "courses_newest":courses_newest,
+                         # "courses_oldest":courses_oldest,
+                         # "courses_alphabet":courses_alphabet,
+                         # "courses_price":courses_price,
                          "found":len(courses_newest),
-                         "paginator_price_list":paginator_price_list
+                         "paginator_newest_list":paginator_newest_list,
+                         "paginator_oldest_list":paginator_oldest_list,
+                         "paginator_alphabet_list":paginator_alphabet_list,
+                         "paginator_price_list":paginator_price_list,
                          })
 @csrf_exempt
 def my_cart_api(request):
