@@ -16,7 +16,7 @@ function App(props){
     return (<div className="index_app">
     <div className="top_part">
         <div>
-        <h1>Invest in your health!</h1>
+        <h1>Invest in yourself!</h1>
         <p>Lorem ipsum dolor sit amet, 
         consectetur adipiscing elit. Sed felis tellus, viverra id lobortis in, consectetur nec leo.
          Donec ultricies venenatis diam, in vehicula quam iaculis eu. Aliquam dapibus posuere blandit.
