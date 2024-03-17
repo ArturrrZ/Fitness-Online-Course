@@ -934,4 +934,16 @@ margin-bottom: 15px;
 .course_in_cart_name {
     cursor: pointer;
 }
+.pages_zone {text-align: center; margin-top: 50px;}
+.next, .prev{
+    cursor:pointer;
+}
+.next > svg, .prev>svg {
+    width: 34px;
+    height: 34px;
+    
+}
+.next > svg:hover, .prev>svg:hover{color: #CAFF33;}
 
+.page_num {
+    font-size: 1.5rem;}
