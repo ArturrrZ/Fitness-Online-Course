@@ -7,6 +7,7 @@ import json
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import serialize
+from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
 
@@ -328,11 +329,22 @@ def search_api(request,name):
             course_ojb=Course.objects.all().get(pk=course["id"])
             course["participants"]=course_ojb.participants.count()
             course["rated"]=course_ojb.ratings.count()
+    paginator_price=Paginator(courses_price,4)
+    paginator_price_list=[]
+    for page in paginator_price:
+        paginator_price_list.append({
+            "page_index": page.number-1,
+            "has_next":page.has_next(),
+            "has_previous":page.has_previous(),
+            "courses": page.object_list,
+
+        })
     return JsonResponse({"courses_newest":courses_newest,
                          "courses_oldest":courses_oldest,
                          "courses_alphabet":courses_alphabet,
                          "courses_price":courses_price,
                          "found":len(courses_newest),
+                         "paginator_price_list":paginator_price_list
                          })
 @csrf_exempt
 def my_cart_api(request):
@@ -377,10 +389,25 @@ def my_learning_api(request):
         participation.is_completed=not participation.is_completed
         participation.save()
         return JsonResponse({"message":"Done"},status=200)
+    # pages=Paginator(joined_courses,2)
+    # pages_dict={}
+    # for index,page in enumerate(pages):
+    #     pages_dict[page.number]={
+    #         "objects": page.object_list,
+    #         "has_next": page.has_next(),
+    #         "has_previous": page.has_previous(),
+    #     }
+    # print(pages_dict)
+    # page_obj=list(pages.get_page(1))
+    # # print(page_obj)
+    # # serialized_courses=[course.serialize() for course in page_obj]
     return JsonResponse({
         "user_id":request.user.id,
         "username":request.user.username,
         "joined_courses":joined_courses,
+        # "serialized_courses":pages_dict,
+        # "page":pages.get_page(1).object_list,
+        # "has_next":pages.get_page(1).has_next()
         })
 
 @csrf_exempt
