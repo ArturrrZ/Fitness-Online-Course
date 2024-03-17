@@ -5,23 +5,58 @@ const search=root.dataset.string;
 fetch(`/api/search/${search}`)
 .then(response=>{return(response.json())})
 .then(data=>{
-    console.log(data)   
+    // console.log(data)   
     ReactDOM.render(<App data={data}/>, root);
 })
 
 
 function App(props){
     const [data,setData]=useState(props.data)
-    const [courses,setCourses]=useState(data.courses_newest);
+    // const [courses,setCourses]=useState(data.courses_newest);
     const [max,setMax]=useState(500);
-    // console.log(courses);
+    const [page,setPage]=useState({
+        page_index:data.paginator_newest_list[0].page_index,
+        has_next:data.paginator_newest_list[0].has_next,
+        has_previous:data.paginator_newest_list[0].has_previous,
+        courses:data.paginator_newest_list[0].courses,
+
+    })
+    console.log(page);
     function submitForm(event){
         event.preventDefault();
         // console.log(event.target.sort.value);
-        {event.target.sort.value=="newest"&&setCourses(data.courses_newest)};
-        {event.target.sort.value=="oldest"&&setCourses(data.courses_oldest)};
-        {event.target.sort.value=="alphabet"&&setCourses(data.courses_alphabet)};
-        {event.target.sort.value=="price"&&setCourses(data.courses_price)};
+        {event.target.sort.value=="newest"&&setPage(
+            {
+        page_index:data.paginator_newest_list[0].page_index,
+        has_next:data.paginator_newest_list[0].has_next,
+        has_previous:data.paginator_newest_list[0].has_previous,
+        courses:data.paginator_newest_list[0].courses,
+            }
+            )};
+        {event.target.sort.value=="oldest"&&setPage(
+            {
+        page_index:data.paginator_oldest_list[0].page_index,
+        has_next:data.paginator_oldest_list[0].has_next,
+        has_previous:data.paginator_oldest_list[0].has_previous,
+        courses:data.paginator_oldest_list[0].courses,
+            }
+            )};
+        {event.target.sort.value=="alphabet"&&setPage(
+            {
+        page_index:data.paginator_alphabet_list[0].page_index,
+        has_next:data.paginator_alphabet_list[0].has_next,
+        has_previous:data.paginator_alphabet_list[0].has_previous,
+        courses:data.paginator_alphabet_list[0].courses,
+            }
+            )};
+        {event.target.sort.value=="price"&&setPage(
+            {
+        page_index:data.paginator_price_list[0].page_index,
+        has_next:data.paginator_price_list[0].has_next,
+        has_previous:data.paginator_price_list[0].has_previous,
+        courses:data.paginator_price_list[0].courses,
+            }
+            )};
         // fetch
     }
 
@@ -38,7 +73,13 @@ function App(props){
         .then(data=>{
             console.log(data);
             setData(data);
-            setCourses(data.courses_newest);
+            // setCourses(data.courses_newest);
+            setPage({
+                page_index:data.paginator_newest_list[0].page_index,
+                has_next:data.paginator_newest_list[0].has_next,
+                has_previous:data.paginator_newest_list[0].has_previous,
+                courses:data.paginator_newest_list[0].courses,
+            })
         })
     }
     return(
@@ -120,11 +161,11 @@ function App(props){
   </select>
     <input type="submit"/>
     </form>
-                    {courses.map(course=>{
+                    {page.courses.map(course=>{
                         return(<Course key={course.id} data={course} />)
                     })}
                 </div>
-            </div>
+            </div>  
         </div>
     )
 }
