@@ -569,7 +569,8 @@ iframe {
     font-style: italic;
     color:greenyellow;
 }
-.courses{display: flex;gap: 20px;}
+.courses{display: flex;gap: 20px;flex-wrap: nowrap;}
+.free_contents {display: flex;gap: 20px;flex-wrap: nowrap;}
 
 .top_part{
     display: grid;
@@ -947,3 +948,12 @@ margin-bottom: 15px;
 
 .page_num {
     font-size: 1.5rem;}
+.navigation_index_page{
+    /* display:flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem; */
+    margin-top: 1rem;
+    text-align: center;
+    margin-left: 11%;
+}

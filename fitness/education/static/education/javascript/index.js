@@ -4,7 +4,7 @@ const root=document.querySelector("#root");
 fetch("/api/get_index")
 .then(response=>{return (response.json())})
 .then(data=>{
-    console.log(data)
+    // console.log(data)
     ReactDOM.render(<div>
         <App data={data}/>
     </div>,root);
@@ -12,7 +12,7 @@ fetch("/api/get_index")
 
 
 function App(props){
-    console.log(props.data.all.courses[0].courses)
+    // console.log(props.data.all.courses[0].courses)
     const [view,setView] = useState({
         category:"all",
         page_courses_ingex:props.data.all.courses[0].page_index,
@@ -37,7 +37,42 @@ function App(props){
         page_free_free_content:props.data[category].free_content[0].free_content,
         })
     }
-    console.log(view)
+    function checkSibl(bool){
+        if (bool===false){
+            return {
+                display:"none"
+            }
+        }
+        if (bool===true){
+            return {
+                display:"inline-block"
+            }
+        }
+    }
+    function setCoursePage(num){
+        let category=view.category;
+        // console.log(num);
+        setView({
+            ...view,
+        page_courses_ingex:props.data[view.category].courses[num].page_index,
+        page_courses_has_previous:props.data[view.category].courses[num].has_previous,
+        page_courses_has_next:props.data[view.category].courses[num].has_next,
+        page_courses_courses:props.data[view.category].courses[num].courses,
+
+        })
+    }
+    function setFreePage(num){
+        setView({
+            ...view,
+            page_free_ingex:props.data[view.category].free_content[num].page_index,
+            page_free_has_previous:props.data[view.category].free_content[num].has_previous,
+            page_free_has_next:props.data[view.category].free_content[num].has_next,
+            page_free_free_content:props.data[view.category].free_content[num].free_content,
+
+        })
+    }
+    
+    // console.log(view)
     return (<div className="index_app">
     <div className="top_part">
         <div>
@@ -63,10 +98,26 @@ function App(props){
         <div>
             <h1 className="category_name">All courses:</h1>
             <div className="courses">{view.page_courses_courses.map(course=><Course key={course.id} course={course}/>)}</div>
+            <div className="navigation_index_page">
+            <span className="prev" style={checkSibl(view.page_courses_has_previous)} onClick={function(){setCoursePage(view.page_courses_ingex-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+  <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+</svg></span>
+                        <span className="page_num"> {view.page_courses_ingex+1} </span>
+                        <span className="next" style={checkSibl(view.page_courses_has_next)} onClick={function(){setCoursePage(view.page_courses_ingex+1)}}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+</svg></span></div>
             <hr/>
             <h1 className="category_name">All free content:</h1>
             <div className="free_contents">{view.page_free_free_content.map(content=><Content key={content.id} content={content}/>)}</div>
 
+            <div className="navigation_index_page">
+            <span className="prev" style={checkSibl(view.page_free_has_previous)} onClick={function(){setFreePage(view.page_free_ingex-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+  <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+</svg></span>
+                        <span className="page_num"> {view.page_free_ingex+1} </span>
+                        <span className="next" style={checkSibl(view.page_free_has_next)} onClick={function(){setFreePage(view.page_free_ingex+1)}}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+  <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+</svg></span></div>
         </div>
         
         
