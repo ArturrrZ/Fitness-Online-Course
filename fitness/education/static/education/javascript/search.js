@@ -117,6 +117,7 @@ function App(props){
         <div className="search_app">
             {/* <h1>{search}</h1> */}
             <h1>{data.found} results for: "{search}"</h1>
+            <hr/>
             <div className="search_grid">
                 <div className="left_search">
                     <form className="left_search_form" onSubmit={handleFilter}>
@@ -178,7 +179,7 @@ function App(props){
                     <br/>   
                     <input type="range" id="max" name="max" min="0" max="500" value={max} onChange={function(event){setMax(event.target.value)}}/>
                     <label id="max_price">Max Price:{max}$</label>
-                    <br/><input type="submit"  />
+                    <br/><input type="submit" value="filter" />
                     </form>
                 </div>
                 <div className="right_search">

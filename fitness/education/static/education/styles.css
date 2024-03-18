@@ -348,6 +348,7 @@ html {
 .grid_content{
     display:flex;
     gap: 20px;
+    flex-wrap: wrap;
     }
 
 

@@ -47,7 +47,7 @@ function App(props) {
             <div id="Courses">Total</div>
             <div id="Price">{total}$</div>
         </div>
-        <button id="Buy" onClick={()=>{window.location.href="/buy_my_cart"}}>Buy</button>
+        <button id="Buy" disabled={total===0}onClick={()=>{window.location.href="/buy_my_cart"}}>Buy</button>
          
 
         </div>

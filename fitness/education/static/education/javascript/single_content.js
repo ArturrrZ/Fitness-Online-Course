@@ -3,6 +3,7 @@ const root=document.querySelector("#root");
 const contentId=root.dataset.contentid;
 console.log(`Content id:${contentId}`);
 
+
 fetch(`/api/get_single_content/${contentId}`)
 .then(response=>{return response.json()})
 .then(data=>{
@@ -42,6 +43,7 @@ fetch(`/api/get_single_content/${contentId}`)
 
 
 // --------------------------React Components----------------------------------------------------------------
+
 
 function StudentView(props){
     var video_endpoint=props.content.url_youtube.split('=');
@@ -284,3 +286,5 @@ function ContentCreator (props){
         </div>
     )
 }
+
+
