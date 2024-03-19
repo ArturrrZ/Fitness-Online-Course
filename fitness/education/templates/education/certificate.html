@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="{% static 'education/styles.css' %}">
 </head>
 <body>
+    {% if user.first_name == "" %}
+    <div class="name_form">
+    <h1>Fill out your first and last name</h1>
+        <form action="{% url 'certificate' course.id %}" method="POST">
+            {% csrf_token %}
+            <label>First Name:</label>
+            <input type="text" name="first"><br/><br/>
+            <label>Last Name:</label>
+            <input type="text" name="last"><br/><br/>
+            <input type="submit">
+        </form>
+    </div>
+    {% else %}
   <div class="certificate">
       <div class="left_certificate">
           <h2 class="verified">Verified Certificate</h2>
@@ -19,5 +32,6 @@
           <span class="company">Fitness</span>
       </div>
   </div>
+    {% endif %}
 </body>
 </html>

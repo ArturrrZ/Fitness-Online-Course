@@ -202,6 +202,13 @@ def course(request,course_id):
         return render(request,"education/course_overview.html",{"course":course})
 
 def certificate(request,course_id):
+    if request.method=='POST':
+        first=request.POST["first"]
+        last=request.POST["last"]
+        request.user.first_name=first
+        request.user.last_name=last
+        request.user.save()
+        return HttpResponseRedirect(reverse("certificate",args=(course_id,)))
     try:
         course=Course.objects.all().get(pk=course_id)
     except ObjectDoesNotExist:

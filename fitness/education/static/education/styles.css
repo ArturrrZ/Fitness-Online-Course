@@ -982,6 +982,9 @@ margin-bottom: 15px;
     border: 1px solid black;
     padding: 70px 50px;
 }
+.name_form {
+    margin: 30px 20%;
+}
 
 .company {
     font-size: 2.5rem;
