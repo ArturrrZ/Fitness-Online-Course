@@ -22,6 +22,7 @@ function App(props){
 
 function Course(props) {
     const [is_completed,setIsCompleted]=useState(props.course.is_completed);
+    // console.log(props.course.course__id)
     function changeState(course_id){
       fetch("api/get_my_learning",{
         method:"PUT",
@@ -34,12 +35,18 @@ function Course(props) {
         
         
     }
+    function checkCertificate(event){
+        event.stopPropagation();
+        window.location.href=`/certificate/${props.course.course__id}`;
+    }
     return (
         <div  className="course" style={is_completed?{backgroundColor:"#CAFF33",order: 1}:{}} onClick={function(){window.location.href=`/course/${props.course.course__id}`}}>
                   <img src={props.course.course__url_image}/>
                   <div className="course_info">
                   <h5 className="course_name">{props.course.course__name}</h5>
-                  <div className="course_creator">{props.course.course__creator__username}</div>
+                  <div className="course_creator">{props.course.course__creator__first_name} {props.course.course__creator__last_name}
+                  {is_completed&&<div><br/><a className="certificate_link" onClick={checkCertificate}>certificate</a></div>}
+                  </div>
                   <div className="course_bottom"><div className="course_price">${props.course.course__price}</div>
                   
                   <div className="is_completed_section" onClick={(e)=>{e.stopPropagation();changeState(props.course.id)}}>

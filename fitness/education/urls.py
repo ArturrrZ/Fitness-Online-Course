@@ -20,6 +20,7 @@ urlpatterns = [
     path("my_cart",views.my_cart,name="my_cart"),
     path("buy_my_cart",views.buy_my_cart,name="buy_my_cart"),
     path("search",views.search,name="search"),
+    path("certificate/<int:course_id>",views.certificate,name="certificate"),
     # api
     path("api/search/<str:name>",views.search_api),
     path("api/get_index",views.get_index),

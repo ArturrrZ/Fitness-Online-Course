@@ -201,7 +201,15 @@ def course(request,course_id):
         # user does not have this course
         return render(request,"education/course_overview.html",{"course":course})
 
-
+def certificate(request,course_id):
+    try:
+        course=Course.objects.all().get(pk=course_id)
+    except ObjectDoesNotExist:
+        return render(request,"education/404.html")
+    return render(request,"education/certificate.html",{
+        "course":course,
+        "user":request.user,
+    })
 @csrf_exempt
 def edit_course(request,course_id):
     try:
