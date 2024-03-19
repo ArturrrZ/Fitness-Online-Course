@@ -27,9 +27,15 @@
           <h3>{{user.first_name}} {{user.last_name}}</h3>
           <p>has successfully watched all content and received passing grades for a Verified Certificate in</p>
           <h2>{{course.name}}</h2>
+          <p class="purchased_on">purchased on {{participation.date|date:"M,d Y"}}</p>
       </div>
       <div class="right_certificate">
           <span class="company">Fitness</span>
+          <p>signature </p>
+          <div class="completed_on">
+          <p>completed on</p>
+          <p>{{participation.completed_date|date:"M,d Y"}}</p>
+          </div>
       </div>
   </div>
     {% endif %}

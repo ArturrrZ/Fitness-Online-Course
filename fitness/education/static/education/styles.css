@@ -980,7 +980,7 @@ margin-bottom: 15px;
     display: grid;
     grid-template-columns: 2fr 1fr;
     border: 1px solid black;
-    padding: 70px 50px;
+    padding: 60px 50px;
 }
 .name_form {
     margin: 30px 20%;
@@ -990,9 +990,18 @@ margin-bottom: 15px;
     font-size: 2.5rem;
     font-style: italic;
 }
-
+.right_certificate {
+    display:flex;
+    justify-content:space-between;
+    flex-direction:column;
+}
+.completed_on, .purchased_on {
+    font-size:0.7rem;
+    color:grey;
+}
 .verified {
     font-style: italic;
+    color:#CAFF33;
 
 }
 .right_certificate {

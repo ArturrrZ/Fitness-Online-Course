@@ -4,6 +4,7 @@ from django.db import IntegrityError
 from django.shortcuts import render,reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 import json
+import datetime
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.serializers import serialize
@@ -211,11 +212,13 @@ def certificate(request,course_id):
         return HttpResponseRedirect(reverse("certificate",args=(course_id,)))
     try:
         course=Course.objects.all().get(pk=course_id)
+        participation=Participation.objects.all().get(participant=request.user,course=course)
     except ObjectDoesNotExist:
         return render(request,"education/404.html")
     return render(request,"education/certificate.html",{
         "course":course,
         "user":request.user,
+        "participation":participation
     })
 @csrf_exempt
 def edit_course(request,course_id):
@@ -419,6 +422,7 @@ def my_learning_api(request):
         if participation.participant != request.user:
             return render(request,"education/404.html")
         participation.is_completed=not participation.is_completed
+        participation.completed_date=datetime.datetime.now()
         participation.save()
         return JsonResponse({"message":"Done"},status=200)
     # pages=Paginator(joined_courses,2)
