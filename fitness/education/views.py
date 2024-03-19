@@ -465,40 +465,48 @@ def get_index(request):
 
     paginator_all_courses=Paginator(all["courses"],4)
     all["courses"]=[{"page_index":page.number-1,"has_previous":page.has_previous(),"has_next":page.has_next(),"courses": page.object_list,} for page in paginator_all_courses]
+    all["count_courses"]=paginator_all_courses.count
+
     #
     paginator_all_free = Paginator(all["free_content"], 4)
     all["free_content"] = [{"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
                        "free_content": page.object_list, } for page in paginator_all_free]
+    all["count_free"] = paginator_all_free.count
     # ---
     paginator_fitness_courses = Paginator(fitness["courses"], 4)
     fitness["courses"] = [{"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
                        "courses": page.object_list, } for page in paginator_fitness_courses]
+    fitness["count_courses"]=paginator_fitness_courses.count
     #
     paginator_fitness_free = Paginator(fitness["free_content"], 4)
     fitness["free_content"] = [
         {"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
          "free_content": page.object_list, } for page in paginator_fitness_free]
+    fitness["count_free"]=paginator_fitness_free.count
     # -----nutrition---
     paginator_nutrition_courses = Paginator(nutrition["courses"], 4)
     nutrition["courses"] = [
         {"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
          "courses": page.object_list, } for page in paginator_nutrition_courses]
+    nutrition["count_courses"]=paginator_nutrition_courses.count
     #
     paginator_nutrition_free = Paginator(nutrition["free_content"], 4)
     nutrition["free_content"] = [
         {"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
          "free_content": page.object_list, } for page in paginator_nutrition_free]
+    nutrition["count_free"]=paginator_nutrition_free.count
     # -----professional---
     paginator_professional_courses = Paginator(professional["courses"], 4)
     professional["courses"] = [
         {"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
          "courses": page.object_list, } for page in paginator_professional_courses]
+    professional["count_courses"]=paginator_professional_courses.count
     #
     paginator_professional_free = Paginator(professional["free_content"], 4)
     professional["free_content"] = [
         {"page_index": page.number - 1, "has_previous": page.has_previous(), "has_next": page.has_next(),
          "free_content": page.object_list, } for page in paginator_professional_free]
-
+    professional["count_free"]=paginator_professional_free.count
     return JsonResponse({
         "all":all,
         "fitness":fitness,

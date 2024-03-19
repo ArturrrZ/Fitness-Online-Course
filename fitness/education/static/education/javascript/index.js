@@ -4,7 +4,7 @@ const root=document.querySelector("#root");
 fetch("/api/get_index")
 .then(response=>{return (response.json())})
 .then(data=>{
-    // console.log(data)
+    console.log(data)
     ReactDOM.render(<div>
         <App data={data}/>
     </div>,root);
@@ -23,6 +23,8 @@ function App(props){
         page_free_has_previous:props.data.all.free_content[0].has_previous,
         page_free_has_next:props.data.all.free_content[0].has_next,
         page_free_free_content:props.data.all.free_content[0].free_content,
+        count_courses:props.data.all.count_courses,
+        count_free:props.data.all.count_free,
     })
     function changeState(category){
         setView({
@@ -35,6 +37,8 @@ function App(props){
         page_free_has_previous:props.data[category].free_content[0].has_previous,
         page_free_has_next:props.data[category].free_content[0].has_next,
         page_free_free_content:props.data[category].free_content[0].free_content,
+        count_courses:props.data[category].count_courses,
+        count_free:props.data[category].count_free,
         })
     }
     function checkSibl(bool){
@@ -96,7 +100,7 @@ function App(props){
             <span className="navigate" onClick={function(){changeState("professional")}}>Professional Sports</span>
         </div><br/>
         <div>
-            <h1 className="category_name">All courses:</h1>
+            <h1 className="category_name">All courses: <span className="count_courses">({view.count_courses})</span></h1>
             <div className="courses">{view.page_courses_courses.map(course=><Course key={course.id} course={course}/>)}</div>
             <div className="navigation_index_page">
             <span className="prev" style={checkSibl(view.page_courses_has_previous)} onClick={function(){setCoursePage(view.page_courses_ingex-1)}}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -107,7 +111,7 @@ function App(props){
   <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
 </svg></span></div>
             <hr/>
-            <h1 className="category_name">All free content:</h1>
+            <h1 className="category_name">All free content: <span className="count_courses">({view.count_free})</span></h1>
             <div className="free_contents">{view.page_free_free_content.map(content=><Content key={content.id} content={content}/>)}</div>
 
             <div className="navigation_index_page">

@@ -958,3 +958,11 @@ margin-bottom: 15px;
     text-align: center;
     margin-left: 11%;
 }
+
+
+.count_courses{
+    color:#6a6f73;
+    font-style: italic;
+    font-size: 0.5em;
+    font-weight: 300;
+}
