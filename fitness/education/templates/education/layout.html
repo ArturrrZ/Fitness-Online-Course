@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title  %}Health{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'education/styles.css' %}">
@@ -21,7 +23,7 @@
           <li><a href="#" class="nav-link px-2 link-body-emphasis">About</a></li>
 
         </ul>
-        <form class="col-12 col-lg-3 mb-3 mb-lg-0 me-lg-5" role="search" action="{% url 'search' %}" method="get">
+        <form class="col-12 col-lg-3 col-6 mb-3 mb-lg-0 me-lg-5" role="search" action="{% url 'search' %}" method="get">
           <input type="search" name="name" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
 

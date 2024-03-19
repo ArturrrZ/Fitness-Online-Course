@@ -1007,3 +1007,35 @@ margin-bottom: 15px;
 .right_certificate {
     text-align: right;
 }
+/* 481px — 768px */
+@media (min-width: 481px) and (max-width: 768px) { 
+    .cart_app {
+        margin: 0% 5%;    
+    }
+    #Courses, #Price {
+        margin-bottom: 50px;
+        font-size: 2rem;
+        font-weight: 600;}
+  
+    #Buy {
+        font-size: 2rem;
+    }
+    .course_zone { margin: 0% 10%;}
+    .single_form {max-width: 80%;}
+}
+@media (max-width: 480px) {
+    .cart_app{
+        margin: 0% 5%;
+    }
+    #Courses, #Price {
+        margin-bottom: 50px;
+        font-size: 2rem;
+        font-weight: 600;}
+  
+    #Buy {
+        font-size: 2rem;
+    }
+    .course_zone { margin: 0% 10%;}
+    .single_form {max-width: 80%;}
+
+  }
