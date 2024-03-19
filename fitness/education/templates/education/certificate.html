@@ -1,18 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Certificate</title>
+    <link rel="stylesheet" href="{% static 'education/styles.css' %}">
 </head>
 <body>
   <div class="certificate">
       <div class="left_certificate">
-          <h1>Verified Certificate</h1>
+          <h2 class="verified">Verified Certificate</h2>
           <p>This is to certify that</p>
-          <h2>{{user.first_name}}</h2>
-          {{course.name}}
+          <h3>{{user.first_name}} {{user.last_name}}</h3>
+          <p>has successfully watched all content and received passing grades for a Verified Certificate in</p>
+          <h2>{{course.name}}</h2>
       </div>
-      <div class="righ_certificate"></div>
+      <div class="right_certificate">
+          <span class="company">Fitness</span>
+      </div>
   </div>
 </body>
 </html>
