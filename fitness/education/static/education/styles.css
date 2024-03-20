@@ -865,6 +865,7 @@ margin-bottom: 15px;
 }
 .right_overview > div > a > button:hover{
     background-color: rgb(44, 232, 44);
+    
 }
 .right_overview > p {
     margin-top:10px;
@@ -1022,6 +1023,12 @@ margin-bottom: 15px;
     }
     .course_zone { margin: 0% 10%;}
     .single_form {max-width: 80%;}
+    .grid_content{justify-content: center;}
+    .static {grid-template-columns: auto;}
+    .link {width: 100%;}
+    .static{margin:0% 5%}
+    .grid_content {gap:10px}
+    .teacher_view{margin-top: 50px;}
 }
 @media (max-width: 480px) {
     .cart_app{
@@ -1037,5 +1044,11 @@ margin-bottom: 15px;
     }
     .course_zone { margin: 0% 10%;}
     .single_form {max-width: 80%;}
-
+    .grid_content{justify-content: center;}
+    .static {grid-template-columns: auto;}
+    .headline{font-size: 1.7rem;}
+    .about_me {font-size: 1rem;}
+    .about{font-size: 1rem;}
+    .static{margin:0% 5%}
+    .teacher_view{margin-top: 20px;}
   }
