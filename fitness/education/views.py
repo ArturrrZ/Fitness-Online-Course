@@ -35,6 +35,8 @@ def index(request):
     })
 
 def register(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
     if request.method=="POST":
         form=RegisterForm(request.POST)
         if form.is_valid():
@@ -70,6 +72,8 @@ def register(request):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
     if request.method=="POST":
         form=LoginForm(request.POST)
         if form.is_valid():
@@ -88,7 +92,7 @@ def login_view(request):
         "form": LoginForm(),
     })
 
-
+@login_required(login_url="login")
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
@@ -106,6 +110,8 @@ def user(request,username):
 
 @login_required(login_url="login")
 def create_teacher(request):
+    if request.user.teacher:
+        return HttpResponseRedirect(reverse("user",args=(request.user.username,)))
     if request.method=="POST":
         form=CreateTeacherForm(request.POST)
         if form.is_valid():

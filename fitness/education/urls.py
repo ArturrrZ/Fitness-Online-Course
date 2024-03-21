@@ -13,7 +13,6 @@ urlpatterns = [
     path("teacher/create_course",views.create_course,name="create_course"),
     path("teacher/course/edit/<int:course_id>", views.edit_course, name="edit_course"),
     path("course/buy/<int:course_id>",views.buy_course,name="buy_course"),
-    path("course/buy",views.buy_course_api,name="buy_course_api"),
     path("course/<int:course_id>",views.course,name="course"),
     path("single_content/<int:content_id>",views.single_content,name="single_content"),
     path("my_learning",views.my_learning,name="my_learning"),
@@ -22,6 +21,7 @@ urlpatterns = [
     path("search",views.search,name="search"),
     path("certificate/<int:course_id>",views.certificate,name="certificate"),
     # api
+    path("course/buy", views.buy_course_api, name="buy_course_api"),
     path("api/search/<str:name>",views.search_api),
     path("api/get_index",views.get_index),
     path("api/get_person/<int:user_id>",views.get_person),
