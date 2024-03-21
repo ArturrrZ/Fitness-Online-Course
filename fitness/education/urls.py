@@ -29,5 +29,6 @@ urlpatterns = [
     path("api/single_content_comment/<int:content_id>",views.single_content_comment),
     path("api/get_course/<int:course_id>",views.get_course),
     path("api/get_my_learning",views.my_learning_api),
-    path("api/get_my_cart_api",views.my_cart_api)
+    path("api/get_my_cart_api",views.my_cart_api),
+    path("api/course_rating/<int:rating_id>",views.rating_edit)
 ]

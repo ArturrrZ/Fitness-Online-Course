@@ -743,7 +743,7 @@ def get_course(request,course_id):
                 is_rated = True
                 rating["rated_course"]=True
             else:
-                is_rated=False
+                # is_rated=False
                 rating["rated_course"] = False
     current_rating=course.current_rating
 
@@ -790,6 +790,18 @@ def get_course(request,course_id):
             },status=200)
     return JsonResponse({"course":serialised_course,},status=200)
 
+@csrf_exempt
+def rating_edit(request,rating_id):
+    try:
+        rating=Rating.objects.all().get(pk=rating_id)
+    except ObjectDoesNotExist:
+        return JsonResponse({"error":"message does not exist"})
+    if request.method=="PUT":
+        data=json.loads(request.body)
+        if data["action"]=="delete":
+            rating.delete()
+        return JsonResponse({"response":"done"})
+    return JsonResponse({"response":"done"})
 
 # rating:4.5,
 #             ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],

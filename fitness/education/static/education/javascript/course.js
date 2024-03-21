@@ -200,7 +200,7 @@ function RatingSystem(props){
             </div>}
             <div className="reviews">
             {system.ratings.map(review=>{return (
-                        <Review key={review.id} username={review.user__username} rated_course={review.rated_course} date={review.date} message={review.message} rate={review.rate}/>
+                        <Review key={review.id} id={review.id} username={review.user__username} rated_course={review.rated_course} date={review.date} message={review.message} rate={review.rate}/>
                 )})}            </div>
         </div>
     )
@@ -255,11 +255,29 @@ function Review(props){
     </div>
             )}
     }
+    
+    function handleDelete(event){
+        event.preventDefault();
+        fetch(`/api/course_rating/${props.id}`,{
+            method:'PUT',
+            body:JSON.stringify({
+                rating_id:props.id,
+                action:"delete"
+            })
+        })
+        .then(response=>{return response.json()})
+        .then(data=>{
+            console.log(data);
+            let parent=event.target.parentElement.parentElement
+            parent.style.display="none";
+        })
+        .catch(error=>{console.log(error.message)})
+    }
     return(
         <div className="review">
                 <div className="comment_pic"> {props.username[0].toUpperCase()}</div>
                 <h5>{props.username}</h5>
-                {props.rated_course&&<div><a>edit</a> <a>del</a></div>}
+                {props.rated_course&&<div><a>edit</a> <a href="#" className="delete_comment" onClick={handleDelete}>del</a></div>}
                 <div className="stars">{getStars(props.rate)}<div className="review_date">{props.date}</div></div> 
                 <p>{props.message}</p>
         </div>
