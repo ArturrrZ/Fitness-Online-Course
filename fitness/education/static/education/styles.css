@@ -1029,6 +1029,8 @@ margin-bottom: 15px;
     .static{margin:0% 5%}
     .grid_content {gap:10px}
     .teacher_view{margin-top: 50px;}
+
+    .search_app{margin: 50px 5%;font-size: 1.2rem;}
 }
 @media (max-width: 480px) {
     .cart_app{
@@ -1051,4 +1053,19 @@ margin-bottom: 15px;
     .about{font-size: 1rem;}
     .static{margin:0% 5%}
     .teacher_view{margin-top: 20px;}
+
+    .search_app{margin: 50px 5%;font-size: 1.2rem;}
+    input[type="radio"] {
+        /* Increase the size of the radio input */
+        width: 16px; /* Adjust as needed */
+        height: 16px; /* Adjust as needed */
+        margin: 0px 5px;
+    }
+    .search_grid{grid-template-columns: auto;}
+    .search_course {grid-template-columns: auto;}
+    .left_search{border: 0px;}
+    #sort {margin: 0px 15px;}
+    
+    .edit_form{margin: 0% 5%;}
   }
+  #sort {margin: 0px 15px;}
