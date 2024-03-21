@@ -1008,6 +1008,7 @@ margin-bottom: 15px;
 .right_certificate {
     text-align: right;
 }
+#header_course{margin-right: 25%;}
 /* 481px — 768px */
 @media (min-width: 481px) and (max-width: 768px) { 
     .cart_app {
@@ -1036,6 +1037,25 @@ margin-bottom: 15px;
     .courses, .free_contents{flex-wrap: wrap;}
     iframe {width: 600px; height: 400px;}
     .course_overview_stars{font-size: 1rem;}
+    
+    .content_list {position: static; height:auto; width: auto;}
+    .left_side{margin: 0% 0%;}
+    .changeable {padding: 0% 3%;}
+    .navigation{margin: 2% 3%;}
+    .left_side > .video{margin: 25px 0px;}
+    header{margin-right: 0%;}
+    #header_course{margin-right: 0%;}
+    .current_rating {
+        text-align: left;
+        font-size: 2rem;
+    }
+    .video_description > p {
+        font-size: 16px;
+    }
+    .course_overview > p {
+        font-size: 16px;
+    }
+    .navigation {grid-template-columns: auto;}
 }
 @media (max-width: 480px) {
     .cart_app{
@@ -1119,5 +1139,25 @@ margin-bottom: 15px;
     .overview_ratings{margin: 50px 2%;}
     .buy_course_form{margin: 2%;}
     .name_form {font-size: 40px;}
+    .name_form > input {}
+
+    .content_list {position: static; height:auto; width: auto;}
+    .left_side{margin: 0% 0%;}
+    .changeable {padding: 0% 3%;}
+    .navigation{margin: 2% 3%;}
+    .left_side > .video{margin: 25px 0px;}
+    header{margin-right: 0%;}
+    #header_course{margin-right: 0%;}
+    .current_rating {
+        text-align: left;
+        font-size: 2rem;
+    }
+    .video_description > p {
+        font-size: 16px;
+    }
+    .course_overview > p {
+        font-size: 16px;
+    }
+    .navigation {grid-template-columns: auto;}
   }
   #sort {margin: 0px 15px;}

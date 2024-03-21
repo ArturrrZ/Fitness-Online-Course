@@ -62,7 +62,8 @@ fetch(`/api/get_course/${courseId}`)
 
 
 
-    document.querySelector("header").style.marginRight="25%";
+    // document.querySelector("header").style.marginRight="25%";
+    document.querySelector("header").setAttribute("id","header_course");
     ReactDOM.render(<div>
         <App data={data}/>
     </div>,root);
