@@ -1031,6 +1031,11 @@ margin-bottom: 15px;
     .teacher_view{margin-top: 50px;}
 
     .search_app{margin: 50px 5%;font-size: 1.2rem;}
+    .index_app{margin: 0% 2%;}
+    .top_part{gap: 5px;}
+    .courses, .free_contents{flex-wrap: wrap;}
+    iframe {width: 600px; height: 400px;}
+    .course_overview_stars{font-size: 1rem;}
 }
 @media (max-width: 480px) {
     .cart_app{
@@ -1044,7 +1049,7 @@ margin-bottom: 15px;
     #Buy {
         font-size: 2rem;
     }
-    .course_zone { margin: 0% 10%;}
+    /* .course_zone { margin: 0% 10%;} */
     .single_form {max-width: 80%;}
     .grid_content{justify-content: center;}
     .static {grid-template-columns: auto;}
@@ -1068,11 +1073,11 @@ margin-bottom: 15px;
     
     .edit_form{margin: 0% 5%;}
 
-    .courses, .free_contents {flex-wrap: wrap;}
+    .courses, .free_contents {flex-wrap: wrap; justify-content: center; max-width: 380px;}
     .index_app{margin: 0% 5%;width:70%;}
     .category_name{font-size: 1.8rem;}
     .navigation_index {
-        width: 100%;
+        max-width: 380px;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
@@ -1084,15 +1089,34 @@ margin-bottom: 15px;
     .navigation_index_page {
     margin-top: 1rem;
     /* text-align: center; */
-    margin-left: -31%;}
+    }
     .top_part{grid-template-columns: auto;gap: 0px;}
     .top_part > div > h1 {
         font-size: 3rem;}
     .top_part > img {
-    height: 300px;
-    width: 400px;
+    height: 200px;
+    width: 300px;
     border-radius: 50px;
 }    
 .top_part > div > p  {text-wrap: wrap;}
+
+    iframe {width: 250px; height: 160px;}
+    .content_creator{grid-template-columns: 1fr;}
+    .single_content_view{margin: 0% 2%;}
+    .content_headline{padding: 0px 3px;}
+    .edit_button{display: block;margin-left: 40%;}
+
+    .course_overview_info {
+        grid-template-columns: auto;
+        gap: 0px;
+        padding: 2% 2%;
+    }
+    .right_overview > img {
+        width: 280px;
+        height: 200px;
+        border-radius: 8px;
+    }
+    .overview_ratings{margin: 50px 2%;}
+    .buy_course_form{margin: 2%;}
   }
   #sort {margin: 0px 15px;}
