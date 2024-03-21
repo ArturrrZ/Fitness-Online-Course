@@ -1067,5 +1067,32 @@ margin-bottom: 15px;
     #sort {margin: 0px 15px;}
     
     .edit_form{margin: 0% 5%;}
+
+    .courses, .free_contents {flex-wrap: wrap;}
+    .index_app{margin: 0% 5%;width:70%;}
+    .category_name{font-size: 1.8rem;}
+    .navigation_index {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        /* background-color: #CAFF33; */
+    }
+    .navigation_index > .navigate {
+        text-align: center;
+        font-size: 16px;}
+    .navigation_index_page {
+    margin-top: 1rem;
+    /* text-align: center; */
+    margin-left: -31%;}
+    .top_part{grid-template-columns: auto;gap: 0px;}
+    .top_part > div > h1 {
+        font-size: 3rem;}
+    .top_part > img {
+    height: 300px;
+    width: 400px;
+    border-radius: 50px;
+}    
+.top_part > div > p  {text-wrap: wrap;}
   }
   #sort {margin: 0px 15px;}
