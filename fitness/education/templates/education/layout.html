@@ -52,12 +52,13 @@
             <li><a class="dropdown-item" href="{% url 'my_learning' %}">My Learning</a></li>
             <li><a class="dropdown-item" href="{% url 'my_cart' %}">My Cart</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
           </ul>
         </div>
         {% endif %}
         {% else %}
-          <a href="#" class="nav-link px-2 link-body-emphasis">Login</a>
+          <a href="{% url 'login' %}" class="nav-link px-2 link-body-emphasis">Login</a>
+        <a href="{% url 'register' %}" class="nav-link px-2 link-body-emphasis">Register</a>
         {% endif %}
       </div>
     </div>
