@@ -1159,5 +1159,9 @@ margin-bottom: 15px;
         font-size: 16px;
     }
     .navigation {grid-template-columns: auto;}
+    .left_side > .video > iframe {width: 280px; height: 200px;}
+    
+    .create_teacher{margin: 0% 3%;}
+    .create_teacher_form {display: block; max-width: 100%;}
   }
   #sort {margin: 0px 15px;}
