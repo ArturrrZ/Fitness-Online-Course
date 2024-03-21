@@ -741,8 +741,10 @@ def get_course(request,course_id):
         if request.user.is_authenticated:
             if rating['user__username'] == request.user.username:
                 is_rated = True
+                rating["rated_course"]=True
             else:
-                pass
+                is_rated=False
+                rating["rated_course"] = False
     current_rating=course.current_rating
 
     is_creator=False

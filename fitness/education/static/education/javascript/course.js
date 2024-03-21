@@ -103,6 +103,7 @@ function InteractivePart(props){
 
 function RatingSystem(props){
     console.log(props.rating_system);
+    console.log(props.rating_system.ratings)
     const [system,setSystem]=useState({
             rating:props.rating_system.rating,
             ratings:props.rating_system.ratings,
@@ -199,7 +200,7 @@ function RatingSystem(props){
             </div>}
             <div className="reviews">
             {system.ratings.map(review=>{return (
-                        <Review key={review.id} username={review.user__username} date={review.date} message={review.message} rate={review.rate}/>
+                        <Review key={review.id} username={review.user__username} rated_course={review.rated_course} date={review.date} message={review.message} rate={review.rate}/>
                 )})}            </div>
         </div>
     )
@@ -258,6 +259,7 @@ function Review(props){
         <div className="review">
                 <div className="comment_pic"> {props.username[0].toUpperCase()}</div>
                 <h5>{props.username}</h5>
+                {props.rated_course&&<div><a>edit</a> <a>del</a></div>}
                 <div className="stars">{getStars(props.rate)}<div className="review_date">{props.date}</div></div> 
                 <p>{props.message}</p>
         </div>
