@@ -1012,7 +1012,48 @@ margin-bottom: 15px;
 /* 481px — 768px */
 .rated_course{font-size: 1rem;}
 .rated_course > a {color: #6a6f73;}
+
+/* about page */
+.greeting{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url("https://images.pexels.com/photos/158780/leaf-nature-green-spring-158780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    height: 500px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding-top: 10%;
+}
+.company_name{font-size: 5rem;font-weight: 800;margin-bottom: 50px;}
+.company_headline{font-size: 2rem; font-style: italic;}
+
+.about_us {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    margin: 100px 20%;
+    font-size: 1.2rem;
+}
+.about_us > div > h3 {font-size: 1.8rem;}
+
+.explore {text-align: center;
+    
+        padding: 13% 20%;
+        color: white;
+        font-size: 1.5rem;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) , url("https://images.pexels.com/photos/7869513/pexels-photo-7869513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+        height: 500px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-weight: 800;         
+}
+.explore_button {
+    padding: 5px;
+    width: 300px;
+    border-radius: 10px;
+    background-color: #18a71a;
+}
 @media (min-width: 481px) and (max-width: 768px) { 
+    .about_us{grid-template-columns: 1fr 1fr;margin: 50px 2%;}
     .cart_app {
         margin: 0% 5%;    
     }
@@ -1166,5 +1207,14 @@ margin-bottom: 15px;
     .create_teacher{margin: 0% 3%;}
     .create_teacher_form {display: block; max-width: 100%;}
     .edit{margin: 0% 3%;}
-  }
+
+    .about_us{grid-template-columns: 1fr;margin: 50px 2%;}
+    .greeting{height: 300px;}
+    .company_name{font-size: 2rem;font-weight: 800;margin-bottom: 50px;}
+    .company_headline{font-size: 1rem; font-style: italic;}
+    .explore {padding: 10% 2%;}
+}
   #sort {margin: 0px 15px;}
+
+
+  

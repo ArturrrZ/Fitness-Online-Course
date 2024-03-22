@@ -81,9 +81,7 @@ function App(props){
     <div className="top_part">
         <div>
         <h1>Invest in yourself!</h1>
-        <p>Lorem ipsum dolor sit amet, 
-        consectetur adipiscing elit. Sed felis tellus, viverra id lobortis in, consectetur nec leo.
-         Donec ultricies venenatis diam, in vehicula quam iaculis eu. Aliquam dapibus posuere blandit.
+        <p>Empower your mind and body with the knowledge and skills that last a lifetime. From the foundations of fitness to the strategies of nutrition and the discipline of professional sports, our platform guides you on a journey of personal growth and development. Our commitment is to your well-being, offering a blend of free and premium courses designed by experts in their fields. 
           </p></div>
         {/* <img src="https://images.pexels.com/photos/2171077/pexels-photo-2171077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"/> */}
         <img src="https://media.istockphoto.com/id/1652535525/photo/sliced-cucumbers-in-water.jpg?s=1024x1024&w=is&k=20&c=_szKJyuGpCUNYoBlxX4T0i7E9XTMuovpaQ3sizQoyQw="/>

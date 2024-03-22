@@ -28,6 +28,8 @@ def getProperEndPoint(url_link):
         video_id = "xsNkZq5YNDg"
     return video_id
 
+def about(request):
+    return render(request,"education/about.html")
 @login_required(login_url="login")
 def index(request):
     return render(request,"education/index.html",{
