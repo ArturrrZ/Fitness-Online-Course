@@ -291,7 +291,8 @@ function Review(props){
             method:'PUT',
             body:JSON.stringify({
                 rating_id:props.id,
-                action:"delete"
+                action:"delete",
+                course_id:courseId,
             })
         })
         .then(response=>{return response.json()})
@@ -299,6 +300,8 @@ function Review(props){
             console.log(data);
             let parent=event.target.parentElement.parentElement
             parent.style.display="none";
+            // 
+            setSystem({...system,rating:data.new_rating})
         })
         .catch(error=>{console.log(error.message)})
     }

@@ -810,7 +810,15 @@ def rating_edit(request,rating_id):
             return JsonResponse({"response":"done"})
         if data["action"]=="delete":
             rating.delete()
-        return JsonResponse({"response":"done"})
+
+            try:
+                course = Course.objects.all().get(pk=data["course_id"])
+            except ObjectDoesNotExist:
+                return JsonResponse({"error": "message does not exist"})
+            average_rating = Rating.objects.filter(course=course).aggregate(avg_rating=Avg('rate'))['avg_rating']
+            course.current_rating = round(average_rating, 2)
+            course.save()
+        return JsonResponse({"response":"done","new_rating":course.current_rating})
 
     return JsonResponse({"response":"done"})
 
