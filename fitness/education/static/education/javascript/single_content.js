@@ -277,7 +277,7 @@ function ContentCreator (props){
             <div className="content_left_side">
             
             <img src={props.creator.picture_url} className="content_creator_img" />
-            <div className="content_name">{props.creator.first_name} {props.creator.last_name}</div>
+            <div className="content_name" onClick={()=>{window.location.href=`/user/${props.creator.username}`}}>{props.creator.first_name} {props.creator.last_name}</div>
             
             </div>
             <div className="content_headline">

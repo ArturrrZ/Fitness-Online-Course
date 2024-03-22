@@ -130,8 +130,11 @@ def create_teacher(request):
         "form": CreateTeacherForm(),
     })
 
-
+@login_required(login_url="login")
 def create_single(request):
+    if not request.user.teacher:
+        return HttpResponseRedirect(reverse("create_teacher"))
+
     if request.method=="POST":
         form=SingleContentForm(request.POST)
         if form.is_valid():
@@ -143,7 +146,10 @@ def create_single(request):
     return render(request,"education/create_single.html",{
         "form": SingleContentForm(),
     })
+@login_required(login_url="login")
 def create_course(request):
+    if not request.user.teacher:
+        return HttpResponseRedirect(reverse("create_teacher"))
     all_content = SingleContent.objects.filter(user=request.user)
     if request.method == 'POST':
         form=CourseForm(request.POST)
@@ -823,20 +829,3 @@ def rating_edit(request,rating_id):
         return JsonResponse({"response":"done","new_rating":course.current_rating})
 
     return JsonResponse({"response":"done"})
-
-# rating:4.5,
-#             ratings:[{username:"student",rate:4,message:"Cool!",date:"2/27/2024",id:1},{username:"profile",rate:5,message:"I like that!",date:"2/27/2024",id:2}],
-#             rated:false,
-
-
-
-# def getProperEndPoint():
-#     # https: // www.youtube.com / watch?v = d2hZzjJUFkg & list = PLrCjq1l6RqOpsQdKrSI_8wvPz0wPKj8nN
-#     # https://www.youtube.com/watch?v=oEXZHviwAVw
-#     # https://youtu.be/dQw4w9WgXcQ?t=42s
-#     url_link="https://youtu.be/dQw4w9WgXcQ?t=42s"
-#     url_link.split("https: // www.youtube.com / watch?v")
-#     print(url_link)
-# getProperEndPoint()
-
-    # pass

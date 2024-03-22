@@ -1052,6 +1052,8 @@ margin-bottom: 15px;
     border-radius: 10px;
     background-color: #18a71a;
 }
+
+.content_name{cursor:pointer}
 @media (min-width: 481px) and (max-width: 768px) { 
     .about_us{grid-template-columns: 1fr 1fr;margin: 50px 2%;}
     .cart_app {
