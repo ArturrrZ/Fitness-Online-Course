@@ -109,6 +109,9 @@ function RatingSystem(props){
             ratings:props.rating_system.ratings,
             rated:props.rating_system.rated,
     });
+    function newRating(nrating){
+        setSystem({...system,rating:nrating,rated:false})
+    }
     function handleSubmit(event){
         event.preventDefault();
         let new_rating=event.target.rating.value;
@@ -200,7 +203,7 @@ function RatingSystem(props){
             </div>}
             <div className="reviews">
             {system.ratings.map(review=>{return (
-                        <Review key={review.id} id={review.id} username={review.user__username} rated_course={review.rated_course} date={review.date} message={review.message} rate={review.rate}/>
+                        <Review key={review.id} id={review.id} newRating={newRating}username={review.user__username} rated_course={review.rated_course} date={review.date} message={review.message} rate={review.rate}/>
                 )})}            </div>
         </div>
     )
@@ -301,7 +304,7 @@ function Review(props){
             let parent=event.target.parentElement.parentElement
             parent.style.display="none";
             // 
-            setSystem({...system,rating:data.new_rating})
+            props.newRating(data.new_rating);
         })
         .catch(error=>{console.log(error.message)})
     }
