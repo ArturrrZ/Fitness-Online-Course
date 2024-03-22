@@ -520,7 +520,7 @@ iframe {
 
 .edit_comment_form > textarea {
     width: 100%;
-    height: 50px;
+    height: 100px;
 }
 
 .create_teacher{
@@ -1010,6 +1010,8 @@ margin-bottom: 15px;
 }
 #header_course{margin-right: 25%;}
 /* 481px — 768px */
+.rated_course{font-size: 1rem;}
+.rated_course > a {color: #6a6f73;}
 @media (min-width: 481px) and (max-width: 768px) { 
     .cart_app {
         margin: 0% 5%;    

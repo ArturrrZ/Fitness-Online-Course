@@ -208,6 +208,10 @@ function RatingSystem(props){
 
 
 function Review(props){
+    const [edit,setEdit]=useState({
+        is_editing:false,
+        message:props.message,
+    });
     function getStars(rate){
         if (rate===1){
             return (<div>
@@ -255,7 +259,32 @@ function Review(props){
     </div>
             )}
     }
-    
+    function handleSubmit(event){
+        event.preventDefault();
+        console.log(event.target.message.value);
+        fetch(`/api/course_rating/${props.id}`,{
+            method:'PUT',
+            body:JSON.stringify({
+                rating_id:props.id,
+                action:"edit",
+                message: event.target.message.value,
+            })
+        })
+        .then(response=>{return response.json()})
+        .then(data=>{
+            console.log(data);
+            setEdit({is_editing:false,message:event.target.message.value})
+            // let parent=event.target.parentElement.parentElement
+            // parent.style.display="none";
+        })
+        .catch(error=>{console.log(error.message)})
+    }
+    function handleEdit(event){
+        event.preventDefault();
+        setEdit({...edit,
+            is_editing:true,});
+
+    }
     function handleDelete(event){
         event.preventDefault();
         fetch(`/api/course_rating/${props.id}`,{
@@ -273,13 +302,24 @@ function Review(props){
         })
         .catch(error=>{console.log(error.message)})
     }
+    function handleChange(event){
+        const {name,value} = event.target;
+        setEdit({...edit,[name]:value});
+    }
     return(
         <div className="review">
+                {edit.is_editing?
+                <form onSubmit={handleSubmit} className="edit_comment_form">
+                    <textarea value={edit.message} onChange={handleChange} name="message"></textarea><br/>
+                    <input type="submit"/>
+                </form>:
+                <div className="static_rating">
                 <div className="comment_pic"> {props.username[0].toUpperCase()}</div>
                 <h5>{props.username}</h5>
-                {props.rated_course&&<div><a>edit</a> <a href="#" className="delete_comment" onClick={handleDelete}>del</a></div>}
+                {props.rated_course&&<div className="rated_course"><a href="#" onClick={handleEdit}>edit</a> <a href="#" className="delete_comment" onClick={handleDelete}>del</a></div>}
                 <div className="stars">{getStars(props.rate)}<div className="review_date">{props.date}</div></div> 
-                <p>{props.message}</p>
+                <p>{edit.message}</p></div>
+                }
         </div>
     )
 }

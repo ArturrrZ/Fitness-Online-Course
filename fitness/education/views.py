@@ -798,9 +798,16 @@ def rating_edit(request,rating_id):
         return JsonResponse({"error":"message does not exist"})
     if request.method=="PUT":
         data=json.loads(request.body)
+        if data["action"]=="edit":
+            #
+            new_message=data["message"]
+            rating.message=new_message
+            rating.save()
+            return JsonResponse({"response":"done"})
         if data["action"]=="delete":
             rating.delete()
         return JsonResponse({"response":"done"})
+
     return JsonResponse({"response":"done"})
 
 # rating:4.5,
