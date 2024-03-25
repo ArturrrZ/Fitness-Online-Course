@@ -2,11 +2,7 @@ Capstone Project CS50W
 
 I've created an online educational platform.
 The main idea of web application is to connect creators and students all over the world in essential topics such as fitness, nutriotion and proffessional sports.
-There is a free content to help creators to get attention from students. Also you can find there paid courses with verified certificate after the completion.
-
-Student are able to leave a comment for the free content, rate the course. So it will help themselves to filter and define the best option. 
-Moreover, there is a possibily to search a course by name, filter by rating,language,price and also sort by date,alphabet,price.  
-
+The platform offers both free and premium courses, complete with verified certificates upon completion. Learners can engage with content through comments and ratings, fostering community-driven feedback. Advanced search features allow users to find courses by name and filter results by rating, language, price, and date, enhancing the user experience.
 
 CODE OVERVIEW.
 
