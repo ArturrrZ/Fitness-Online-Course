@@ -45,8 +45,10 @@ Additionally, the search functionality is augmented by JavaScript and React to i
 
 # Fitness project has an app called education where all essential files are. 
 ## Here a major ones:
-forms.py: Defines forms for user input needed for login/register functionality, and creating/changing info about content and courses.
-models.py: Contains the database models as classes, representing the data structure.
+### forms.py:
+Defines forms for user input needed for login/register functionality, and creating/changing info about content and courses.
+### models.py:
+Contains the database models as classes, representing the data structure.
 
   class User:
 Represents both learners and instructors on the platform.
@@ -73,11 +75,15 @@ Each comment is linked to a user and a piece of content, including the comment t
 Enables users to rate courses.
 Each rating is linked to a user and a course, including an optional message, the date of the rating, and the rating value (0-5).
 
-static:	Holds static files like CSS and JavaScript, including a React application for dynamic content handling.
-templates: Contains HTML templates for rendering the app's web pages(includes 404.html file to render a custom error for bad requests and forbidden materials, layout.html is a layout template).
+### static:	
+Holds static files like CSS and JavaScript, including a React application for dynamic content handling.
+### templates:
+Contains HTML templates for rendering the app's web pages(includes 404.html file to render a custom error for bad requests and forbidden materials, layout.html is a layout template).
 
-urls.py: Manages the URL declarations for the app (also API routes to connect React with server).
-views.py: There are number of different views to render web pages and manipulate the data in database with the help of Django built-in feature.
+### urls.py:
+Manages the URL declarations for the app (also API routes to connect React with server).
+### views.py:
+There are number of different views to render web pages and manipulate the data in database with the help of Django built-in feature.
 
 # Here some of them:
 
