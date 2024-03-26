@@ -18,18 +18,15 @@ FOLDER TREE
 │   manage.py
 ├───.idea
 ├───education
-│   │   admin.py
+    │   │   admin.py
 │   │   apps.py
 │   │   forms.py
 │   │   models.py
 │   │   tests.py
 │   │   urls.py
 │   │   views.py
-│   │   __init__.py
-
 │   │
 │   ├───migrations
-│   │   └───__pycache__
 │   ├───static
 │   │   └───education
 │   │       │   styles.css
