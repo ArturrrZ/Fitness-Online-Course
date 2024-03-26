@@ -1,17 +1,17 @@
-Capstone Project CS50W
+# Capstone Project CS50W
 
 I've created an online educational platform.
 The main idea of web application is to connect creators and students all over the world in essential topics such as fitness, nutriotion and proffessional sports.
 The platform offers both free and premium courses, complete with verified certificates upon completion. Learners can engage with content through comments and ratings, fostering community-driven feedback. Advanced search features allow users to find courses by name and filter results by rating, language, price, and date, enhancing the user experience.
 
-CODE OVERVIEW.
+# CODE OVERVIEW.
 
 The application is developed using Django, with SQLite as the database for efficient data management and storage. The frontend is styled with CSS and enhanced with Bootstrap for responsive design elements, such as the navigation bar. For dynamic interactivity, the platform employs JavaScript, with a significant emphasis on React (sourced through CDN), to enrich the user experience with features like live search results, comments, ratings, and bookmarking.
 
 Additionally, the search functionality is augmented by JavaScript and React to include filters for courses based on price, rating, and language. This allows users to tailor their search results to meet specific preferences, making it easier to find courses that match their needs and interests.
 
 
-FOLDER TREE
+# FOLDER TREE
 
 
 │   db.sqlite3
@@ -43,8 +43,8 @@ FOLDER TREE
     │
     └───__pycache__
 
-Fitness project has an app called education where all essential files are. 
-Here a major ones:
+# Fitness project has an app called education where all essential files are. 
+## Here a major ones:
 forms.py: Defines forms for user input needed for login/register functionality, and creating/changing info about content and courses.
 models.py: Contains the database models as classes, representing the data structure.
 
@@ -79,10 +79,10 @@ templates: Contains HTML templates for rendering the app's web pages(includes 40
 urls.py: Manages the URL declarations for the app (also API routes to connect React with server).
 views.py: There are number of different views to render web pages and manipulate the data in database with the help of Django built-in feature.
 
-Here some of them:
+# Here some of them:
 
-`#Authentication`
-# A first-level heading
+## Authentication
+
 path("register",views.register,name="register"),
 path("login",views.login_view,name="login"),
 path("logout",views.logout_view,name="logout"),
