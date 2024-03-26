@@ -93,4 +93,48 @@ path("register",views.register,name="register"),
 path("login",views.login_view,name="login"),
 path("logout",views.logout_view,name="logout"),
 
+Allows users to register/login and logout.
+
+#### Instructor
+
+path("teacher/create_teacher",views.create_teacher,name='create_teacher'),
+path("teacher/create_single",views.create_single,name="create_single"),
+path("teacher/create_course",views.create_course,name="create_course"),
+path("teacher/course/edit/<int:course_id>", views.edit_course, name="edit_course"),
+
+Allows users to become a teacher,create a single piece of content, generate a course, modify them.
+Applies getProperEndPoint function to get a proper endpoint from any youtube link to insert into a youtube embed video to show on the screen.
+
+#### Course purchasing
+path("course/buy/<int:course_id>",views.buy_course,name="buy_course"),
+path("my_cart",views.my_cart,name="my_cart"),
+path("buy_my_cart",views.buy_my_cart,name="buy_my_cart"),
+
+There are 2 ways to get any course. Learners are able to buy a single course directly or buy a bunch of them via a cart.
+
+#### Course, Single Content view
+path("course/<int:course_id>",views.course,name="course"),
+path("single_content/<int:content_id>",views.single_content,name="single_content"),
+
+Well designed and secured views.
+
+#### Learning and completion
+
+path("my_learning",views.my_learning,name="my_learning"),
+
+Learners are able to see all of their courses.
+If they mark any course as finished, they'll be able to view a verified certificate with the date of purchasing and completion.
+path("certificate/<int:course_id>",views.certificate,name="certificate"),
+
+#### Search
+path("search",views.search,name="search"),
+
+Students can search for any course by name. Filter and sort them afterthat.
+
+#### Index, About pages
+path("",views.index,name="index"),
+All courses on the screen.Where students can filter by category.
+
+path("about",views.about,name="about"),
+Simple page with information to advertise the Educational Platform.
 
