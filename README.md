@@ -26,6 +26,7 @@ FOLDER TREE
 │   │   urls.py
 │   │   views.py
 │   │   __init__.py
+
 │   │
 │   ├───migrations
 │   │   └───__pycache__
