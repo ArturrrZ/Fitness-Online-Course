@@ -43,6 +43,29 @@ FOLDER TREE
     │
     └───__pycache__
 
+.
+├── db.sqlite3
+├── manage.py
+├── .idea
+└── education
+    ├── admin.py
+    ├── apps.py
+    ├── forms.py
+    ├── models.py
+    ├── tests.py
+    ├── urls.py
+    ├── views.py
+    ├── migrations
+    ├── static
+    │   └── education
+    │       ├── styles.css
+    │       └── javascript
+    └── templates
+        └── education
+└── fitness
+    ├── asgi.py
+    ├── settings.py
+    ├──
 
 Fitness project has an app called education where all essential files are. 
 Here a major ones:
