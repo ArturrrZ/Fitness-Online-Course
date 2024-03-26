@@ -73,6 +73,18 @@ Each comment is linked to a user and a piece of content, including the comment t
 Enables users to rate courses.
 Each rating is linked to a user and a course, including an optional message, the date of the rating, and the rating value (0-5).
 
-urls.py: Manages the URL declarations for the app (also API routes to connect React with server).
 static:	Holds static files like CSS and JavaScript, including a React application for dynamic content handling.
-templates: Contains HTML templates for rendering the app's web pages.(includes 404.html file to render custom error for bad requests and forbidden stuff, layout.html is a layout template).
+templates: Contains HTML templates for rendering the app's web pages(includes 404.html file to render a custom error for bad requests and forbidden materials, layout.html is a layout template).
+
+urls.py: Manages the URL declarations for the app (also API routes to connect React with server).
+views.py: There are number of different views to render web pages and manipulate the data in database with the help of Django built-in feature.
+
+Here some of them:
+
+`#Authentication`
+# A first-level heading
+path("register",views.register,name="register"),
+path("login",views.login_view,name="login"),
+path("logout",views.logout_view,name="logout"),
+
+
