@@ -85,7 +85,7 @@ Manages the URL declarations for the app (also API routes to connect React with 
 ### views.py:
 There are number of different views to render web pages and manipulate the data in database with the help of Django built-in feature.
 
-# Here some of them:
+### Here some of them:
 
 #### Authentication
 
