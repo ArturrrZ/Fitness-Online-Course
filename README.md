@@ -138,3 +138,6 @@ All courses on the screen.Where students can filter by category.
 path("about",views.about,name="about"),
 Simple page with information to advertise the Educational Platform.
 
+And finally api routes to manipulate the data with the help of REACT
+#### API
+
