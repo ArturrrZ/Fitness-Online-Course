@@ -87,7 +87,7 @@ There are number of different views to render web pages and manipulate the data 
 
 # Here some of them:
 
-## Authentication
+#### Authentication
 
 path("register",views.register,name="register"),
 path("login",views.login_view,name="login"),
