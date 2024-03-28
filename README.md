@@ -140,4 +140,24 @@ Simple page with information to advertise the Educational Platform.
 
 And finally api routes to manipulate the data with the help of REACT
 #### API
+path("course/buy", views.buy_course_api, name="buy_course_api"),
+path("api/search/<str:name>",views.search_api),
+path("api/get_index",views.get_index),
+path("api/get_person/<int:user_id>",views.get_person),
+path("api/get_single_content/<int:content_id>",views.get_single_content),
+path("api/single_content_comment/<int:content_id>",views.single_content_comment),
+path("api/get_course/<int:course_id>",views.get_course),
+path("api/get_my_learning",views.my_learning_api),
+path("api/get_my_cart_api",views.my_cart_api),
+path("api/course_rating/<int:rating_id>",views.rating_edit)
 
+# Distinctiveness and Complexity
+This project breaks away from the typical final projects submitted for CS50W by combining Django with React, Bootstrap, and custom JavaScript to create a dynamic online educational platform. Unlike traditional Django projects, this platform caters to both content creators and learners, offering a sophisticated blend of features for course creation, engagement, and community building.
+
+The project's complexity is evident in its advanced search capabilities, allowing users to filter courses by various criteria like price, rating, and language. Implementing these features required deep integration with React for frontend interactivity and Django's QuerySet API for backend data manipulation.
+
+Moreover, the platform's emphasis on user engagement adds another layer of complexity, with features like comments, ratings, and verified certificates upon course completion. These elements required intricate logic and careful design to ensure a seamless user experience.
+
+From a technical standpoint, the project extends Django's capabilities by integrating React via CDN and implementing a dynamic content handling system. This approach enhances user interaction and sets a new standard for final projects by leveraging modern frontend technologies within the Django framework.
+
+In summary, this project stands out for its ambitious vision, advanced implementation, and dedication to creating a dynamic online learning community. Its complexity lies not only in the technologies used but also in the thoughtful integration and execution of these technologies to deliver a seamless, engaging, and enriching experience for users.
